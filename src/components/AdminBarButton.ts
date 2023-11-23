@@ -33,6 +33,7 @@ export class AdminBarButton extends LitElement {
       background-color: var(--admin-bar-button-color-bg, transparent);
       appearance: none;
       border: none;
+      outline-color: var(--admin-bar-color-highlight);
       font-size: var(--font-size);
       text-decoration: none;
       color: var(--admin-bar-button-color-text, white);
@@ -47,19 +48,15 @@ export class AdminBarButton extends LitElement {
         box-shadow: var(--admin-bar-shadow-elements);
       }
       &:not(.admin-bar-button--logout):hover {
-        --admin-bar-button-color-bg: rgba(255, 255, 255, 1);
-        color: var(--admin-bar-color-highlight);
-      }
-      &:active,
-      &:active:hover {
-        backdrop-filter: grayscale(100%);
+        --admin-bar-button-color-bg: var(--admin-bar-button-color-text, white);
+        color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
       }
 
       &.admin-bar-button--logout {
         padding: 0 clamp(10px, 4vw, 25px);
 
         &:hover {
-          --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout);
+          --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
         }
       }
     }

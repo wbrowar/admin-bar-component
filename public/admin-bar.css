@@ -13,7 +13,7 @@
     --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
 
     /* The color of text for everything but button labels.. */
-    --admin-bar-color-text: rgba(255, 255, 255, .8);
+    --admin-bar-color-text: rgba(255, 255, 255, 0.8);
 
     /* The font stack for all text. */
     --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;

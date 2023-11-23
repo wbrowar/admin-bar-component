@@ -3,7 +3,6 @@ import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
 import './AdminBarButton.ts'
-import '../assets/admin-bar.css'
 
 @customElement('admin-bar')
 export class AdminBar extends LitElement {

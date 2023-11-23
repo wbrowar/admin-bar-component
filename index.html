@@ -5,17 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit + TS</title>
-<!--    <link rel="stylesheet" href="/src/assets/admin-bar.css" />-->
+    <link rel="stylesheet" href="/admin-bar.css" />
     <script type="module" src="/src/components/AdminBar.ts"></script>
     <script type="module" src="/src/components/AdminBarButton.ts"></script>
     <style>
-        admin-bar * {
-            display: none;
-
-            &:has(:defined) {
-                display: block;
-            }
-        }
         admin-bar {
             & svg.icon {
                 display: block;
