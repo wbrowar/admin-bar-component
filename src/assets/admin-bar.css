@@ -72,14 +72,4 @@
       --admin-bar-transition-duration: 0s;
     }
   }
-
-  admin-bar {
-    display: block;
-
-    & svg.icon {
-      display: block;
-      width: 15px;
-      height: auto;
-    }
-  }
 }
