@@ -1,0 +1,40 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "name": "admin-bar-component",
+  "version": "0.1.2",
+  "description": "A framework- and CMS-agnostic admin bar web component.",
+  "main": "dist/admin-bar.mjs",
+  "files": ["dist/admin-bar.css", "dist/icons/*.svg"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbrowar/admin-bar-component.git"
+  },
+  "keywords": [
+    "admin",
+    "administration",
+    "edit",
+    "logout",
+    "buttons",
+    "links"
+  ],
+  "author": "Will Browar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wbrowar/admin-bar-component/issues"
+  },
+  "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
+  "dependencies": {
+    "lit": "^2.7.6"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "typescript": "^5.0.2",
+    "vitest": "^0.34.6",
+    "vite": "^4.4.5"
+  }
+}
