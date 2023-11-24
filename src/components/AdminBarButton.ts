@@ -68,19 +68,19 @@ export class AdminBarButton extends LitElement {
    * =========================================================================
    */
   /**
-   * TODO
+   * Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute.
    */
   @property({ attribute: 'button-href', type: [String, Function, Array] })
   href: string | undefined
 
   /**
-   * TODO
+   * Sets the label for the `<admin-bar-button>`.
    */
   @property({ attribute: 'label-text' })
   label = ''
 
   /**
-   * TODO
+   * Styles the button like the default logout button.
    */
   @property({ attribute: 'logout-button', type: Boolean })
   isLogoutButton = false
