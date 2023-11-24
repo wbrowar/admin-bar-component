@@ -11,7 +11,7 @@ Admin Bar Component is a web component that is built with [Lit](https://lit.dev)
 
 ## Installation
 
-To install Admin Bar, use NPM or a compatible package manager.
+To install Admin Bar Component, use NPM or a compatible package manager.
 
 ### With NPM:
 
@@ -33,7 +33,7 @@ It also includes a CSS file that can be imported into your project’s CSS or lo
    ```
 1. Add the JavaScript file wherever you load your scripts:
    ```html
-   <script type="module" src="path-to-your-assets/admin-bar.mjs"></script>
+   <script type="module" src="path-to-your-assets/admin-bar.js"></script>
    ```
 1. Add and configure an `<admin-bar>` element:
    ```html
@@ -49,16 +49,16 @@ It also includes a CSS file that can be imported into your project’s CSS or lo
 ### To add Admin Bar Component to a project with a build tool, like Vite, follow these instructions:
 
 1. In a global JavaScript file or in a specific layout or component file, you can import the JavaScript file like this:
-   ```html
+   ```javascript
    import 'admin-bar-component'
    ```
 1. You can load the CSS in your component file, as well, by importing the file directly:
-   ```html
+   ```javascript
    import 'admin-bar-component'
    import 'admin-bar-component/dist/admin-bar.css'
    ```
 2. Or, if you are using something like PostCSS, you can import the CSS file into your CSS file, like this:
-   ```html
+   ```postcss
    @import url(admin-bar-component/dist/admin-bar.css);
    ```
 
@@ -157,7 +157,7 @@ You may have a situation where you need to replace the default logout button to�
      <admin-bar-button></admin-bar-button>
    </admin-bar>
    ```
-1. Add `slot="logout"` to replace the default logout button. Add the `logout-button` attribute to style the button with the styles from the default logout button.
+1. Add `slot="logout"` to the `<admin-bar-button>`. Add the `logout-button` attribute to style the button with the styles from the default logout button.
    ```html
    <admin-bar show-logout logout-href="/logout" logout-label="Log off">
      <admin-bar-button slot="logout" logout-button></admin-bar-button>
@@ -213,12 +213,13 @@ Currently, there is one class that can be added to `<admin-bar-button>` elements
 
 ### CSS Cascade Layers
 
-Loading or importing the `admin-bar.css` into your project sets default CSS Custom Property values. The CSS in this file is added to a CSS Cascade Layer, called `admin-bar`.
+Linking or importing the `admin-bar.css` into your project sets default CSS Custom Property values. The CSS in this file is added to a [CSS Cascade Layer](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers), called `admin-bar`.
 
 If you are using CSS Cascade Layers in your project you can add the `admin-bar` layer to your layer stack and then override it with another layer:
 
 ```css
-@layer overrides-layer {
+@layer reset, third-party, admin-bar, theme, layout, utilities;
+@layer theme {
     admin-bar {
         /* Styles go here, for example: */
         --admin-bar-bg: #DA00FD8C;
