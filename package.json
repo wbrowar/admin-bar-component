@@ -1,17 +1,20 @@
 {
   "scripts": {
-    "deploy": "npm run build && npm publish",
+    "deploy": "npm run teset && npm run build && npm publish",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "tsc && vitest"
+    "test": "cypress run --component",
+    "test:open": "cypress open"
   },
   "name": "admin-bar-component",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "dist/admin-bar.js",
-  "files": ["dist/admin-bar.css", "dist/icons/*.svg"],
+  "files": [
+    "dist/admin-bar.css"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wbrowar/admin-bar-component.git"
@@ -30,13 +33,12 @@
     "url": "https://github.com/wbrowar/admin-bar-component/issues"
   },
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
-  "dependencies": {
-    "lit": "^2.7.6"
-  },
   "devDependencies": {
-    "prettier": "^3.0.3",
-    "typescript": "^5.0.2",
-    "vitest": "^0.34.6",
-    "vite": "^4.4.5"
+    "cypress": "^13.6.0",
+    "cypress-ct-lit": "^0.3.3",
+    "lit": "^3.1.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.2"
   }
 }
