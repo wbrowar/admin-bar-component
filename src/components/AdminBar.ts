@@ -175,6 +175,12 @@ export class AdminBar extends LitElement {
   avatarSrc: string | undefined
 
   /**
+   * Sets the greeting text content.
+   */
+  @property({ attribute: 'greeting-text' })
+  greetingText = 'Hello'
+
+  /**
    * A URL added to the default logout button, when `show-logout` is added to an `<admin-bar>`.
    */
   @property({ attribute: 'logout-href' })
@@ -222,7 +228,7 @@ export class AdminBar extends LitElement {
           ${this.avatarSrc
             ? html`<img alt="${this.avatarAlt}" src="${this.avatarSrc}" width="25px" height="25px" />`
             : nothing}
-          <span><slot name="greeting">Hello</slot></span>
+          <span><slot name="greeting">${this.greetingText}</slot></span>
         `
       : nothing
 

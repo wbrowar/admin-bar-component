@@ -25,6 +25,19 @@ describe('Admin Bar Greeting', () => {
       .find('.admin-bar .greeting img[alt="my-alt"]')
       .should('exist', 'avatar was not rendered')
   })
+  it('greeting text changes when `greeting-text` is added', () => {
+    cy.mount(html`<admin-bar show-greeting greeting-text="Custom Greeting"></admin-bar>`)
+
+    cy.get('admin-bar').shadow().find('.admin-bar .greeting').contains('Custom Greeting')
+  })
+  it.skip('greeting slot is shown', () => {
+    cy.mount(html`<admin-bar show-greeting></admin-bar>`)
+
+    cy.get('admin-bar').invoke('html', '<span slot="greeting">Hi, Sam</span>')
+
+    cy.get('admin-bar [slot="greeting"]').trigger('slotchange')
+    cy.get('admin-bar [slot="greeting"]').contains('Hi, Sam')
+  })
 })
 
 describe('Admin Bar Environment Warning', () => {

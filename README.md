@@ -95,6 +95,7 @@ Now your custom text will appear. If you would also like to add an avatar next t
 |--------------------|-----------|-------------------------------|-------------------------------------------------------------------------------------------------------|
 | `avatar-alt`       | _string_  | `'Avatar of logged in user.'` | Sets the alt text on an avatar image.                                                                 |
 | `avatar-src`       | _string_  | `undefined`                   | Sets the `src` on an avatar image and enables the avatar image to be displayed.                       |
+| `greeting-text`    | _string_  | `'Hello'`                     | Sets the greeting text content.                                                                       |
 | `logout-href`      | _string_  | `'#'`                         | A URL added to the default logout button, when `show-logout` is added to an `<admin-bar>`.            |
 | `logout-label`     | _string_  | `'Sign out'`                  | The label of the default logout button.                                                               |
 | `show-environment` | _boolean_ | `false`                       | Displays the environment warning, letting users know what environment they are currently logged into. |
