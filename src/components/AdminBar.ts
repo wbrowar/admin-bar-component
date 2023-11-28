@@ -1,4 +1,4 @@
-import { LitElement, css, html, nothing } from 'lit'
+import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -14,7 +14,6 @@ export class AdminBar extends LitElement {
   static styles = css`
     :host {
       --environment-height: 0px;
-      container-type: size;
       width: var(--admin-bar-width, 100%);
       height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
     }
@@ -60,6 +59,7 @@ export class AdminBar extends LitElement {
         'greeting buttons logout';
       grid-template-columns: max-content 1fr max-content;
       grid-template-rows: 0 var(--admin-bar-height);
+      align-items: center;
       background: var(--admin-bar-bg);
       backdrop-filter: blur(20px) saturate(200%);
       box-shadow: var(--admin-bar-shadow);
@@ -92,34 +92,45 @@ export class AdminBar extends LitElement {
     }
 
     .admin-bar--greeting .greeting {
-      --grid-template-columns: 1fr;
       grid-area: greeting;
-      display: grid;
-      grid-template-columns: var(--grid-template-columns);
+      display: none;
+      grid-template-columns: var(--grid-template-columns, 1fr);
       gap: 7px;
       align-items: center;
-      margin-block-start: 0.5rem;
-      margin-block-end: 0.5rem;
+      margin-block-start: var(--margin-block-start, 0.5rem);
+      margin-block-end: var(--margin-block-end, 0.5rem);
       padding: 0 clamp(6px, 2vw, 15px);
       white-space: nowrap;
 
       &:has(img) {
-        --grid-template-columns: var(--admin-bar-avatar-size, 25px) 1fr;
+        display: grid;
+
+        & *:not(img) {
+          display: none;
+        }
       }
 
       & img {
-        width: var(--admin-bar-avatar-size, 0);
-        height: var(--admin-bar-avatar-size);
+        display: block;
+        aspect-ratio: 1 / 1;
+        width: var(--admin-bar-avatar-size, 25px);
+        height: auto;
         background-size: cover;
         border-radius: 50%;
         box-shadow: var(--admin-bar-shadow-elements);
       }
+    }
 
-      @container (max-width: 700px) {
+    @media (min-width: 700px) {
+      .admin-bar--greeting .greeting {
+        --grid-template-columns: 1fr;
+        display: grid;
+
         &:has(img) {
-          --grid-template-columns: var(--admin-bar-avatar-size, 25px);
+          --grid-template-columns: var(--admin-bar-avatar-size, 25px) 1fr;
+
           & *:not(img) {
-            display: none;
+            display: initial;
           }
         }
       }
@@ -207,7 +218,9 @@ export class AdminBar extends LitElement {
 
     const greetingContent = this.showGreeting
       ? html`
-          ${this.avatarSrc ? html`<img src="${this.avatarSrc}" alt="${this.avatarAlt}" />` : nothing}
+          ${this.avatarSrc
+            ? html`<img alt="${this.avatarAlt}" src="${this.avatarSrc}" width="25px" height="25px" />`
+            : nothing}
           <span><slot name="greeting">Hello</slot></span>
         `
       : nothing

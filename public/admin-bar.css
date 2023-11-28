@@ -42,7 +42,7 @@
     --admin-bar-environment-bg-color: oklch(0.9 0.4 98);
 
     /* The height of the environment warning */
-    --admin-bar-environment-height: 4px;
+    --admin-bar-environment-height: 5px;
 
     /* The default transition duration for all animations.
     Set this to `0` to turn off transitions. */
