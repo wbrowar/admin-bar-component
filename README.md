@@ -243,78 +243,81 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 ```css
 /* Added styles to CSS Cascade Layer to make it easier to override them. */
 @layer admin-bar {
-  admin-bar {
-    /* Sets the background of the bar using the background shorthand property,
-    allowing you to use a gradient, a solid color, or an image. */
-    --admin-bar-bg: linear-gradient(to bottom, rgba(0, 0, 0, .65), rgba(0, 0, 0, .9));
+   admin-bar {
+      /* Sets the background of the bar using the background shorthand property,
+      allowing you to use a gradient, a solid color, or an image. */
+      --admin-bar-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.9));
 
-    /* The color used on hover changes. */
-    --admin-bar-color-highlight: oklch(0.6 0.4 83);
+      /* Adds an effect to blur */
+      --admin-bar-backdrop-filter: blur(20px) saturate(200%);
 
-    /* The highlight color specific to logout buttons. That can be set to
-    a different color to make it more obvious that the logout button is not a link. */
-    --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
+      /* The color used on hover changes. */
+      --admin-bar-color-highlight: oklch(0.6 0.4 83);
 
-    /* The color of text for everything but button labels.. */
-    --admin-bar-color-text: rgba(255, 255, 255, 0.8);
+      /* The highlight color specific to logout buttons. That can be set to
+      a different color to make it more obvious that the logout button is not a link. */
+      --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
 
-    /* The font stack for all text. */
-    --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+      /* The color of text for everything but button labels.. */
+      --admin-bar-color-text: rgba(255, 255, 255, 0.8);
 
-    /* The font size for all text. */
-    --admin-bar-font-size: .9rem;
+      /* The font stack for all text. */
+      --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
 
-    /* The height and width of avatar images. */
-    --admin-bar-avatar-size: 25px;
+      /* The font size for all text. */
+      --admin-bar-font-size: .9rem;
 
-    /* The height of the bar and all of the buttons. */
-    --admin-bar-height: 43px;
+      /* The height and width of avatar images. */
+      --admin-bar-avatar-size: 25px;
 
-    /* When `show-environment` is added to an `<admin-bar>` an environment
-    warning will appear. The default looks like yellow, striped police tape,
-    but you can use any CSS value used in the background shorthand property. */
-    --admin-bar-environment-bg: repeating-linear-gradient(
-      -45deg,
-      var(--admin-bar-environment-bg-color),
-      var(--admin-bar-environment-bg-color) 18px,
-      transparent 18px,
-      transparent 30px
-    );
+      /* The height of the bar and all of the buttons. */
+      --admin-bar-height: 43px;
 
-    /* Change just the color of the yellow stripes in the environment warning. */
-    --admin-bar-environment-bg-color: oklch(0.9 0.4 98);
+      /* When `show-environment` is added to an `<admin-bar>` an environment
+      warning will appear. The default looks like yellow, striped police tape,
+      but you can use any CSS value used in the background shorthand property. */
+      --admin-bar-environment-bg: repeating-linear-gradient(
+              -45deg,
+              var(--admin-bar-environment-bg-color),
+              var(--admin-bar-environment-bg-color) 18px,
+              transparent 18px,
+              transparent 30px
+      );
 
-    /* The height of the environment warning */
-    --admin-bar-environment-height: 4px;
+      /* Change just the color of the yellow stripes in the environment warning. */
+      --admin-bar-environment-bg-color: oklch(0.9 0.4 98);
 
-    /* The default transition duration for all animations.
-    Set this to `0` to turn off transitions. */
-    --admin-bar-transition-duration: 0.3s;
+      /* The height of the environment warning */
+      --admin-bar-environment-height: 5px;
 
-    /* Adds a box-shadow to the bar to increase visual elevation. */
-    /*--admin-bar-shadow: 0 0 15px color-mix(in srgb, rgba(0, 0, 0, 0.7), currentColor 10%);*/
+      /* The default transition duration for all animations.
+      Set this to `0` to turn off transitions. */
+      --admin-bar-transition-duration: 0.3s;
 
-    /* Adds a box-shadow to avatar images and buttons. */
-    --admin-bar-shadow-elements: 0 1px 2px color-mix(in srgb, rgba(0, 0, 0, 0.5), currentColor 10%), 0 3px 6px color-mix(in srgb, rgba(0, 0, 0, 0.4), currentColor 10%);
+      /* Adds a box-shadow to the bar to increase visual elevation. */
+      /*--admin-bar-shadow: 0 0 15px color-mix(in srgb, rgba(0, 0, 0, 0.7), currentColor 10%);*/
 
-    /* By default, when adding the `fixed` or `sticky` class to an `<admin-bar>`,
-     the z-index of the element is set to `1`. Set this property if you need the
-     z-index to be a higher value. */
-    /*--admin-bar-z-index: 1000000000;*/
+      /* Adds a box-shadow to avatar images and buttons. */
+      --admin-bar-shadow-elements: 0 1px 2px color-mix(in srgb, rgba(0, 0, 0, 0.5), currentColor 10%), 0 3px 6px color-mix(in srgb, rgba(0, 0, 0, 0.4), currentColor 10%);
 
-    /* The background of all buttons. */
-    --admin-bar-button-color-bg: transparent;
+      /* By default, when adding the `fixed` or `sticky` class to an `<admin-bar>`,
+       the z-index of the element is set to `1`. Set this property if you need the
+       z-index to be a higher value. */
+      /*--admin-bar-z-index: 1000000000;*/
 
-    /* The text of all button labels. */
-    --admin-bar-button-color-text: rgb(255, 255, 255);
-  }
+      /* The background of all buttons. */
+      --admin-bar-button-color-bg: transparent;
 
-  @media (prefers-reduced-motion) {
-    admin-bar {
-      /* Turns off transitions for users who do not want any animations. */
-      --admin-bar-transition-duration: 0s;
-    }
-  }
+      /* The text of all button labels. */
+      --admin-bar-button-color-text: rgb(255, 255, 255);
+   }
+
+   @media (prefers-reduced-motion) {
+      admin-bar {
+         /* Turns off transitions for users who do not want any animations. */
+         --admin-bar-transition-duration: 0s;
+      }
+   }
 }
 ```
 

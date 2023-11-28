@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit'
+import { css, html, LitElement } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -28,7 +28,7 @@ export class AdminBarButton extends LitElement {
       align-items: center;
       margin: var(--margin);
       border-radius: var(--border-radius);
-      padding: 0 clamp(4px, 2vw, 15px);
+      padding: 0 clamp(4px, 1vw, 10px);
       height: calc(var(--admin-bar-height, 43px) - calc(var(--margin) * 2));
       background-color: var(--admin-bar-button-color-bg, transparent);
       appearance: none;
@@ -53,7 +53,7 @@ export class AdminBarButton extends LitElement {
       }
 
       &.admin-bar-button--logout {
-        padding: 0 clamp(10px, 4vw, 25px);
+        padding: 0 clamp(10px, 3vw, 20px);
 
         &:hover {
           --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
