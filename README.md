@@ -25,6 +25,9 @@ This package includes a JavaScript file that registers web components when you i
 
 It also includes a CSS file that can be imported into your project’s CSS or loaded onto the page in a `<link>` tag.
 
+### Setup Examples
+- [Stackblitz – Vite + Vanilla JS](https://stackblitz.com/edit/vitejs-vite-ckpby6?file=index.html)
+
 ### To add Admin Bar Component to an HTML page, follow these instructions:
 
 1. Add the stylesheet in your `<head>` tag:
