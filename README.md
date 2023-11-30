@@ -1,5 +1,7 @@
 # Admin Bar Component
 
+![Screenshot](resources/screenshots/screenshot-bar.png)
+
 Admin Bar Component is a web component that is built with [Lit](https://lit.dev). It can be added to projects that can load web components (vanilla JavaScript and most modern frameworks) and it is customizable so you can choose what buttons are displayed, and you can style it to match your brand or website’s look and feel.
 
 - 👋 Show an avatar and a greeting to confirm the currently logged-in user.
@@ -26,7 +28,12 @@ This package includes a JavaScript file that registers web components when you i
 It also includes a CSS file that can be imported into your project’s CSS or loaded onto the page in a `<link>` tag.
 
 ### Setup Examples
+
+![Screenshot](resources/screenshots/admin-bar-stackblitz.png)
+
+- [Stackblitz – Theme Examples](https://stackblitz.com/edit/vitejs-vite-gxbmja?file=index.html)
 - [Stackblitz – Vite + Vanilla JS](https://stackblitz.com/edit/vitejs-vite-ckpby6?file=index.html)
+- [Stackblitz – Vite + Vue.js 3](https://stackblitz.com/edit/vitejs-vite-gb3byy?file=vite.config.js)
 
 ### To add Admin Bar Component to an HTML page, follow these instructions:
 

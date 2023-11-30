@@ -127,6 +127,10 @@ export class AdminBar extends LitElement {
         --grid-template-columns: 1fr;
         display: grid;
 
+        @supports not selector(:has(*)) {
+          display: flex;
+        }
+
         &:has(img) {
           --grid-template-columns: var(--admin-bar-avatar-size, 25px) 1fr;
 
