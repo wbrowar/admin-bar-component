@@ -321,6 +321,14 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 
       /* The text of all button labels. */
       --admin-bar-button-color-text: rgb(255, 255, 255);
+
+      /* Hide all slot content until Admin Bar Component is registered via CSS. */
+      & * {
+         display: none;
+      }
+      &:defined * {
+         display: initial;
+      }
    }
 
    @media (prefers-reduced-motion) {
