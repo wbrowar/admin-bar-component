@@ -206,14 +206,7 @@ Classes can be added to `<admin-bar>` elements to change the look and placement 
 | `rtl`    | Changes the reading direction from `ltr` to `rtl` in situations where you need to manually set it. Admin Bar Component will automatcally switch to RTL if your page is set to RTL or if you have the CSS set to `direction: rtl`. |
 | `sticky` | Makes the `<admin-bar>` stick to the top of the page, using CSS `position: sticky` when the `<admin-bar>` is above the rest of the content on the page.                                                                           |
 
-> NOTE: `bottom`, `fixed`, and `sticky` all set `top`, `right`, `bottom`, `left`, and `z-index` properties. If these need to be overwritten, you can use the following CSS Custom Properties:
-> - `--admin-bar-top`
-> - `--admin-bar-right`
-> - `--admin-bar-top`
-> - `--admin-bar-left`
-> - `--admin-bar-z-index`
-> 
-> Also, the `fixed` and `sticky` classes are there to make setting the position easy, however, instead of using those classes, you could style the `admin-bar` element in your CSS.
+> NOTE: The `fixed` and `sticky` classes are there to make setting the position easy, however, instead of using those classes, you could style the `admin-bar` element position in your CSS.
 ---
 
 Currently, there is one class that can be added to `<admin-bar-button>` elements.
@@ -254,89 +247,135 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 ```css
 /* Added styles to CSS Cascade Layer to make it easier to override them. */
 @layer admin-bar {
-   admin-bar {
-      /* Sets the background of the bar using the background shorthand property,
-      allowing you to use a gradient, a solid color, or an image. */
-      --admin-bar-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.9));
+  admin-bar {
+    /* Sets the background of the bar using the background shorthand property,
+    allowing you to use a gradient, a solid color, or an image. */
+    --admin-bar-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.9));
 
-      /* Adds an effect to blur */
-      --admin-bar-backdrop-filter: blur(20px) saturate(200%);
+    /* Adds an effect to blur */
+    --admin-bar-backdrop-filter: blur(20px) saturate(200%);
 
-      /* The color used on hover changes. */
-      --admin-bar-color-highlight: oklch(0.6 0.4 83);
+    /* The color used on hover changes. */
+    --admin-bar-color-highlight: oklch(0.6 0.4 83);
 
-      /* The highlight color specific to logout buttons. That can be set to
-      a different color to make it more obvious that the logout button is not a link. */
-      --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
+    /* The highlight color specific to logout buttons. That can be set to
+    a different color to make it more obvious that the logout button is not a link. */
+    --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
 
-      /* The color of text for everything but button labels.. */
-      --admin-bar-color-text: rgba(255, 255, 255, 0.8);
+    /* The color of text for everything but button labels.. */
+    --admin-bar-color-text: rgba(255, 255, 255, 0.8);
 
-      /* The font stack for all text. */
-      --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+    /* The font stack for all text. */
+    --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
 
-      /* The font size for all text. */
-      --admin-bar-font-size: .9rem;
+    /* The font size for all text. */
+    --admin-bar-font-size: .9rem;
 
-      /* The height and width of avatar images. */
-      --admin-bar-avatar-size: 25px;
+    /* The height and width of avatar images. */
+    --admin-bar-avatar-size: 25px;
 
-      /* The height of the bar and all of the buttons. */
-      --admin-bar-height: 43px;
+    /* The height of the bar and all of the buttons. */
+    --admin-bar-height: 43px;
 
-      /* When `show-environment` is added to an `<admin-bar>` an environment
-      warning will appear. The default looks like yellow, striped police tape,
-      but you can use any CSS value used in the background shorthand property. */
-      --admin-bar-environment-bg: repeating-linear-gradient(
-              -45deg,
-              var(--admin-bar-environment-bg-color),
-              var(--admin-bar-environment-bg-color) 18px,
-              transparent 18px,
-              transparent 30px
-      );
+    /* When `show-environment` is added to an `<admin-bar>` an environment
+    warning will appear. The default looks like yellow, striped police tape,
+    but you can use any CSS value used in the background shorthand property. */
+    --admin-bar-environment-bg: repeating-linear-gradient(
+      -45deg,
+      var(--admin-bar-environment-bg-color),
+      var(--admin-bar-environment-bg-color) 18px,
+      transparent 18px,
+      transparent 30px
+    );
 
-      /* Change just the color of the yellow stripes in the environment warning. */
-      --admin-bar-environment-bg-color: oklch(0.9 0.4 98);
+    /* Change just the color of the yellow stripes in the environment warning. */
+    --admin-bar-environment-bg-color: oklch(0.9 0.4 98);
 
-      /* The height of the environment warning */
-      --admin-bar-environment-height: 5px;
+    /* The height of the environment warning */
+    --admin-bar-environment-height: 5px;
 
-      /* The default transition duration for all animations.
-      Set this to `0` to turn off transitions. */
-      --admin-bar-transition-duration: 0.3s;
+    /* The default transition duration for all animations.
+    Set this to `0` to turn off transitions. */
+    --admin-bar-transition-duration: 0.3s;
 
-      /* Adds a box-shadow to the bar to increase visual elevation. */
-      /*--admin-bar-shadow: 0 0 15px color-mix(in srgb, rgba(0, 0, 0, 0.7), currentColor 10%);*/
+    /* Adds a box-shadow to the bar to increase visual elevation. */
+    /*--admin-bar-shadow: 0 0 15px color-mix(in srgb, rgba(0, 0, 0, 0.7), currentColor 10%);*/
 
-      /* Adds a box-shadow to avatar images and buttons. */
-      --admin-bar-shadow-elements: 0 1px 2px color-mix(in srgb, rgba(0, 0, 0, 0.5), currentColor 10%), 0 3px 6px color-mix(in srgb, rgba(0, 0, 0, 0.4), currentColor 10%);
+    /* Adds a box-shadow to avatar images and buttons. */
+    --admin-bar-shadow-elements: 0 1px 2px color-mix(in srgb, rgba(0, 0, 0, 0.5), currentColor 10%), 0 3px 6px color-mix(in srgb, rgba(0, 0, 0, 0.4), currentColor 10%);
 
-      /* By default, when adding the `fixed` or `sticky` class to an `<admin-bar>`,
-       the z-index of the element is set to `1`. Set this property if you need the
-       z-index to be a higher value. */
-      /*--admin-bar-z-index: 1000000000;*/
+    /* By default, when adding the `fixed` or `sticky` class to an `<admin-bar>`,
+     the z-index of the element is set to `1`. Set this property if you need the
+     z-index to be a higher value. */
+    /*--admin-bar-z-index: 1;*/
 
-      /* The background of all buttons. */
-      --admin-bar-button-color-bg: transparent;
+    /* The background of all buttons. */
+    --admin-bar-button-color-bg: transparent;
 
-      /* The text of all button labels. */
-      --admin-bar-button-color-text: rgb(255, 255, 255);
+    /* The text of all button labels. */
+    --admin-bar-button-color-text: rgb(255, 255, 255);
 
-      /* Hide all slot content until Admin Bar Component is registered via CSS. */
+    /* Default styles for the `<admin-bar>` element. */
+    display: block;
+    --environment-height: 0px;
+    width: var(--admin-bar-width, 100%);
+    height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
+
+    /* Add height when environment warning is enabled. */
+    &[show-environment] {
+      --environment-height: var(--admin-bar-environment-height);
+    }
+    /* Set read direction from right to left. */
+    &.rtl {
+      direction: rtl;
+    }
+    /* Fixes `<admin-bar>` to the top of page. */
+    &.fixed {
+      position: fixed;
+      right: 0;
+      left: 0;
+      z-index: var(--admin-bar-z-index, 1);
+
+      &:not(.bottom) {
+        top: 0;
+      }
+    }
+    /* Sticks `<admin-bar>` to the top of the page when scrolling. */
+    &.sticky {
+      position: sticky;
+      right: 0;
+      left: 0;
+      z-index: var(--admin-bar-z-index, 1);
+
+      &:not(.bottom) {
+        top: 0;
+      }
+    }
+    /* Moves `<admin-bar>` to the bottom of the page when using `.fixed` or `.sticky`. */
+    &.bottom {
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    /* Avoid layout shift from happening before Admin Bar Component is registered. */
+    &:not(:defined) {
+      background: var(--admin-bar-bg);
+      opacity: 0.75;
+
+      /* Hide all slot content until Admin Bar Component is registered. */
       & * {
-         display: none;
+        display: none;
       }
-      &:defined * {
-         display: initial;
-      }
-   }
+    }
+  }
 
-   @media (prefers-reduced-motion) {
-      admin-bar {
-         /* Turns off transitions for users who do not want any animations. */
-         --admin-bar-transition-duration: 0s;
-      }
-   }
+  @media (prefers-reduced-motion) {
+    admin-bar {
+      /* Turns off transitions for users who do not want any animations. */
+      --admin-bar-transition-duration: 0s;
+    }
+  }
 }
 ```
 

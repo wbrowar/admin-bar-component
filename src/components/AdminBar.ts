@@ -12,38 +12,6 @@ export class AdminBar extends LitElement {
    * ===========================================================================
    */
   static styles = css`
-    :host {
-      --environment-height: 0px;
-      width: var(--admin-bar-width, 100%);
-      height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
-    }
-    :host([show-environment]) {
-      --environment-height: var(--admin-bar-environment-height);
-    }
-    :host(.rtl) {
-      direction: rtl;
-    }
-    :host(.fixed) {
-      position: var(--admin-bar-position, fixed);
-      top: var(--admin-bar-top, 0);
-      right: var(--admin-bar-right, 0);
-      left: var(--admin-bar-left, 0);
-      z-index: var(--admin-bar-z-index, 1);
-    }
-    :host(.sticky) {
-      position: var(--admin-bar-position, sticky);
-      top: var(--admin-bar-top, 0);
-      right: var(--admin-bar-right, 0);
-      left: var(--admin-bar-left, 0);
-      z-index: var(--admin-bar-z-index, 1);
-    }
-    :host(.bottom) {
-      top: var(--admin-bar-top, auto);
-      right: var(--admin-bar-right, 0);
-      bottom: var(--admin-bar-bottom, 0);
-      left: var(--admin-bar-left, 0);
-    }
-
     * {
       position: relative;
       margin: 0;

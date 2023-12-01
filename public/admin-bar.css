@@ -60,7 +60,7 @@
     /* By default, when adding the `fixed` or `sticky` class to an `<admin-bar>`,
      the z-index of the element is set to `1`. Set this property if you need the
      z-index to be a higher value. */
-    /*--admin-bar-z-index: 1000000000;*/
+    /*--admin-bar-z-index: 1;*/
 
     /* The background of all buttons. */
     --admin-bar-button-color-bg: transparent;
@@ -68,12 +68,58 @@
     /* The text of all button labels. */
     --admin-bar-button-color-text: rgb(255, 255, 255);
 
-    /* Hide all slot content until Admin Bar Component is registered via CSS. */
-    & * {
-      display: none;
+    /* Default styles for the `<admin-bar>` element. */
+    display: block;
+    --environment-height: 0px;
+    width: var(--admin-bar-width, 100%);
+    height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
+
+    /* Add height when environment warning is enabled. */
+    &[show-environment] {
+      --environment-height: var(--admin-bar-environment-height);
     }
-    &:defined * {
-      display: initial;
+    /* Set read direction from right to left. */
+    &.rtl {
+      direction: rtl;
+    }
+    /* Fixes `<admin-bar>` to the top of page. */
+    &.fixed {
+      position: fixed;
+      right: 0;
+      left: 0;
+      z-index: var(--admin-bar-z-index, 1);
+
+      &:not(.bottom) {
+        top: 0;
+      }
+    }
+    /* Sticks `<admin-bar>` to the top of the page when scrolling. */
+    &.sticky {
+      position: sticky;
+      right: 0;
+      left: 0;
+      z-index: var(--admin-bar-z-index, 1);
+
+      &:not(.bottom) {
+        top: 0;
+      }
+    }
+    /* Moves `<admin-bar>` to the bottom of the page when using `.fixed` or `.sticky`. */
+    &.bottom {
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    /* Avoid layout shift from happening before Admin Bar Component is registered. */
+    &:not(:defined) {
+      background: var(--admin-bar-bg);
+      opacity: 0.75;
+
+      /* Hide all slot content until Admin Bar Component is registered. */
+      & * {
+        display: none;
+      }
     }
   }
 
