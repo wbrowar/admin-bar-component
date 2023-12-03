@@ -315,9 +315,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     /* The text of all button labels. */
     --admin-bar-button-color-text: rgb(255, 255, 255);
 
+    /* ====================================================================== */
+
     /* Default styles for the `<admin-bar>` element. */
-    display: block;
     --environment-height: 0px;
+    display: block;
     width: var(--admin-bar-width, 100%);
     height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
 
