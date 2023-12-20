@@ -266,7 +266,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     --admin-bar-color-text: rgba(255, 255, 255, 0.8);
 
     /* The font stack for all text. */
-    --admin-bar-font-stack: 'BlinkMacSystemFont', -apple-system, 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+    --admin-bar-font-stack: system-ui, sans-serif;
 
     /* The font size for all text. */
     --admin-bar-font-size: .9rem;
