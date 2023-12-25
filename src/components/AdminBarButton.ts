@@ -16,20 +16,13 @@ export class AdminBarButton extends LitElement {
       --margin: 4px;
       --border-radius: 4px;
     }
-    :host(.flat) {
-      --margin: 0px;
-      --border-radius: 0;
-      --admin-bar-shadow-elements: none;
-    }
     .admin-bar-button {
       display: flex;
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
-      margin: var(--margin);
-      border-radius: var(--border-radius);
       padding: 0 clamp(4px, 1vw, 10px);
-      height: calc(var(--admin-bar-height, 43px) - calc(var(--margin) * 2));
+      height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-button-color-bg, transparent);
       appearance: none;
       border: none;
@@ -45,10 +38,9 @@ export class AdminBarButton extends LitElement {
 
       &:hover {
         transition-duration: calc(var(--admin-bar-transition-duration, 0.4s) / 2);
-        box-shadow: var(--admin-bar-shadow-elements);
       }
       &:not(.admin-bar-button--logout):hover {
-        --admin-bar-button-color-bg: var(--admin-bar-button-color-text, white);
+        --admin-bar-button-color-bg: var(--admin-bar-button-color-bg-hover, var(--admin-bar-button-color-text, white));
         color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
       }
 

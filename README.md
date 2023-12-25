@@ -209,11 +209,7 @@ Classes can be added to `<admin-bar>` elements to change the look and placement 
 > NOTE: The `fixed` and `sticky` classes are there to make setting the position easy, however, instead of using those classes, you could style the `admin-bar` element position in your CSS.
 ---
 
-Currently, there is one class that can be added to `<admin-bar-button>` elements.
-
-| Class  | Description                                                                                   |
-|--------|-----------------------------------------------------------------------------------------------|
-| `flat` | Removes the margins and rounded corners that are on `<admin-bar-button>` elements by default. |
+Currently, there are no classes that can be added to `<admin-bar-button>` elements.
 
 ### CSS Cascade Layers
 
@@ -311,6 +307,9 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 
     /* The background of all buttons. */
     --admin-bar-button-color-bg: transparent;
+
+    /* The background of the button that is currently in the hover state. */
+    --admin-bar-button-color-bg-hover: var(--admin-bar-button-color-text, white);
 
     /* The text of all button labels. */
     --admin-bar-button-color-text: rgb(255, 255, 255);
