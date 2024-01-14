@@ -21,7 +21,7 @@ export class AdminBarButton extends LitElement {
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
-      padding: 0 clamp(4px, 1vw, 10px);
+      padding: 0 clamp(4px, 1vw, 13px);
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-button-color-bg, transparent);
       appearance: none;
