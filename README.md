@@ -187,7 +187,7 @@ You may have a situation where you need to replace the default logout button toâ
    </admin-bar>
    ```
 
-## Adding Simple Text to Admin Bar
+## Adding Text Elements to Admin Bar
 
 The default slot of an `<admin-bar>` element is an element with `display: flex` on it. This means you can add `<admin-bar-button>` elements alongside any other HTML element you would like display next to them. You can add a `<div>` with text in it and use CSS to style it however you'd like, however, if you would simply like to display some text, you could use a `<admin-bar-text>` element:
 
@@ -224,7 +224,7 @@ If you would like to create a text element that is made up of only a label, you 
 ```
 
 > [!TIP]
-> The color of labels can be styled using CSS Custom Properties.
+> The color of labels can be styled using CSS Custom Properties. This can be helpful in alerting users of important information.
 
 ## Styling Admin Bar
 
