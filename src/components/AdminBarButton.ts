@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit'
+import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -91,8 +91,8 @@ export class AdminBarButton extends LitElement {
       'admin-bar-button--logout': this.isLogoutButton,
     }
 
-    const labelContent = html`<slot name="label-before"></slot><slot><span>${this.label}</span></slot
-      ><slot name="label-after"></slot>`
+    const labelContent = html`<slot name="label-before"></slot
+      ><slot>${this.label ?? false ? html`<span>${this.label}</span>` : nothing}</slot><slot name="label-after"></slot>`
 
     if (this.href) {
       adminBarClasses['admin-bar-button--el-a'] = true
