@@ -71,11 +71,11 @@
     /* The text of all button labels. */
     --admin-bar-button-color-text: rgb(255 255 255);
 
-    /* The background for chips in `admin-bar-text` components. */
-    --admin-bar-chip-color-bg: rgba(255 255 255 / 0.9);
+    /* The background for labels in `admin-bar-text` components. */
+    --admin-bar-text-label-color-bg: rgba(255 255 255 / 0.9);
 
-    /* The text for chips in `admin-bar-text` components. */
-    --admin-bar-chip-color-text: rgba(0 0 0 / 1);
+    /* The text for labels in `admin-bar-text` components. */
+    --admin-bar-text-label-color-text: rgba(0 0 0 / 1);
 
     /* ====================================================================== */
 

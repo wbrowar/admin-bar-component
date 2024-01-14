@@ -7,10 +7,8 @@ Admin Bar Component is a web component that is built with [Lit](https://lit.dev)
 - 👋 Show an avatar and a greeting to confirm the currently logged-in user.
 - 🚧 A customizable environment warning can be shown to let users know they are not on production.
 - 🎛️ Buttons are customizable and can link to a URL or trigger JavaScript events.
+- 2️⃣ Text elements can be added to provide stats and small notes to authors.
 - 🚪 A dedicated logout button gives users a way to sign out of your app.
-
-> [!NOTE]
-> Admin Bar Component is still in development. Things might change and break until the 1.0.0 release.
 
 ## Installation
 
@@ -207,26 +205,26 @@ Using the `text-content` attribute will add plain text that is styled to look li
 </admin-bar>
 ```
 
-### Adding Chips to Admin Bar Text Elements
+### Adding Labels to Admin Bar Text Elements
 
-You can use `<admin-bar-text>` elements for notes or for other useful information that is tied to the context of the current page you are on. Using the `chip-content` attribute on a `<admin-bar-text>` element will let you call out stats and other information:
+You can use `<admin-bar-text>` elements for notes or for other useful information that is tied to the context of the current page you are on. Using the `label-content` attribute on a `<admin-bar-text>` element will let you call out stats and other information:
 
 ```html
 <admin-bar>
-  <admin-bar-text chip-content="25" text-content="Enries in this Section"></admin-bar-text>
+  <admin-bar-text label-content="25" text-content="Enries in this Section"></admin-bar-text>
 </admin-bar>
 ```
 
-If you would like to create a label that is made up of only a chip, you can omit the default slot and the `text-content` attribute:
+If you would like to create a text element that is made up of only a label, you can omit the default slot and the `text-content` attribute:
 
 ```html
 <admin-bar show-environment>
-  <admin-bar-text chip-content="STAGING"></admin-bar-text>
+  <admin-bar-text label-content="STAGING"></admin-bar-text>
 </admin-bar>
 ```
 
 > [!TIP]
-> The color of chips can be styled using CSS Custom Properties.
+> The color of labels can be styled using CSS Custom Properties.
 
 ## Styling Admin Bar
 
@@ -357,11 +355,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       /* The text of all button labels. */
       --admin-bar-button-color-text: rgb(255 255 255);
 
-      /* The background for chips in `admin-bar-text` components. */
-      --admin-bar-chip-color-bg: rgba(255 255 255 / 0.9);
+      /* The background for labels in `admin-bar-text` components. */
+      --admin-bar-text-label-color-bg: rgba(255 255 255 / 0.9);
 
-      /* The text for chips in `admin-bar-text` components. */
-      --admin-bar-chip-color-text: rgba(0 0 0 / 1);
+      /* The text for labels in `admin-bar-text` components. */
+      --admin-bar-text-label-color-text: rgba(0 0 0 / 1);
 
       /* ====================================================================== */
 

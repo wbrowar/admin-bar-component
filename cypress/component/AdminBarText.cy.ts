@@ -14,20 +14,20 @@ describe('Admin Bar Text Content', () => {
   })
 })
 
-describe('Admin Bar Chip Content', () => {
-  it('chip content is set correctly from attribute', () => {
-    cy.mount(html`<admin-bar-text chip-content="Hello"></admin-bar-text>`)
+describe('Admin Bar Badge Content', () => {
+  it('label content is set correctly from attribute', () => {
+    cy.mount(html`<admin-bar-text label-content="Hello"></admin-bar-text>`)
 
-    cy.get('admin-bar-text').shadow().find('.chip').contains('Hello')
+    cy.get('admin-bar-text').shadow().find('.label').contains('Hello')
   })
-  it('chip content is set after text content', () => {
-    cy.mount(html`<admin-bar-text chip-content="Hello" text-content="World"></admin-bar-text>`)
+  it('label content is set after text content', () => {
+    cy.mount(html`<admin-bar-text label-content="Hello" text-content="World"></admin-bar-text>`)
 
-    cy.get('admin-bar-text').shadow().find('.chip + *').should('not.exist')
+    cy.get('admin-bar-text').shadow().find('.label + *').should('not.exist')
   })
-  it('chip content is set after text content', () => {
-    cy.mount(html`<admin-bar-text chip-content="Hello" chip-position="before" text-content="World"></admin-bar-text>`)
+  it('label content is set after text content', () => {
+    cy.mount(html`<admin-bar-text label-content="Hello" label-position="before" text-content="World"></admin-bar-text>`)
 
-    cy.get('admin-bar-text').shadow().find('.chip + *').should('exist')
+    cy.get('admin-bar-text').shadow().find('.label + *').should('exist')
   })
 })

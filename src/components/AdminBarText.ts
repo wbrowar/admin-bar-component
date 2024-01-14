@@ -30,13 +30,13 @@ export class AdminBarText extends LitElement {
         background var(--admin-bar-transition-duration, 0.4s) ease-out,
         color var(--admin-bar-transition-duration, 0.4s) ease-out;
     }
-    .chip {
+    .label {
       padding: 3px 5px;
-      background-color: var(--admin-bar-chip-color-bg, rgba(255 255 255 / 0.9));
+      background-color: var(--admin-bar-text-label-color-bg, rgba(255 255 255 / 0.9));
       border-radius: 4px;
       line-height: 1;
       font-size: 0.8em;
-      color: var(--admin-bar-chip-color-text, black);
+      color: var(--admin-bar-text-label-color-text, black);
     }
   `
 
@@ -48,14 +48,14 @@ export class AdminBarText extends LitElement {
   /**
    * Sets the label for the `<admin-bar-text>`.
    */
-  @property({ attribute: 'chip-content' })
-  chipContent = ''
+  @property({ attribute: 'label-content' })
+  labelContent = ''
 
   /**
    * Sets the label for the `<admin-bar-text>`.
    */
-  @property({ attribute: 'chip-position' })
-  chipPosition: 'after' | 'before' = 'after'
+  @property({ attribute: 'label-position' })
+  labelPosition: 'after' | 'before' = 'after'
 
   /**
    * Sets the label for the `<admin-bar-text>`.
@@ -71,11 +71,11 @@ export class AdminBarText extends LitElement {
   render() {
     let textContent = html`<slot>${this.textContent ?? false ? html`<span>${this.textContent}</span>` : nothing}</slot>`
 
-    if (this.chipContent ?? false) {
+    if (this.labelContent ?? false) {
       textContent =
-        this.chipPosition === 'before'
-          ? html`<span class="chip">${this.chipContent}</span>${textContent}`
-          : html`${textContent}<span class="chip">${this.chipContent}</span>`
+        this.labelPosition === 'before'
+          ? html`<span class="label">${this.labelContent}</span>${textContent}`
+          : html`${textContent}<span class="label">${this.labelContent}</span>`
     }
 
     return html`<span class="admin-bar-text">${textContent}</span>`
