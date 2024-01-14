@@ -215,12 +215,12 @@ export class AdminBar extends LitElement {
       : nothing
 
     return html`
-      <div class="${classMap(adminBarClasses)}">
+      <nav class="${classMap(adminBarClasses)}">
         <div class="environment"></div>
         <div class="greeting">${greetingContent}</div>
         <div class="buttons"><slot></slot></div>
         <div class="logout">${logoutContent}</div>
-      </div>
+      </nav>
     `
   }
 }
