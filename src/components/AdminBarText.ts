@@ -20,7 +20,7 @@ export class AdminBarText extends LitElement {
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
-      padding: 0 clamp(4px, 1vw, 13px);
+      padding: var(--admin-bar-text-padding, 0 clamp(4px, 1vw, 13px));
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
@@ -71,6 +71,7 @@ export class AdminBarText extends LitElement {
   render() {
     let textContent = html`<slot>${this.textContent ?? false ? html`<span>${this.textContent}</span>` : nothing}</slot>`
 
+    // Add the label before or after the text content
     if (this.labelContent ?? false) {
       textContent =
         this.labelPosition === 'before'
