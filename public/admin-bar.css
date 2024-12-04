@@ -3,9 +3,12 @@
   admin-bar {
     /* Sets the background of the bar using the background shorthand property,
     allowing you to use a gradient, a solid color, or an image. */
-    --admin-bar-bg: linear-gradient(to bottom, rgba(0 0 0 / 0.65), rgba(0 0 0 / 0.9));
+    --admin-bar-bg: rgba(0 0 0 / 0.8);
 
-    /* Adds an effect to blur */
+    /* Border radius value used in different places. */
+    --admin-bar-border-radius: 6px;
+
+    /* Adds an effect to blur. */
     --admin-bar-backdrop-filter: blur(20px) saturate(200%);
 
     /* The color used on hover changes. */
@@ -23,6 +26,12 @@
 
     /* The font size for all text. */
     --admin-bar-font-size: .9rem;
+
+    /* Background for glass element, used as a fallback for browsers that don’t support `mask-image`. */
+    /*--admin-bar-glass-bg: rgba(0 0 0 / 0.8);*/
+
+    /* The thickness of the glass effect on admin bar. */
+    --admin-bar-glass-thickness: 2px;
 
     /* The height and width of avatar images. */
     --admin-bar-avatar-size: 25px;
@@ -70,6 +79,12 @@
 
     /* The text of all button labels. */
     --admin-bar-button-color-text: rgb(255 255 255);
+
+    /* The background of the button popover element. */
+    --admin-bar-button-popover-bg: rgba(0 0 0 / 0.5);
+
+    /* The `border-radius` property that changes based on the position of the popover.  */
+    --admin-bar-button-popover-border-radius: var(--admin-bar-border-radius);
 
     /* The value of the padding property on `admin-bar-text` components. */
     --admin-bar-text-padding: 0 clamp(4px, 1vw, 13px);

@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js'
 import { customElement, property } from 'lit/decorators.js'
 
 import './AdminBarButton.ts'
+import { glassStyles } from './css.ts'
 
 @customElement('admin-bar')
 export class AdminBar extends LitElement {
@@ -29,8 +30,6 @@ export class AdminBar extends LitElement {
       grid-template-rows: 0 var(--admin-bar-height, 43px);
       align-items: center;
       background: var(--admin-bar-bg, rgba(0 0 0 / 0.8));
-      -webkit-backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
-      backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
       box-shadow: var(--admin-bar-shadow);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--admin-bar-font-size, 0.9rem);
@@ -40,6 +39,8 @@ export class AdminBar extends LitElement {
         grid-template-rows: var(--environment-height) var(--admin-bar-height, 43px);
       }
     }
+
+    ${glassStyles()}
 
     .environment {
       grid-area: environment;
@@ -216,6 +217,8 @@ export class AdminBar extends LitElement {
 
     return html`
       <nav class="${classMap(adminBarClasses)}">
+        <div class="glass-surface"></div>
+        <div class="glass-edge"></div>
         <div class="environment"></div>
         <div class="greeting">${greetingContent}</div>
         <div class="buttons"><slot></slot></div>
