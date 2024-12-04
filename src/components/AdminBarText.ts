@@ -14,6 +14,7 @@ export class AdminBarText extends LitElement {
       --padding-right: 10px;
       --margin: 4px;
       --border-radius: 4px;
+      display: inline-block;
     }
     .admin-bar-text {
       display: flex;
@@ -29,6 +30,12 @@ export class AdminBarText extends LitElement {
       transition:
         background var(--admin-bar-transition-duration, 0.4s) ease-out,
         color var(--admin-bar-transition-duration, 0.4s) ease-out;
+
+      &.multi-line {
+        padding: var(--admin-bar-text-padding, clamp(4px, 1vw, 13px));
+        height: unset;
+        white-space: unset;
+      }
     }
     .label {
       padding: 3px 5px;
@@ -52,13 +59,19 @@ export class AdminBarText extends LitElement {
   labelContent = ''
 
   /**
-   * Sets the label for the `<admin-bar-text>`.
+   * Sets the position for the label. Accepts: 'after', 'before'
    */
   @property({ attribute: 'label-position' })
   labelPosition: 'after' | 'before' = 'after'
 
   /**
-   * Sets the label for the `<admin-bar-text>`.
+   * Allows the content to wrap to the next line.
+   */
+  @property({ attribute: 'multi-line', type: Boolean })
+  multiLine = false
+
+  /**
+   * Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot.
    */
   @property({ attribute: 'text-content' })
   textContent = ''
@@ -79,7 +92,7 @@ export class AdminBarText extends LitElement {
           : html`${textContent}<span class="label">${this.labelContent}</span>`
     }
 
-    return html`<span class="admin-bar-text">${textContent}</span>`
+    return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${textContent}</span>`
   }
 }
 

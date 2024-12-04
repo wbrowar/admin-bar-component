@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 @customElement('admin-bar-button')
 export class AdminBarButton extends LitElement {
@@ -15,8 +15,11 @@ export class AdminBarButton extends LitElement {
       --padding-right: 10px;
       --margin: 4px;
       --border-radius: 4px;
+      display: block;
+      --achor-name: --popover-anchor;
     }
     .admin-bar-button {
+      anchor-name: var(--achor-name);
       display: flex;
       flex-wrap: nowrap;
       gap: 5px;
@@ -52,6 +55,48 @@ export class AdminBarButton extends LitElement {
         }
       }
     }
+    [popovertarget]:has(+ [popover]:popover-open) {
+      --admin-bar-button-color-bg: color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 85%);
+
+      &:hover {
+        --admin-bar-button-color-bg: var(--admin-bar-button-color-bg-hover, var(--admin-bar-button-color-text, white));
+        color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
+      }
+    }
+
+    @position-try --popover-top {
+      margin: 0 0 2px 0;
+      top: auto;
+      top: anchor(var(--achor-name) none);
+      bottom: anchor(var(--achor-name) top);
+    }
+    [popover] {
+      padding: 0;
+      border: 0;
+      background: var(--admin-bar-button-popover-bg);
+      backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
+      border: 2px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);
+      border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
+      box-shadow: var(--admin-bar-shadow);
+      color: var(--admin-bar-button-color-text, white);
+
+      @supports (position-anchor: --popover-anchor) and (position-try-fallbacks: --popover-top) {
+        & {
+          position-anchor: --popover-anchor;
+          position-try-fallbacks: --popover-top;
+          position: fixed;
+          top: anchor(var(--achor-name) bottom);
+          left: anchor(var(--achor-name) left);
+          margin: 2px 0 0 0;
+        }
+      }
+      @supports not (position-anchor: --popover-anchor) {
+        &::backdrop {
+          backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px));
+          background: var(--admin-bar-bg);
+        }
+      }
+    }
   `
 
   /**
@@ -79,6 +124,31 @@ export class AdminBarButton extends LitElement {
 
   /**
    * =========================================================================
+   * STATE
+   * =========================================================================
+   */
+  /**
+   * List of guides being displayed, along with their related information.
+   */
+  @state()
+  private _hasPopoverSlot = false
+
+  /**
+   * =========================================================================
+   * SLOTS
+   * =========================================================================
+   */
+  // @queryAssignedNodes({ slot: 'popover' })
+  // _popoverChildren!: Array<Node>
+
+  handlePopoverSlotchange(e: any) {
+    const childNodes = e.target.assignedNodes({ flatten: true })
+
+    this._hasPopoverSlot = childNodes.length > 0
+  }
+
+  /**
+   * =========================================================================
    * LIFECYCLE
    * =========================================================================
    */
@@ -92,7 +162,8 @@ export class AdminBarButton extends LitElement {
     }
 
     const labelContent = html`<slot name="label-before"></slot
-      ><slot>${this.label ?? false ? html`<span>${this.label}</span>` : nothing}</slot><slot name="label-after"></slot>`
+      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
+      ><slot name="label-after"></slot>`
 
     if (this.href) {
       adminBarClasses['admin-bar-button--el-a'] = true
@@ -100,7 +171,20 @@ export class AdminBarButton extends LitElement {
     }
 
     adminBarClasses['admin-bar-button--el-button'] = true
-    return html`<button class="${classMap(adminBarClasses)}">${labelContent}</button>`
+
+    if (this._hasPopoverSlot) {
+      return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
+          ${labelContent}
+        </button>
+        <div popover id="admin-bar-button-popover">
+          <div class="glass-surface"></div>
+          <div class="glass-edge"></div>
+          <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>
+        </div>`
+    }
+
+    return html`<button class="${classMap(adminBarClasses)}">${labelContent}</button
+      ><slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>`
   }
 }
 
