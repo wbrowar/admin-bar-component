@@ -303,7 +303,7 @@ Classes can be added to `<admin-bar>` elements to change the look and placement 
 > The `fixed` and `sticky` classes are there to make setting the position easy, however, instead of using those classes, you could style the `admin-bar` element position in your CSS.
 ---
 
-Currently, there are no classes that can be added to `<admin-bar-button>` elements.
+Currently, there are no classes that can be added to `<admin-bar-button>` or `<admin-bar-text>` elements.
 
 ### CSS Cascade Layers
 
@@ -506,6 +506,6 @@ If you would like to contribute changes to the project, please do the following:
 2. Set up the project locally (using the Node version described in the `.nvmrc` file in the root).
 3. Make your changes.
 4. Run `npm run test` to run type checking and to run tests.
-5. Push your branch up and make a [create a pull request on GitHub](https://github.com/wbrowar/admin-bar-component/pulls).
+5. Push your branch up and [create a pull request on GitHub](https://github.com/wbrowar/admin-bar-component/pulls).
 
 Not all pull requests will be pulled in and not all issues will get fixed, but all suggestions are welcomed.
