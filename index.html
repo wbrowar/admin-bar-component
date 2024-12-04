@@ -30,12 +30,12 @@
         /* NOTE: you don’t need to keep the class name on the admin-bar or in the CSS. It’s just here for these examples. */
         admin-bar {
             &.craft {
-                --admin-bar-bg: linear-gradient(to bottom, oklch(0.11 0.3 190 / 0.67), oklch(0.11 0.3 190 / 0.8));
+                --admin-bar-bg-color: oklch(0.11 0.3 190 / 0.8);
                 --admin-bar-color-highlight: oklch(0.54 0.3 23.9);
                 --admin-bar-color-text: rgb(228, 237, 246);
             }
             &.drupal {
-                --admin-bar-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+                --admin-bar-bg-color: rgb(0 0 0 / 0.9);
                 --admin-bar-color-highlight: oklch(0.61 0.22 245);
             }
         }
@@ -237,6 +237,10 @@
       <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, aliquid aut cupiditate debitis delectus iure minus possimus rem. Accusamus alias corporis distinctio est fuga id ipsum nemo odit, possimus quis?</li>
     </ul>
 
+    <img style="max-width: 100%" src="https://picsum.photos/2000/1000" />
+    <div style="height: 50px"></div>
+    <img style="max-width: 100%" src="https://picsum.photos/2500/1000" />
+    <div style="height: 50px"></div>
     <img style="max-width: 100%" src="https://picsum.photos/1500/1000" />
     <div style="height: 50px"></div>
     <img style="max-width: 100%" src="https://picsum.photos/1100/1000" />

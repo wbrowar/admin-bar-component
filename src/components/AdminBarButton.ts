@@ -73,7 +73,7 @@ export class AdminBarButton extends LitElement {
     [popover] {
       padding: 0;
       border: 0;
-      background: var(--admin-bar-button-popover-bg);
+      background: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
       backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
       border: 2px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
@@ -92,8 +92,8 @@ export class AdminBarButton extends LitElement {
       }
       @supports not (position-anchor: --popover-anchor) {
         &::backdrop {
-          backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px));
-          background: var(--admin-bar-bg);
+          backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
+          background: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
         }
       }
     }

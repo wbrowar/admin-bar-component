@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.1.0 - 2024-11-11
+## 1.1.1 - 2024-12-04
+### Added
+- Added `--admin-bar-bg-color` CSS Custom Property. Setting this sets a default background color used in gradients and as background colors on popovers.
+
+### Changed
+- Moved some CSS color properties around in order to make it easier to style `<admin-bar>` elements and popovers more consistently.
+- Increased the opacity of text in the default `--admin-bar-color-text` value to improve color contrast on `<admin-bar-text>` elements.
+- Removed the `--admin-bar-bg` CSS Custom Property by default. Setting this to a CSS background image or color will override all other color effects.
+
+### Fixed
+- Changed all `rgba()` values to `rgb()`.
+
+## 1.1.0 - 2024-12-03
 ### Added
 - Added `popover` slot to `<admin-bar-button>` elements.
   - Add child `<admin-bar-button>` or `<admin-bar-text>` elements to maintain style consistency—or add your own HTML and style it in your CSS.

@@ -9,6 +9,10 @@ export function glassStyles() {
      * This code gets applied for folks using browsers that support backdrop-filter.
      */
     @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+      & {
+        background: transparent;
+      }
+
       .glass-surface {
         position: absolute;
         height: 100%;
@@ -16,7 +20,7 @@ export function glassStyles() {
         inset: 0;
         -webkit-backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
         backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
-        background: var(--admin-bar-glass-bg, linear-gradient(to bottom, rgba(0 0 0 / 0.8), transparent 10%));
+        background: var(--admin-bar-glass-bg);
         pointer-events: none;
       }
 
@@ -44,36 +48,32 @@ export function glassStyles() {
      */
     @supports (mask-image: none) or (-webkit-mask-image: none) {
       .glass-surface {
-        --gradient-direction: bottom;
         height: 200%;
-        -webkit-mask-image: linear-gradient(to var(--gradient-direction), black 0% 50%, transparent 50% 100%);
-        mask-image: linear-gradient(to var(--gradient-direction), black 0% 50%, transparent 50% 100%);
+        -webkit-mask-image: linear-gradient(var(--admin-bar-gradient-direction), black 0% 50%, transparent 50% 100%);
+        mask-image: linear-gradient(var(--admin-bar-gradient-direction), black 0% 50%, transparent 50% 100%);
 
         :host(.bottom) & {
-          --gradient-direction: top;
           position: absolute;
           inset: auto 0 0 0;
         }
       }
       .glass-edge {
-        --gradient-direction: bottom;
         height: 100%;
         inset: 0;
         -webkit-mask-image: linear-gradient(
-          to var(--gradient-direction),
+          var(--admin-bar-gradient-direction),
           black 0,
           black var(--admin-bar-glass-thickness),
           transparent var(--admin-bar-glass-thickness)
         );
         mask-image: linear-gradient(
-          to var(--gradient-direction),
+          var(--admin-bar-gradient-direction),
           black 0,
           black var(--admin-bar-glass-thickness),
           transparent var(--admin-bar-glass-thickness)
         );
 
         :host(.bottom) & {
-          --gradient-direction: top;
           transform: translateY(-100%);
         }
       }

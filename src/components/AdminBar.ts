@@ -29,18 +29,18 @@ export class AdminBar extends LitElement {
       grid-template-columns: max-content 1fr max-content;
       grid-template-rows: 0 var(--admin-bar-height, 43px);
       align-items: center;
-      background: var(--admin-bar-bg, rgba(0 0 0 / 0.8));
+      background: var(--admin-bar-bg, var(--admin-bar-bg-color, rgba(0 0 0 / 0.8)));
       box-shadow: var(--admin-bar-shadow);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--admin-bar-font-size, 0.9rem);
-      color: var(--admin-bar-color-text, rgba(255 255 255 / 0.8));
+      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
 
       &.admin-bar--environment {
         grid-template-rows: var(--environment-height) var(--admin-bar-height, 43px);
       }
-    }
 
-    ${glassStyles()}
+      ${glassStyles()}
+    }
 
     .environment {
       grid-area: environment;

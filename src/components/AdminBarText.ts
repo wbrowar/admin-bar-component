@@ -25,7 +25,7 @@ export class AdminBarText extends LitElement {
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
-      color: var(--admin-bar-color-text, rgba(255 255 255 / 0.8));
+      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
       white-space: nowrap;
       transition:
         background var(--admin-bar-transition-duration, 0.4s) ease-out,
@@ -39,7 +39,7 @@ export class AdminBarText extends LitElement {
     }
     .label {
       padding: 3px 5px;
-      background-color: var(--admin-bar-text-label-color-bg, rgba(255 255 255 / 0.9));
+      background-color: var(--admin-bar-text-label-color-bg, rgb(255 255 255 / 0.9));
       border-radius: 4px;
       line-height: 1;
       font-size: 0.8em;
@@ -82,7 +82,9 @@ export class AdminBarText extends LitElement {
    * =========================================================================
    */
   render() {
-    let textContent = html`<slot>${this.textContent ?? false ? html`<span>${this.textContent}</span>` : nothing}</slot>`
+    let textContent = html`<slot
+      >${(this.textContent ?? false) ? html`<span>${this.textContent}</span>` : nothing}</slot
+    >`
 
     // Add the label before or after the text content
     if (this.labelContent ?? false) {
