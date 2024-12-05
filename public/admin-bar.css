@@ -31,7 +31,7 @@
     --admin-bar-font-size: .9rem;
 
     /* Background for glass element, used as a fallback for browsers that don’t support `mask-image`. */
-    --admin-bar-glass-bg: var(--admin-bar-bg, linear-gradient(var(--admin-bar-gradient-direction), var(--admin-bar-bg-color), color-mix(in srgb, var(--admin-bar-bg-color) 20%, transparent 100%) 50%));
+    --admin-bar-glass-bg: var(--admin-bar-bg, linear-gradient(var(--admin-bar-gradient-direction), var(--admin-bar-bg-color), color-mix(in srgb, var(--admin-bar-bg-color), transparent 100%) 80%));
 
     /* The thickness of the glass effect on admin bar. */
     --admin-bar-glass-thickness: 2px;
@@ -87,7 +87,7 @@
     --admin-bar-button-color-text: rgb(255 255 255);
 
     /* The background of the button popover element. */
-    --admin-bar-button-popover-bg: var(--admin-bar-bg, color-mix(in srgb, var(--admin-bar-bg-color), transparent 60%));
+    --admin-bar-button-popover-bg: var(--admin-bar-bg, color-mix(in srgb, var(--admin-bar-bg-color), transparent 40%));
 
     /* The `border-radius` property that changes based on the position of the popover.  */
     --admin-bar-button-popover-border-radius: var(--admin-bar-border-radius);
@@ -149,7 +149,7 @@
 
     /* Avoid layout shift from happening before Admin Bar Component is registered. */
     &:not(:defined) {
-      background: var(--admin-bar-bg);
+      background: var(--admin-bar-bg-color);
       opacity: 0.75;
 
       /* Hide all slot content until Admin Bar Component is registered. */

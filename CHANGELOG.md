@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.2 - 2024-12-05
+### Changed
+- Minor default color tweaks for higher color contrast.
+
 ## 1.1.1 - 2024-12-04
 ### Added
 - Added `--admin-bar-bg-color` CSS Custom Property. Setting this sets a default background color used in gradients and as background colors on popovers.
