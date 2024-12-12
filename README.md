@@ -423,6 +423,9 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       /* The text of all button labels. */
       --admin-bar-button-color-text: rgb(255 255 255);
 
+      /* The default color of text on button popover elements. */
+      --admin-bar-button-popover-color-text: var(--admin-bar-color-text, rgb(255 255 255));
+
       /* The background of the button popover element. */
       --admin-bar-button-popover-bg: var(--admin-bar-bg, color-mix(in srgb, var(--admin-bar-bg-color), transparent 40%));
 

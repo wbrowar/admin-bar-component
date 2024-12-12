@@ -64,11 +64,23 @@ export class AdminBarButton extends LitElement {
       }
     }
 
-    @position-try --popover-top {
+    @position-try --popover-bottom-right {
+      left: auto;
+      right: anchor(var(--achor-name) right);
+    }
+    @position-try --popover-top-left {
       margin: 0 0 2px 0;
       top: auto;
       top: anchor(var(--achor-name) none);
       bottom: anchor(var(--achor-name) top);
+    }
+    @position-try --popover-top-right {
+      margin: 0 0 2px 0;
+      top: auto;
+      top: anchor(var(--achor-name) none);
+      bottom: anchor(var(--achor-name) top);
+      left: auto;
+      right: anchor(var(--achor-name) right);
     }
     [popover] {
       padding: 0;
@@ -78,12 +90,12 @@ export class AdminBarButton extends LitElement {
       border: 2px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
       box-shadow: var(--admin-bar-shadow);
-      color: var(--admin-bar-button-color-text, white);
+      color: var(--admin-bar-button-popover-color-text, rgb(255 255 255));
 
       @supports (position-anchor: --popover-anchor) and (position-try-fallbacks: --popover-top) {
         & {
           position-anchor: --popover-anchor;
-          position-try-fallbacks: --popover-top;
+          position-try-fallbacks: --popover-bottom-right, --popover-top-left, --popover-top-right;
           position: fixed;
           top: anchor(var(--achor-name) bottom);
           left: anchor(var(--achor-name) left);

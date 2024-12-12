@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.3 - 2024-12-11
+### Added
+- Added `--admin-bar-button-popover-color-text` to allow you to set a default text color for popover content.
+  - If you add `<admin-bar-button>` or `<admin-bar-text>` elements into a popover the text color will be determined by their respective CSS Custom Properties.
+- Added right-aligned fallback positions for popovers.
+
 ## 1.1.2 - 2024-12-05
 ### Changed
 - Minor default color tweaks for higher color contrast.
