@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.4 - 2024-12-23
+### Changed
+- Matched color of `<admin-bar-text>` labels to button text when a button containing a `<admin-bar-text>` element is hovered over.
+
 ## 1.1.3 - 2024-12-11
 ### Added
 - Added `--admin-bar-button-popover-color-text` to allow you to set a default text color for popover content.

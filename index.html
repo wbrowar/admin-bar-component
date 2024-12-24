@@ -20,14 +20,6 @@
                 height: auto;
             }
         }
-        admin-bar-button {
-          &:hover {
-            & admin-bar-text {
-              --admin-bar-text-label-color-bg: var(--admin-bar-color-highlight);
-              --admin-bar-text-label-color-text: var(--admin-bar-button-color-bg-hover);
-            }
-          }
-        }
         /* Copy the CSS Custom Properties you would like to use and add them to your project CSS. */
         /* NOTE: you don’t need to keep the class name on the admin-bar or in the CSS. It’s just here for these examples. */
         admin-bar {
@@ -57,13 +49,20 @@
         <admin-bar-button button-href="https://getkirby.com">Kirby</admin-bar-button>
         <admin-bar-button button-href="https://drupal.org">Drupal</admin-bar-button>
       </nav></admin-bar-button>
-      <admin-bar-button>Popover Slot 3<span slot="popover">
-        <admin-bar-text>Popover with two layers:</admin-bar-text>
-        <admin-bar-button>Nested Popover<span slot="popover" style="display: flex">
-          <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
-          <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
-        </span></admin-bar-button>
-      </span></admin-bar-button>
+      <admin-bar-button><span slot="label-before" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="Nested"></admin-bar-text></span>
+        Popover Slot 3
+        <span slot="popover">
+          <admin-bar-text label-content="Nested" label-position="before">Popover with two layers:</admin-bar-text>
+          <admin-bar-button>
+            <div slot="label-before" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="Nested"></admin-bar-text></div>
+            Nested Menu:
+            <span slot="popover" style="display: flex">
+              <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
+              <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
+            </span>
+          </admin-bar-button>
+        </span>
+      </admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
       <admin-bar-text label-content="25" label-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
