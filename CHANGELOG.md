@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.4 - 2024-12-30
+### Added
+- Added definition lists and tables to `<admin-bar-text>` elements.
+  - The `dl-content` prop on `<admin-bar-text>` elements generates a `<dl>` from a stringified JSON tuple (array with only 2 values).
+  - The `table-content` prop on `<admin-bar-text>` elements generates a `<table>` based on a stringified JSON object.
+
+### Changed
+- `<admin-bar-button>` buttons are now set to `box-sizing: border-box; min-width: 100%`.
+- Removed default value for `--admin-bar-text-padding`.
+  - Setting this will not hurt, but it gives you more flexibility to specify padding in popover content.
+
 ## 1.1.4 - 2024-12-23
 ### Changed
 - Matched color of `<admin-bar-text>` labels to button text when a button containing a `<admin-bar-text>` element is hovered over.

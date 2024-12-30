@@ -1,6 +1,13 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
+export type TextDlContent = [string | number, string | number][]
+export interface TextTableContent {
+  footers?: string[]
+  headers?: string[]
+  rows: (string | number)[][]
+}
+
 @customElement('admin-bar-text')
 export class AdminBarText extends LitElement {
   /**
@@ -31,10 +38,63 @@ export class AdminBarText extends LitElement {
         background var(--admin-bar-transition-duration, 0.4s) ease-out,
         color var(--admin-bar-transition-duration, 0.4s) ease-out;
 
-      &.multi-line {
+      &:is(.multi-line, :has(dl, table)) {
         padding: var(--admin-bar-text-padding, clamp(4px, 1vw, 13px));
         height: unset;
         white-space: unset;
+
+        &:has(table) {
+          padding: 0;
+        }
+      }
+
+      & dl {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 0.5rem 1rem;
+        margin: 0;
+
+        & dt {
+          font-weight: 700;
+          text-align: end;
+          text-wrap: balance;
+        }
+        & dd {
+          margin: 0;
+          max-width: 50ch;
+          text-wrap: pretty;
+        }
+      }
+      & table {
+        --table-border-radius: calc(var(--admin-bar-border-radius) * 0.6);
+
+        & thead {
+          background-color: var(--admin-bar-text-label-color-bg);
+          color: var(--admin-bar-text-label-color-text);
+
+          & th:first-child {
+            border-start-start-radius: var(--table-border-radius);
+          }
+          & th:last-child {
+            border-start-end-radius: var(--table-border-radius);
+          }
+        }
+        & tfoot {
+          background-color: color-mix(in srgb, var(--admin-bar-text-label-color-bg), transparent 80%);
+
+          & td:first-child {
+            border-end-start-radius: var(--table-border-radius);
+          }
+          & td:last-child {
+            border-end-end-radius: var(--table-border-radius);
+          }
+        }
+        & :is(td, th) {
+          padding: var(--admin-bar-text-padding, clamp(4px, 0.8vw, 10px));
+          max-width: 50ch;
+          font-weight: initial;
+          text-wrap: pretty;
+        }
       }
     }
     .label {
@@ -52,6 +112,12 @@ export class AdminBarText extends LitElement {
    * PROPS
    * =========================================================================
    */
+  /**
+   * A tuple array that is turned into an HTML definition list.
+   */
+  @property({ attribute: 'dl-content', type: Array })
+  dlContent: TextDlContent = []
+
   /**
    * Sets the label for the `<admin-bar-text>`.
    */
@@ -71,6 +137,12 @@ export class AdminBarText extends LitElement {
   multiLine = false
 
   /**
+   * An object that is turned into an HTML table.
+   */
+  @property({ attribute: 'table-content', type: Object })
+  tableContent: TextTableContent = { rows: [] }
+
+  /**
    * Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot.
    */
   @property({ attribute: 'text-content' })
@@ -82,19 +154,60 @@ export class AdminBarText extends LitElement {
    * =========================================================================
    */
   render() {
-    let textContent = html`<slot
-      >${(this.textContent ?? false) ? html`<span>${this.textContent}</span>` : nothing}</slot
-    >`
+    const textContent = []
+
+    if (this.textContent ?? false) {
+      textContent.push(html`<span class="text">${this.textContent}</span>`)
+    } else if (this.dlContent.length) {
+      textContent.push(
+        html`<dl>
+          ${this.dlContent.map(
+            (row) =>
+              html`<dt>${row[0] ?? ''}</dt>
+                <dd>${row[1] ?? ''}</dd>`
+          )}
+        </dl>`
+      )
+    } else if (this.tableContent?.rows?.length) {
+      textContent.push(
+        html`<table>
+          ${this.tableContent?.headers?.length
+            ? html`<thead>
+                <tr>
+                  ${this.tableContent.headers.map((header) => html`<th>${header ?? ''}</th>`)}
+                </tr>
+              </thead>`
+            : nothing}
+          ${html`<tbody>
+            ${this.tableContent.rows.map(
+              (row) =>
+                html`<tr>
+                  ${row.map((item) => html`<td>${item}</td>`)}
+                </tr>`
+            )}
+          </tbody>`}
+          ${this.tableContent?.footers?.length
+            ? html`<tfoot>
+                <tr>
+                  ${this.tableContent.footers.map((header) => html`<td>${header ?? ''}</td>`)}
+                </tr>
+              </tfoot>`
+            : nothing}
+        </table>`
+      )
+    }
+
+    let slotContent = html`<slot>${textContent}</slot>`
 
     // Add the label before or after the text content
     if (this.labelContent ?? false) {
-      textContent =
+      slotContent =
         this.labelPosition === 'before'
-          ? html`<span class="label">${this.labelContent}</span>${textContent}`
-          : html`${textContent}<span class="label">${this.labelContent}</span>`
+          ? html`<span class="label">${this.labelContent}</span>${slotContent}`
+          : html`${slotContent}<span class="label">${this.labelContent}</span>`
     }
 
-    return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${textContent}</span>`
+    return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`
   }
 }
 

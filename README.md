@@ -266,12 +266,34 @@ Text in `<admin-bar-text>` elements are not allowed to wrap by default, but addi
 
 ### Admin Bar Text Public Properties
 
-| Attribute Name   | Type      | Default   | Description                                                                                     |
-|------------------|-----------|-----------|-------------------------------------------------------------------------------------------------|
-| `label-content`  | _string_  | `''`      | Sets the label for the `<admin-bar-text>`.                                                      |
-| `label-position` | _string_  | `'after'` | Sets the position for the label. Accepts: `'after'`, `'before'`                                 |
-| `multi-line`     | _boolean_ | `false`   | Allows the content to wrap to the next line.                                                    |
-| `text-content`   | _string_  | `''`      | Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot. |
+| Attribute Name   | Type               | Default        | Description                                                                                     |
+|------------------|--------------------|----------------|-------------------------------------------------------------------------------------------------|
+| `dl-content`     | _TextDlContent_    | `[]`           | A tuple array that is turned into an HTML definition list.                                      |
+| `label-content`  | _string_           | `''`           | Sets the label for the `<admin-bar-text>`.                                                      |
+| `label-position` | _string_           | `'after'`      | Sets the position for the label. Accepts: `'after'`, `'before'`                                 |
+| `multi-line`     | _boolean_          | `false`        | Allows the content to wrap to the next line.                                                    |
+| `table-content`  | _TextTableContent_ | `{ rows: [] }` | An object that is turned into an HTML table.                                                    |
+| `text-content`   | _string_           | `''`           | Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot. |
+
+> [!NOTE]
+> Only one of the following props should be used on an `<admin-bar-text>` element (only one will be rendered at a time): `dl-content`, `table-content`, `text-content`
+
+#### Admin Bar Text Types
+
+```typescript
+type TextDlContent = [string | number, string | number][]
+
+interface TextTableContent {
+  footers?: string[]
+  headers?: string[]
+  rows: (string | number)[][]
+}
+```
+
+| Name             | TypeScript Type                                          |
+|------------------|----------------------------------------------------------|
+| TextDlContent    | `[string | number, string | number][]`              |
+| TextTableContent | `{ footers?: string[]; headers?: string[]; rows: (string | number)[][] }` |
 
 ### Admin Bar Text Slots
 
@@ -433,7 +455,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       --admin-bar-button-popover-border-radius: var(--admin-bar-border-radius);
 
       /* The value of the padding property on `admin-bar-text` components. */
-      --admin-bar-text-padding: 0 clamp(4px, 1vw, 13px);
+      /*--admin-bar-text-padding: 0 clamp(4px, 1vw, 13px);*/
 
       /* The background for labels in `admin-bar-text` components. */
       --admin-bar-text-label-color-bg: rgb(255 255 255 / 0.9);
@@ -507,6 +529,9 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
    }
 }
 ```
+
+> [!NOTE]
+> Changes made to Admin Bar Component will try to avoid breaking functionality and styles until the next major version. In order to introduce new features, the CSS and CSS Custom Properties above may change how they are used to style these components. This file may change and default styles may be added or removed over time, so including it into your project should be automated or frequently updated.
 
 ## Contributing
 This project is new and it will evolve as it grows (including adding CI automation, tests, and checks). For now, if you run into any bugs, please [leave an issue on GitHub](https://github.com/wbrowar/admin-bar-component/issues).

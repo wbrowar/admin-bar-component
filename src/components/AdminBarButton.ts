@@ -20,11 +20,13 @@ export class AdminBarButton extends LitElement {
     }
     .admin-bar-button {
       anchor-name: var(--achor-name);
+      box-sizing: border-box;
       display: flex;
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
       padding: 0 clamp(4px, 1vw, 13px);
+      min-width: 100%;
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-button-color-bg, transparent);
       appearance: none;
