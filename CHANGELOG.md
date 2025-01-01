@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.2.4 - 2024-12-30
+## 1.2.0 - 2024-12-30
 ### Added
 - Added definition lists and tables to `<admin-bar-text>` elements.
   - The `dl-content` prop on `<admin-bar-text>` elements generates a `<dl>` from a stringified JSON tuple (array with only 2 values).
@@ -15,9 +15,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Removed default value for `--admin-bar-text-padding`.
   - Setting this will not hurt, but it gives you more flexibility to specify padding in popover content.
 
+
 ## 1.1.4 - 2024-12-23
 ### Changed
 - Matched color of `<admin-bar-text>` labels to button text when a button containing a `<admin-bar-text>` element is hovered over.
+
 
 ## 1.1.3 - 2024-12-11
 ### Added
@@ -25,13 +27,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - If you add `<admin-bar-button>` or `<admin-bar-text>` elements into a popover the text color will be determined by their respective CSS Custom Properties.
 - Added right-aligned fallback positions for popovers.
 
+
 ## 1.1.2 - 2024-12-05
 ### Changed
 - Minor default color tweaks for higher color contrast.
 
+
 ## 1.1.1 - 2024-12-04
 ### Added
 - Added `--admin-bar-bg-color` CSS Custom Property. Setting this sets a default background color used in gradients and as background colors on popovers.
+
 
 ### Changed
 - Moved some CSS color properties around in order to make it easier to style `<admin-bar>` elements and popovers more consistently.
@@ -40,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 - Changed all `rgba()` values to `rgb()`.
+
 
 ## 1.1.0 - 2024-12-03
 ### Added
@@ -53,9 +59,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed value of `--admin-bar-bg` CSS property from `linear-gradient` to a color;
 - Upgraded dependencies.
 
+
 ## 1.0.1 - 2024-01-25
 ### Added
 - Added `--admin-bar-text-padding` property–allowing you to adjust the padding on `<admin-bar-text>` elements.
+
 
 ## 1.0.0 - 2024-01-14
 ### Added
