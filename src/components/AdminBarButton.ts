@@ -25,7 +25,7 @@ export class AdminBarButton extends LitElement {
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
-      padding: 0 clamp(4px, 1vw, 13px);
+      padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);
       min-width: 100%;
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-button-color-bg, transparent);
@@ -52,7 +52,7 @@ export class AdminBarButton extends LitElement {
       }
 
       &.admin-bar-button--logout {
-        padding: 0 clamp(10px, 3vw, 20px);
+        padding: var(--admin-bar-block-padding) clamp(10px, 3vw, 20px);
 
         &:hover {
           --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
@@ -95,6 +95,9 @@ export class AdminBarButton extends LitElement {
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
       box-shadow: var(--admin-bar-shadow);
       color: var(--admin-bar-button-popover-color-text, rgb(255 255 255));
+      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%)
+        color-mix(in srgb, var(--admin-bar-bg-color), transparent 90%);
+      scrollbar-width: thin;
 
       @supports (position-anchor: --popover-anchor) and (position-try-fallbacks: --popover-top) {
         & {

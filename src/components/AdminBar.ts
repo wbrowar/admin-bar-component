@@ -34,6 +34,9 @@ export class AdminBar extends LitElement {
       font-family: var(--admin-bar-font-stack);
       font-size: var(--admin-bar-font-size, 0.9rem);
       color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
+      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%)
+        color-mix(in srgb, var(--admin-bar-bg-color), transparent 90%);
+      scrollbar-width: thin;
 
       &.admin-bar--environment {
         grid-template-rows: var(--environment-height) var(--admin-bar-height, 43px);

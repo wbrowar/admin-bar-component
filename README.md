@@ -264,6 +264,49 @@ Text in `<admin-bar-text>` elements are not allowed to wrap by default, but addi
 </admin-bar>
 ```
 
+### Adding Definition Lists to Admin Bar Text Elements (in Popovers)
+
+The `dl-content` prop displays an array of key/value arrays in a `<dl>` element. While you otherwise can be creative with it, it’s intended to be used in popovers as part of `<admin-bar-button>` elements.
+
+To add a button that displays a list of items in a popover you can start with an `<admin-bar>` with an `<admin-bar-button>` element in it. In the `<admin-bar-button>` element, add the `popover` slot:
+
+```html
+<admin-bar>
+  <admin-bar-text>
+     List of items.
+     <span slot="popover"></span>
+  </admin-bar-text>
+</admin-bar>
+```
+
+Add an `<admin-bar-text>` element with the `dl-content` prop. The value of the prop is an array of arrays. For each second-level array, 2 values are required. The first value will always render in a `<dt>` element and the second value will render in its matching `<dd>` element.
+
+```html
+<admin-bar>
+  <admin-bar-text>
+     List of items.
+     <span slot="popover">
+        <admin-bar-text dl-content='[["Line 1 title", "Line 1 content"], ["Line 2 title", "Line 2 content"]]'></admin-bar-text>
+     </span>
+  </admin-bar-text>
+</admin-bar>
+```
+
+Notice how above the `dl-content` prop uses single quotes (`''`) for the attribute value? The contents of the `dl-content` prop need to be a valid JSON string. You can use single quotes so you can use double quotes like above, however, if you are working in a situation where you can’t do that, you can escape double quotes by using `&quot;` instead:
+
+```html
+<admin-bar>
+  <admin-bar-text>
+     List of items.
+     <span slot="popover">
+        <admin-bar-text dl-content="[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]"></admin-bar-text>
+     </span>
+  </admin-bar-text>
+</admin-bar>
+```
+
+
+
 ### Admin Bar Text Public Properties
 
 | Attribute Name   | Type               | Default        | Description                                                                                     |
@@ -280,6 +323,8 @@ Text in `<admin-bar-text>` elements are not allowed to wrap by default, but addi
 
 #### Admin Bar Text Types
 
+Here are the TypeScript types that describe the formats for the props 
+
 ```typescript
 type TextDlContent = [string | number, string | number][]
 
@@ -289,11 +334,6 @@ interface TextTableContent {
   rows: (string | number)[][]
 }
 ```
-
-| Name             | TypeScript Type                                          |
-|------------------|----------------------------------------------------------|
-| TextDlContent    | `[string | number, string | number][]`              |
-| TextTableContent | `{ footers?: string[]; headers?: string[]; rows: (string | number)[][] }` |
 
 ### Admin Bar Text Slots
 
@@ -404,6 +444,12 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       /* The height of the bar and all of the buttons. */
       --admin-bar-height: 43px;
 
+      /* The vertical padding default for Admin Bar child elements. */
+      --admin-bar-block-padding: 0;
+
+      /* The horizontal padding default for Admin Bar child elements. */
+      --admin-bar-inline-padding: clamp(4px, 1vw, 13px);
+
       /* When `show-environment` is added to an `<admin-bar>` an environment
       warning will appear. The default looks like yellow, striped police tape,
       but you can use any CSS value used in the background shorthand property. */
@@ -455,7 +501,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       --admin-bar-button-popover-border-radius: var(--admin-bar-border-radius);
 
       /* The value of the padding property on `admin-bar-text` components. */
-      /*--admin-bar-text-padding: 0 clamp(4px, 1vw, 13px);*/
+      /*--admin-bar-text-padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);*/
 
       /* The background for labels in `admin-bar-text` components. */
       --admin-bar-text-label-color-bg: rgb(255 255 255 / 0.9);

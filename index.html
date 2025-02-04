@@ -64,7 +64,7 @@
           </admin-bar-button>
         </span>
       </admin-bar-button>
-      <admin-bar-button>Popover Slot 4<span slot="popover"><admin-bar-text dl-content='[["Created at", "Dec 23, 2024 10:09 AM"],["Updated at", "Dec 29, 2024 5:23 PM"],["Entry ID", "5023"],["Long Text","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]'></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button>Popover Slot 4<span slot="popover"><admin-bar-text dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button>Popover Slot 5<span slot="popover"><admin-bar-text table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'></admin-bar-text></span></admin-bar-button>
       <admin-bar-button>Popover Slot 6<span slot="popover"><admin-bar-text
               multi-line
@@ -76,6 +76,9 @@
       <admin-bar-text label-content="25" label-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
+      <admin-bar-text style="--admin-bar-text-padding: 0;">
+        <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">DIV</div>
+      </admin-bar-text>
       <admin-bar-text label-content="STAGING" style="--admin-bar-text-label-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>
 

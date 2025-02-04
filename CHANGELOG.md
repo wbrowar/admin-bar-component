@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.1 - 2025-02-03
+### Added
+- Styled the scrollbars that appear on `<admin-bar>` and `<admin-bar-button>` popover elements.
+
+### Changed
+- Split padding on `<admin-bar-button>` and `<admin-bar-text>` elements into separate CSS Custom Properties, `--admin-bar-block-padding` and `--admin-bar-inline-padding`.
+
+
 ## 1.2.0 - 2024-12-30
 ### Added
 - Added definition lists and tables to `<admin-bar-text>` elements.

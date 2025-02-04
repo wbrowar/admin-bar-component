@@ -28,7 +28,7 @@ export class AdminBarText extends LitElement {
       flex-wrap: nowrap;
       gap: 5px;
       align-items: center;
-      padding: var(--admin-bar-text-padding, 0 clamp(4px, 1vw, 13px));
+      padding: var(--admin-bar-text-padding, var(--admin-bar-block-padding) var(--admin-bar-inline-padding));
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
@@ -39,7 +39,7 @@ export class AdminBarText extends LitElement {
         color var(--admin-bar-transition-duration, 0.4s) ease-out;
 
       &:is(.multi-line, :has(dl, table)) {
-        padding: var(--admin-bar-text-padding, clamp(4px, 1vw, 13px));
+        padding: var(--admin-bar-text-padding, var(--admin-bar-inline-padding));
         height: unset;
         white-space: unset;
 
