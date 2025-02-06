@@ -147,7 +147,7 @@ export class AdminBarButton extends LitElement {
    * =========================================================================
    */
   /**
-   * List of guides being displayed, along with their related information.
+   * Tracks whether the `popover` slot has content.
    */
   @state()
   private _hasPopoverSlot = false
@@ -157,9 +157,6 @@ export class AdminBarButton extends LitElement {
    * SLOTS
    * =========================================================================
    */
-  // @queryAssignedNodes({ slot: 'popover' })
-  // _popoverChildren!: Array<Node>
-
   handlePopoverSlotchange(e: any) {
     const childNodes = e.target.assignedNodes({ flatten: true })
 

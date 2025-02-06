@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 import './AdminBarButton.ts'
 import { glassStyles } from './css.ts'
@@ -74,6 +74,10 @@ export class AdminBar extends LitElement {
       margin-block-end: var(--margin-block-end, 0.5rem);
       padding: 0 clamp(6px, 2vw, 15px);
       white-space: nowrap;
+
+      &:has(+ [slot='popover']) {
+        padding: 0;
+      }
 
       &:has(img) {
         display: grid;
@@ -187,6 +191,28 @@ export class AdminBar extends LitElement {
   showLogout = false
 
   /**
+   * =========================================================================
+   * STATE
+   * =========================================================================
+   */
+  /**
+   * Tracks whether the `greeting-popover` slot has content.
+   */
+  @state()
+  private _hasGreetingPopoverSlot = false
+
+  /**
+   * =========================================================================
+   * SLOTS
+   * =========================================================================
+   */
+  handleGreetingPopoverSlotchange(e: any) {
+    const childNodes = e.target.assignedNodes({ flatten: true })
+
+    this._hasGreetingPopoverSlot = childNodes.length > 0
+  }
+
+  /**
    * ===========================================================================
    * LIFECYCLE
    * ===========================================================================
@@ -199,14 +225,28 @@ export class AdminBar extends LitElement {
       'admin-bar--logout': this.showLogout,
     }
 
-    const greetingContent = this.showGreeting
-      ? html`
+    const greetingInnerContent = this.showGreeting
+      ? html`<div class="greeting">
           ${this.avatarSrc
             ? html`<img alt="${this.avatarAlt}" src="${this.avatarSrc}" width="25px" height="25px" />`
             : nothing}
           <span><slot name="greeting">${this.greetingText}</slot></span>
-        `
+        </div>`
       : nothing
+
+    const greetingContent = this._hasGreetingPopoverSlot
+      ? html`
+          <admin-bar-button>
+            ${greetingInnerContent}
+            <div slot="popover">
+              <slot name="greeting-popover" @slotchange="${this.handleGreetingPopoverSlotchange}"></slot>
+            </div>
+          </admin-bar-button>
+        `
+      : html`${greetingInnerContent}<slot
+            name="greeting-popover"
+            @slotchange="${this.handleGreetingPopoverSlotchange}"
+          ></slot>`
 
     const logoutContent = this.showLogout
       ? html`<slot name="logout"
@@ -223,7 +263,7 @@ export class AdminBar extends LitElement {
         <div class="glass-surface"></div>
         <div class="glass-edge"></div>
         <div class="environment"></div>
-        <div class="greeting">${greetingContent}</div>
+        ${greetingContent}
         <div class="buttons"><slot></slot></div>
         <div class="logout">${logoutContent}</div>
       </nav>

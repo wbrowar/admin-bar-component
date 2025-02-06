@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.3.0 - 2025-02-05
+### Added
+- Added the ability to add a popover to the greeting area. This can be used to add a user account-specific menu or user details.
+
+
 ## 1.2.1 - 2025-02-03
 ### Added
 - Styled the scrollbars that appear on `<admin-bar>` and `<admin-bar-button>` popover elements.
