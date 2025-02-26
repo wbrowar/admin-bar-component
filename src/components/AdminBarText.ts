@@ -22,6 +22,7 @@ export class AdminBarText extends LitElement {
       --margin: 4px;
       --border-radius: 4px;
       display: inline-block;
+      text-box: trim-both cap alphabetic;
     }
     .admin-bar-text {
       display: flex;
@@ -51,9 +52,12 @@ export class AdminBarText extends LitElement {
       & dl {
         display: grid;
         grid-template-columns: max-content 1fr;
-        gap: 0.5rem 1rem;
+        gap: 1rem;
         margin: 0;
 
+        & :is(dt, dd) {
+          text-box: trim-both cap alphabetic;
+        }
         & dt {
           font-weight: 700;
           text-align: end;
@@ -98,10 +102,11 @@ export class AdminBarText extends LitElement {
       }
     }
     .label {
-      padding: 3px 5px;
+      padding: 0.4em;
       background-color: var(--admin-bar-text-label-color-bg, rgb(255 255 255 / 0.9));
       border-radius: 4px;
       line-height: 1;
+      text-box: trim-both cap alphabetic;
       font-size: 0.8em;
       color: var(--admin-bar-text-label-color-text, black);
     }

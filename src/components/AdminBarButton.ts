@@ -16,6 +16,7 @@ export class AdminBarButton extends LitElement {
       --margin: 4px;
       --border-radius: 4px;
       display: block;
+      text-box: trim-both cap alphabetic;
       --achor-name: --popover-anchor;
     }
     .admin-bar-button {
@@ -69,22 +70,13 @@ export class AdminBarButton extends LitElement {
     }
 
     @position-try --popover-bottom-right {
-      left: auto;
-      right: anchor(var(--achor-name) right);
+      position-area: block-end span-inline-start;
     }
     @position-try --popover-top-left {
-      margin: 0 0 2px 0;
-      top: auto;
-      top: anchor(var(--achor-name) none);
-      bottom: anchor(var(--achor-name) top);
+      position-area: block-start span-inline-start;
     }
     @position-try --popover-top-right {
-      margin: 0 0 2px 0;
-      top: auto;
-      top: anchor(var(--achor-name) none);
-      bottom: anchor(var(--achor-name) top);
-      left: auto;
-      right: anchor(var(--achor-name) right);
+      position-area: block-start span-inline-end;
     }
     [popover] {
       padding: 0;
@@ -99,17 +91,16 @@ export class AdminBarButton extends LitElement {
         color-mix(in srgb, var(--admin-bar-bg-color), transparent 90%);
       scrollbar-width: thin;
 
-      @supports (position-anchor: --popover-anchor) and (position-try-fallbacks: --popover-top) {
+      @supports (position-anchor: var(--achor-name)) and (position-try-fallbacks: --popover-top) {
         & {
-          position-anchor: --popover-anchor;
-          position-try-fallbacks: --popover-bottom-right, --popover-top-left, --popover-top-right;
+          position-anchor: var(--achor-name);
           position: fixed;
-          top: anchor(var(--achor-name) bottom);
-          left: anchor(var(--achor-name) left);
-          margin: 2px 0 0 0;
+          position-area: block-end span-inline-end;
+          position-try-fallbacks: --popover-bottom-right, --popover-top-left, --popover-top-right;
+          margin: 2px 0 calc(var(--environment-height) + 2px);
         }
       }
-      @supports not (position-anchor: --popover-anchor) {
+      @supports not (position-anchor: var(--achor-name)) {
         &::backdrop {
           backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
           background: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
@@ -177,9 +168,13 @@ export class AdminBarButton extends LitElement {
       'admin-bar-button--logout': this.isLogoutButton,
     }
 
-    const labelContent = html`<slot name="label-before"></slot
-      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
-      ><slot name="label-after"></slot>`
+    // TODO:2.x remove `label-before` and `label-after` slots
+    const labelContent = html`<slot name="before-label"></slot
+      ><slot
+        ><slot name="label-before"></slot
+        ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
+        ><slot name="label-after"></slot><slot name="after-label"></slot
+      ></slot>`
 
     if (this.href) {
       adminBarClasses['admin-bar-button--el-a'] = true

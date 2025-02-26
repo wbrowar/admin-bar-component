@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.3.1 - 2025-02-25
+### Added
+- Added `after-label` and `before-label` slots to `<admin-bar-button>` to match documentation.
+
+### Changed
+- Introduced `text-box` trimming to some elements and modified padding to align better.
+- Changed default CSS anchor position behavior to use `position-area` instead of `top/left` position properties.
+
+### Deprecated
+- Deprecated `label-after` and `label-before` slots on `<admin-bar-button>` elements. This will be removed in a future major version.
+
+
 ## 1.3.0 - 2025-02-05
 ### Added
 - Added the ability to add a popover to the greeting area. This can be used to add a user account-specific menu or user details.
