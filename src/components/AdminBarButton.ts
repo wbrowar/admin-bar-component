@@ -33,6 +33,7 @@ export class AdminBarButton extends LitElement {
       appearance: none;
       border: none;
       outline-color: var(--admin-bar-color-highlight);
+      font-family: var(--admin-bar-font-stack);
       font-size: var(--font-size);
       text-decoration: none;
       color: var(--admin-bar-button-color-text, white);

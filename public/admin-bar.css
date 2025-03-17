@@ -24,7 +24,7 @@
     /* The color of text for everything but button labels.. */
     --admin-bar-color-text: rgb(255 255 255 / 0.9);
 
-    /* The font stack for all text. */
+    /* The font stack for all text. Set this to `inherit` to match the font-family of the parent element (including fonts set in @font-face). */
     --admin-bar-font-stack: system-ui, sans-serif;
 
     /* The font size for all text. */

@@ -6,34 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit + TS</title>
     <link rel="stylesheet" href="/admin-bar.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
     <script type="module" src="/src/components/AdminBar.ts"></script>
     <script type="module" src="/src/components/AdminBarButton.ts"></script>
     <script type="module" src="/src/components/AdminBarText.ts"></script>
     <style>
-        /* Add this CSS to your project CSS to change the size of your icons. */
-        admin-bar {
-          /*--admin-bar-bg-color: #b500ff;*/
-          /*--admin-bar-bg: rebeccapurple;*/
+      body {
+        font-family: 'Tangerine', serif;
+        color: green;
+      }
 
-            & svg.icon {
-                display: block;
-                width: 15px;
-                height: auto;
-            }
+      /* Add this CSS to your project CSS to change the size of your icons. */
+      admin-bar {
+        /* CSS for testing overrides. */
+        /*--admin-bar-bg-color: #b500ff;*/
+        /*--admin-bar-bg: rebeccapurple;*/
+        /*--admin-bar-font-stack: inherit;*/
+        /*--admin-bar-font-size: 1.4rem;*/
+
+        & svg.icon {
+          display: block;
+          width: 15px;
+          height: auto;
         }
-        /* Copy the CSS Custom Properties you would like to use and add them to your project CSS. */
-        /* NOTE: you don’t need to keep the class name on the admin-bar or in the CSS. It’s just here for these examples. */
-        admin-bar {
-            &.craft {
-                --admin-bar-bg-color: oklch(0.11 0.3 190);
-                --admin-bar-color-highlight: oklch(0.54 0.3 23.9);
-                --admin-bar-color-text: rgb(228, 237, 246);
-            }
-            &.drupal {
-                --admin-bar-bg-color: rgb(0 0 0 / 0.9);
-                --admin-bar-color-highlight: oklch(0.61 0.22 245);
-            }
+      }
+      /* Copy the CSS Custom Properties you would like to use and add them to your project CSS. */
+      /* NOTE: you don’t need to keep the class name on the admin-bar or in the CSS. It’s just here for these examples. */
+      admin-bar {
+        &.craft {
+          --admin-bar-bg-color: oklch(0.11 0.3 190);
+          --admin-bar-color-highlight: oklch(0.54 0.3 23.9);
+          --admin-bar-color-text: rgb(228, 237, 246);
         }
+        &.drupal {
+          --admin-bar-bg-color: rgb(0 0 0 / 0.9);
+          --admin-bar-color-highlight: oklch(0.61 0.22 245);
+        }
+      }
     </style>
   </head>
   <body>
@@ -82,7 +91,7 @@
       <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
       <admin-bar-text style="--admin-bar-text-padding: 0;">
-        <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">DIV</div>
+        <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
       </admin-bar-text>
       <admin-bar-text label-content="STAGING" style="--admin-bar-text-label-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>
