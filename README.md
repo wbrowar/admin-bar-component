@@ -424,7 +424,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       /* The color of text for everything but button labels.. */
       --admin-bar-color-text: rgb(255 255 255 / 0.9);
 
-      /* The font stack for all text. */
+      /* The font stack for all text. Set this to `inherit` to match the font-family of the parent element (including fonts set in @font-face). */
       --admin-bar-font-stack: system-ui, sans-serif;
 
       /* The font size for all text. */
@@ -517,6 +517,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       display: block;
       width: var(--admin-bar-width, 100%);
       height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
+
+      /* Stop `admin-bar-button` elements from shrinking on resize. */
+      & > admin-bar-button {
+         flex-shrink: 0;
+      }
 
       /* Add height when environment warning is enabled. */
       &[show-environment] {

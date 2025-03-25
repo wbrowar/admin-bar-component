@@ -118,6 +118,11 @@
     width: var(--admin-bar-width, 100%);
     height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
 
+    /* Stop `admin-bar-button` elements from shrinking on resize. */
+    & > admin-bar-button {
+      flex-shrink: 0;
+    }
+
     /* Add height when environment warning is enabled. */
     &[show-environment] {
       --environment-height: var(--admin-bar-environment-height);

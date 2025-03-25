@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 1.3.5 - 2025-03-24
+### Changed
+- Changed `flex-shrink` from previous version to area that can be overridden.
+
+
+## 1.3.4 - 2025-03-24
+### Changed
+- Elements in the buttons area are now set to not shrink (`flex-shrink: 0`).
+
+### Fixed
+- Reverted overflow change in `1.3.3`.
+
+
+## 1.3.3 - 2025-03-24
+> {warning} There seem to be some issues with this implementation of popover and anchor positioning in Safari Tech Preview 215. Will keep an eye on it and look for solutions to resolve the issues before the next release of Safari.
+
+### Changed
+- The buttons container now sets `overflow-y` to `visible`
+
+
 ## 1.3.2 - 2025-03-17
 ### Fixed
 - Fixed an issue where setting a custom font stack wasn’t being passed into all elements (including buttons and popovers).
