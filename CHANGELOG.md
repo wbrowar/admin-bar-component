@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.4.0 - 2025-04-20
+### Added
+- EXPERIMENTAL — Added CSS parts for popovers and the Admin Bar buttons container.
+  - If this works correctly it will become a documented feature, but until then please consider holding off on using it production.
+
+### Fixed
+- Fixed an issue on `<admin-bar-button>` where default slot was nested twice.
+
+
 ## 1.3.5 - 2025-03-24
 ### Changed
 - Changed `flex-shrink` from previous version to area that can be overridden.

@@ -170,12 +170,9 @@ export class AdminBarButton extends LitElement {
     }
 
     // TODO:2.x remove `label-before` and `label-after` slots
-    const labelContent = html`<slot name="before-label"></slot
-      ><slot
-        ><slot name="label-before"></slot
-        ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
-        ><slot name="label-after"></slot><slot name="after-label"></slot
-      ></slot>`
+    const labelContent = html`<slot name="before-label"></slot><slot name="label-before"></slot
+      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot><slot name="label-after"></slot
+      ><slot name="after-label"></slot>`
 
     if (this.href) {
       adminBarClasses['admin-bar-button--el-a'] = true
@@ -188,7 +185,7 @@ export class AdminBarButton extends LitElement {
       return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
           ${labelContent}
         </button>
-        <div popover id="admin-bar-button-popover">
+        <div popover id="admin-bar-button-popover" part="popover">
           <div class="glass-surface"></div>
           <div class="glass-edge"></div>
           <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>

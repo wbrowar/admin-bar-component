@@ -264,7 +264,7 @@ export class AdminBar extends LitElement {
         <div class="glass-edge"></div>
         <div class="environment"></div>
         ${greetingContent}
-        <div class="buttons"><slot></slot></div>
+        <div class="buttons" part="buttons"><slot></slot></div>
         <div class="logout">${logoutContent}</div>
       </nav>
     `
