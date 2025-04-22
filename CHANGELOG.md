@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.4.2 - 2025-04-21
+### Added
+- Added CSS Custom Properties to `<admin-bar-text>` table and dl children.
+- EXPERIMENTAL — Added `avatar` CSS part `<admin-bar>` greeting image.
+  - If this works correctly it will become a documented feature, but until then please consider holding off on using it production.
+
+
+## 1.4.1 - 2025-04-21
+### Added
+- EXPERIMENTAL — Added CSS parts for `dl` and `table` elements in `<admin-bar-text>` elements
+  - If this works correctly it will become a documented feature, but until then please consider holding off on using it production.
+
+
 ## 1.4.0 - 2025-04-20
 ### Added
 - EXPERIMENTAL — Added CSS parts for popovers and the Admin Bar buttons container.

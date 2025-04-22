@@ -228,7 +228,7 @@ export class AdminBar extends LitElement {
     const greetingInnerContent = this.showGreeting
       ? html`<div class="greeting">
           ${this.avatarSrc
-            ? html`<img alt="${this.avatarAlt}" src="${this.avatarSrc}" width="25px" height="25px" />`
+            ? html`<img alt="${this.avatarAlt}" src="${this.avatarSrc}" width="25px" height="25px" part="avatar" />`
             : nothing}
           <span><slot name="greeting">${this.greetingText}</slot></span>
         </div>`

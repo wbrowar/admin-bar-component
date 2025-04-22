@@ -8,7 +8,7 @@
     "test:open": "cypress open"
   },
   "name": "admin-bar-component",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "dist/admin-bar.js",

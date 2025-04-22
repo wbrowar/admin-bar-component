@@ -59,14 +59,15 @@ export class AdminBarText extends LitElement {
           text-box: trim-both cap alphabetic;
         }
         & dt {
-          font-weight: 700;
-          text-align: end;
-          text-wrap: balance;
+          max-width: var(--dt-max-width, 50ch);
+          font-weight: var(--dt-font-weight, 700);
+          text-align: var(--dt-text-align, end);
+          text-wrap: var(--dt-text-wrap, balance);
         }
         & dd {
           margin: 0;
-          max-width: 50ch;
-          text-wrap: pretty;
+          max-width: var(--dd-max-width, 50ch);
+          text-wrap: var(--dd-text-wrap, pretty);
         }
       }
       & table {
@@ -95,9 +96,9 @@ export class AdminBarText extends LitElement {
         }
         & :is(td, th) {
           padding: var(--admin-bar-text-padding, clamp(4px, 0.8vw, 10px));
-          max-width: 50ch;
+          max-width: var(--td-max-width, 50ch);
           font-weight: initial;
-          text-wrap: pretty;
+          text-wrap: var(--td-text-wrap, pretty);
         }
       }
     }
@@ -165,7 +166,7 @@ export class AdminBarText extends LitElement {
       textContent.push(html`<span class="text">${this.textContent}</span>`)
     } else if (this.dlContent.length) {
       textContent.push(
-        html`<dl>
+        html`<dl part="dl">
           ${this.dlContent.map(
             (row) =>
               html`<dt>${row[0] ?? ''}</dt>
@@ -175,7 +176,7 @@ export class AdminBarText extends LitElement {
       )
     } else if (this.tableContent?.rows?.length) {
       textContent.push(
-        html`<table>
+        html`<table part="table">
           ${this.tableContent?.headers?.length
             ? html`<thead>
                 <tr>
