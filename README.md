@@ -585,6 +585,110 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 > [!NOTE]
 > Changes made to Admin Bar Component will try to avoid breaking functionality and styles until the next major version. In order to introduce new features, the CSS and CSS Custom Properties above may change how they are used to style these components. This file may change and default styles may be added or removed over time, so including it into your project should be automated or frequently updated.
 
+## Programmatically Adding Admin Bar
+
+An optional helper, called `AdminBarBuilder`, can be added to your project to generate an `<admin-bar>` element from structured data. This could be helpful if you use an API endpoint to generate data to pass into Admin Bar.
+
+To use `AdminBarBuilder`, import the `AdminBarBuilder` class into your project along with the default JavaScript and CSS files.
+
+```javascript
+import { AdminBarBuilder } from 'admin-bar-component'
+import 'admin-bar-component/dist/admin-bar.css'
+```
+
+From here you can construct a new `AdminBarBuilder` and pass in your structured data and options:
+
+```javascript
+const builderData = {
+ buttons: [
+   {
+     buttonHref: '/',
+     labelText: 'Dashboard',
+     icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72" style="width: 16px; height: auto;"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg>',
+     type: 'button',
+   },
+   // ... more buttons or text elements
+ ],
+ environment: {
+   enable: true,
+   label: 'DEV',
+ },
+ greeting: {
+   avatarAlt: 'randomly generated image',
+   avatarSrc: 'https://picsum.photos/150/150',
+   enable: true,
+   text: 'Hello, Author',
+ },
+ logout: {
+   enable: true,
+   href: '/logout',
+   label: 'Logout',
+ },
+}
+new AdminBarBuilder({
+ options: {
+   adminBarClass: 'sticky',
+ },
+ container: document.getElementById('admin-bar-autorender-target'),
+ data: builderData,
+})
+```
+
+When you pass an element into the `container` property and valid data into the `data` property, it will automatically replace the contents of that container with a generated `<admin-bar>` element.
+
+If you prefer to modify data or programmatically replace an existing `<admin-bar>` element you can break this process up into multiple steps:
+
+```javascript
+const builderData = {
+ buttons: [
+   {
+     buttonHref: '/',
+     labelText: 'Dashboard',
+     icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.47 193.88" style="width: 18px; height: auto;"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>dashboard</title><path class="cls-1" d="M125.92,97.18A18.93,18.93,0,0,0,118,92.43L57,55.88l37.48,60.79a19,19,0,1,0,31.48-19.49Z"/><path class="cls-1" d="M114.24,0C51.15,0,0,51.33,0,114.42a115.09,115.09,0,0,0,17.8,61.45c4.25,6,11.17,18,21.67,18h148c10.5,0,18.95-12,23.2-18A114.54,114.54,0,0,0,114.24,0ZM40.63,175.88a96.86,96.86,0,0,1-22.16-61.51,95.76,95.76,0,1,1,169.37,61.51Z"/></svg>',
+     type: 'button',
+   },
+   // ... more buttons or text elements
+ ],
+ environment: {
+   enable: true,
+ },
+ greeting: {
+   avatarAlt: 'randomly generated image',
+   avatarSrc: 'https://picsum.photos/150/150',
+   enable: true,
+ },
+ logout: {
+   enable: true,
+ },
+}
+
+// Init a new AdminBarBuilder instance.
+const adminBarBuilder = new AdminBarBuilder()
+
+// Set options to pass into AdminBarBuilder.
+adminBarBuilder.setOptions({
+ adminBarStyle: {
+   '--admin-bar-environment-bg-color': 'oklch(0.71 0.33 341.27)',
+ }
+})
+
+// Set a container target that will be replaced later on.
+adminBarBuilder.setContainer(document.getElementById('admin-bar-split-target'))
+
+// Set structured data—this can be set on page or after an API call to get this data.
+adminBarBuilder.setData(builderData)
+
+// Get an `<admin-bar>` element generated from the options and data passed in above.
+// If a required property isn’t set, this will return `null`
+const adminBar = adminBarBuilder.getAdminBar()
+if (adminBar) {
+ // Replace container children with new `<admin-bar>` child.
+ adminBarBuilder.addAdminBar(adminBar)
+}
+```
+
+For a full list of available properties, see the source at: `./src/utils/AdminBarBuilder.ts`
+
 ## Contributing
 This project is new and it will evolve as it grows (including adding CI automation, tests, and checks). For now, if you run into any bugs, please [leave an issue on GitHub](https://github.com/wbrowar/admin-bar-component/issues).
 

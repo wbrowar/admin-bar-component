@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.5.2 - 2025-05-07
+### Changed
+- Moved `AdminBarBuilder` into default module export.
+
+
+## 1.5.1 - 2025-05-07
+### Changed
+- Moved type definitions to seperate file and included it in bundled package.
+
+### Fixed
+- Renamed private properties in `AdminBarBuilder` class.
+
+
+## 1.5.0 - 2025-05-03
+### Added
+- Added `AdminBarBuilder` that programmatically generates and populates an `<admin-bar>` element.
+
+
 ## 1.4.2 - 2025-04-21
 ### Added
 - Added CSS Custom Properties to `<admin-bar-text>` table and dl children.

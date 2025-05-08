@@ -118,7 +118,7 @@ export class AdminBarButton extends LitElement {
   /**
    * Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute.
    */
-  @property({ attribute: 'button-href', type: [String, Function, Array] })
+  @property({ attribute: 'button-href' })
   href: string | undefined
 
   /**

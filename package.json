@@ -8,13 +8,15 @@
     "test:open": "cypress open"
   },
   "name": "admin-bar-component",
-  "version": "1.4.2",
+  "version": "1.5.2",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "dist/admin-bar.js",
   "files": [
-    "dist/admin-bar.css"
+    "dist/admin-bar.css",
+    "types/index.d.ts"
   ],
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wbrowar/admin-bar-component.git"

@@ -1,12 +1,6 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-
-export type TextDlContent = [string | number, string | number][]
-export interface TextTableContent {
-  footers?: string[]
-  headers?: string[]
-  rows: (string | number)[][]
-}
+import type { TextDlContent, TextTableContent } from '../../types'
 
 @customElement('admin-bar-text')
 export class AdminBarText extends LitElement {
