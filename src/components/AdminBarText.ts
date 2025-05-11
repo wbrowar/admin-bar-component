@@ -1,8 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import type { TextDlContent, TextTableContent } from '../../types'
 
-@customElement('admin-bar-text')
 export class AdminBarText extends LitElement {
   /**
    * =========================================================================
@@ -209,6 +208,10 @@ export class AdminBarText extends LitElement {
 
     return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`
   }
+}
+
+if (!customElements.get('admin-bar-text')) {
+  customElements.define('admin-bar-text', AdminBarText)
 }
 
 declare global {

@@ -1,11 +1,10 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
 import './AdminBarButton.ts'
 import { glassStyles } from './css.ts'
 
-@customElement('admin-bar')
 export class AdminBar extends LitElement {
   /**
    * ===========================================================================
@@ -269,6 +268,10 @@ export class AdminBar extends LitElement {
       </nav>
     `
   }
+}
+
+if (!customElements.get('admin-bar')) {
+  customElements.define('admin-bar', AdminBar)
 }
 
 declare global {

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.5.3 - 2025-05-11
+### Changed
+- All `<admin-bar>`, `<admin-bar-button>`, and `<admin-bar-text>` elements will check to see if they are defined before defining their custom elements.
+
+
 ## 1.5.2 - 2025-05-07
 ### Changed
 - Moved `AdminBarBuilder` into default module export.

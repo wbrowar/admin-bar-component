@@ -1,8 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 
-@customElement('admin-bar-button')
 export class AdminBarButton extends LitElement {
   /**
    * =========================================================================
@@ -195,6 +194,10 @@ export class AdminBarButton extends LitElement {
     return html`<button class="${classMap(adminBarClasses)}">${labelContent}</button
       ><slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>`
   }
+}
+
+if (!customElements.get('admin-bar-button')) {
+  customElements.define('admin-bar-button', AdminBarButton)
 }
 
 declare global {
