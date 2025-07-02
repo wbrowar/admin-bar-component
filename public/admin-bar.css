@@ -31,7 +31,7 @@
     --admin-bar-font-size: .9rem;
 
     /* Background for glass element, used as a fallback for browsers that don’t support `mask-image`. */
-    --admin-bar-glass-bg: var(--admin-bar-bg, linear-gradient(var(--admin-bar-gradient-direction), var(--admin-bar-bg-color), color-mix(in srgb, var(--admin-bar-bg-color), transparent 100%) 80%));
+    --admin-bar-glass-bg: var(--admin-bar-bg, linear-gradient(var(--admin-bar-gradient-direction), color-mix(in srgb, var(--admin-bar-bg-color), transparent 10%), color-mix(in srgb, var(--admin-bar-bg-color), transparent 100%) 80%));
 
     /* The thickness of the glass effect on admin bar. */
     --admin-bar-glass-thickness: 2px;
@@ -177,6 +177,14 @@
     admin-bar {
       /* Turns off transitions for users who do not want any animations. */
       --admin-bar-transition-duration: 0s;
+    }
+  }
+  @media (prefers-reduced-transparency) {
+    admin-bar {
+      /* Reduces the amount of transparency in background colors for users who prefer more contrast.
+         If `--admin-bar-bg` is set, these values will be overridden by the color chosen for `--admin-bar-bg`. */
+      --admin-bar-glass-bg: var(--admin-bar-bg, linear-gradient(var(--admin-bar-gradient-direction), var(--admin-bar-bg-color), color-mix(in srgb, var(--admin-bar-bg-color), transparent 50%) 80%));
+      --admin-bar-button-popover-bg: var(--admin-bar-bg, color-mix(in srgb, var(--admin-bar-bg-color), transparent 20%));
     }
   }
 }

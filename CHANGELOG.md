@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.5.4 - 2025-07-01
+### Added
+- Automatically reduce the transparency on `<admin-bar>` and popover backgrounds using the `prefers-reduced-transparency` query.
+
+
 ## 1.5.3 - 2025-05-11
 ### Changed
 - All `<admin-bar>`, `<admin-bar-button>`, and `<admin-bar-text>` elements will check to see if they are defined before defining their custom elements.
