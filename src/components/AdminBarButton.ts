@@ -1,6 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { property, state } from 'lit/decorators.js'
+import { glassStyles } from './css.ts'
 
 export class AdminBarButton extends LitElement {
   /**
@@ -19,6 +20,7 @@ export class AdminBarButton extends LitElement {
       --achor-name: --popover-anchor;
     }
     .admin-bar-button {
+      appearance: none;
       anchor-name: var(--achor-name);
       box-sizing: border-box;
       display: flex;
@@ -29,7 +31,6 @@ export class AdminBarButton extends LitElement {
       min-width: 100%;
       height: var(--admin-bar-height, 43px);
       background-color: var(--admin-bar-button-color-bg, transparent);
-      appearance: none;
       border: none;
       outline-color: var(--admin-bar-color-highlight);
       font-family: var(--admin-bar-font-stack);
@@ -52,11 +53,30 @@ export class AdminBarButton extends LitElement {
         color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
       }
 
+      &.admin-bar-button--greeting {
+        border-start-start-radius: var(--admin-bar-border-radius);
+        border-end-start-radius: var(--admin-bar-border-radius);
+
+        @container style(--admin-bar-show-environment) {
+          & {
+            border-start-start-radius: 0;
+          }
+        }
+      }
+
       &.admin-bar-button--logout {
         padding: var(--admin-bar-block-padding) clamp(10px, 3vw, 20px);
+        border-end-end-radius: var(--admin-bar-border-radius);
+        border-start-end-radius: var(--admin-bar-border-radius);
 
         &:hover {
           --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
+        }
+
+        @container style(--admin-bar-show-environment) {
+          & {
+            border-start-end-radius: 0;
+          }
         }
       }
     }
@@ -79,16 +99,14 @@ export class AdminBarButton extends LitElement {
       position-area: block-start span-inline-end;
     }
     [popover] {
+      /* Must be at the top to allow background to be overridden. */
+      ${glassStyles()}
       padding: 0;
       border: 0;
-      background: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
-      backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
-      border: 2px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);
+      background: var(--admin-bar-button-popover-bg);
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
-      box-shadow: var(--admin-bar-shadow);
       color: var(--admin-bar-button-popover-color-text, rgb(255 255 255));
-      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%)
-        color-mix(in srgb, var(--admin-bar-bg-color), transparent 90%);
+      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
       scrollbar-width: thin;
 
       @supports (position-anchor: var(--achor-name)) and (position-try-fallbacks: --popover-top) {
@@ -102,8 +120,8 @@ export class AdminBarButton extends LitElement {
       }
       @supports not (position-anchor: var(--achor-name)) {
         &::backdrop {
-          backdrop-filter: var(--admin-bar-backdrop-filter, blur(20px) saturate(200%));
-          background: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
+          backdrop-filter: var(--admin-bar-glass-filter, blur(20px) saturate(200%));
+          background: var(--admin-bar-button-popover-bg, var(--admin-bar-glass-color));
         }
       }
     }
@@ -125,6 +143,12 @@ export class AdminBarButton extends LitElement {
    */
   @property({ attribute: 'label-text' })
   label = ''
+
+  /**
+   * Styles the button when it is used in the Admin Bar greeting area.
+   */
+  @property({ attribute: 'greeting-button', type: Boolean })
+  isGreetingButton = false
 
   /**
    * Styles the button like the default logout button.
@@ -165,6 +189,7 @@ export class AdminBarButton extends LitElement {
       'admin-bar-button--el-a': false,
       'admin-bar-button--el-button': false,
       'admin-bar-button--el-select': false,
+      'admin-bar-button--greeting': this.isGreetingButton,
       'admin-bar-button--logout': this.isLogoutButton,
     }
 
@@ -184,9 +209,7 @@ export class AdminBarButton extends LitElement {
       return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
           ${labelContent}
         </button>
-        <div popover id="admin-bar-button-popover" part="popover">
-          <div class="glass-surface"></div>
-          <div class="glass-edge"></div>
+        <div popover id="admin-bar-button-popover" class="glass-surface" part="popover">
           <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>
         </div>`
     }

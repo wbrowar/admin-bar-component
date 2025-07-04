@@ -20,6 +20,8 @@ export class AdminBar extends LitElement {
     }
 
     .admin-bar {
+      /* Must be at the top to allow background to be overridden. */
+      ${glassStyles()}
       --border-color: color-mix(in srgb, currentColor, transparent 80%);
       display: grid;
       grid-template-areas:
@@ -28,24 +30,29 @@ export class AdminBar extends LitElement {
       grid-template-columns: max-content 1fr max-content;
       grid-template-rows: 0 var(--admin-bar-height, 43px);
       align-items: center;
-      background: var(--admin-bar-bg, var(--admin-bar-bg-color, rgba(0 0 0 / 0.8)));
-      box-shadow: var(--admin-bar-shadow);
+      background: var(--admin-bar-bg);
+      border-radius: var(--admin-bar-border-radius);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--admin-bar-font-size, 0.9rem);
       color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
-      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%)
-        color-mix(in srgb, var(--admin-bar-bg-color), transparent 90%);
+      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
       scrollbar-width: thin;
 
       &.admin-bar--environment {
+        --admin-bar-show-environment: true;
         grid-template-rows: var(--environment-height) var(--admin-bar-height, 43px);
       }
-
-      ${glassStyles()}
+      &.admin-bar--greeting {
+        --admin-bar-show-greeting: true;
+      }
+      &.admin-bar--logout {
+        --admin-bar-show-logout: true;
+      }
     }
 
     .environment {
       grid-area: environment;
+      border-radius: var(--admin-bar-border-radius) var(--admin-bar-border-radius) 0 0;
 
       .admin-bar--environment & {
         height: var(--environment-height);
@@ -72,6 +79,8 @@ export class AdminBar extends LitElement {
       margin-block-start: var(--margin-block-start, 0.5rem);
       margin-block-end: var(--margin-block-end, 0.5rem);
       padding: 0 clamp(6px, 2vw, 15px);
+      border-end-start-radius: var(--admin-bar-border-radius);
+      border-end-end-radius: var(--admin-bar-border-radius);
       white-space: nowrap;
 
       &:has(+ [slot='popover']) {
@@ -222,6 +231,7 @@ export class AdminBar extends LitElement {
       'admin-bar--environment': this.showEnvironment,
       'admin-bar--greeting': this.showGreeting,
       'admin-bar--logout': this.showLogout,
+      'glass-surface': true,
     }
 
     const greetingInnerContent = this.showGreeting
@@ -235,7 +245,7 @@ export class AdminBar extends LitElement {
 
     const greetingContent = this._hasGreetingPopoverSlot
       ? html`
-          <admin-bar-button>
+          <admin-bar-button greeting-button>
             ${greetingInnerContent}
             <div slot="popover">
               <slot name="greeting-popover" @slotchange="${this.handleGreetingPopoverSlotchange}"></slot>
@@ -259,8 +269,6 @@ export class AdminBar extends LitElement {
 
     return html`
       <nav class="${classMap(adminBarClasses)}">
-        <div class="glass-surface"></div>
-        <div class="glass-edge"></div>
         <div class="environment"></div>
         ${greetingContent}
         <div class="buttons" part="buttons"><slot></slot></div>

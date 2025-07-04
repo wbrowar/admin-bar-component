@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.6.1 - 2025-07-04
+### Changed
+- Reduced the size of the noise pattern to lower make the CSS file size smaller.
+
+
+## 1.6.0 - 2025-07-04
+
+> [!IMPORTANT]  
+> This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
+
+### Added
+- Added new CSS variables to manage the backdrop-filter (`--admin-bar-bg-filter`) and background-image (`--admin-bar-bg-image`) properties.
+- Added `--admin-bar-inset-size` to add space between Admin Bar Component and its container.
+  - On the `block` axis it adds `inset-block`
+  - On the `inline` axis it adds `margin-inline`
+
+### Changed
+- Admin Bar Component has been slightly redesigned by the following concepts:
+  - Replaced the glassy effect with a different implementation.
+  - Used border radius CSS variable to round the corners on the `<admin-bar>` element.
+  - Gave `<admin-bar>` inset values.
+  - If you prefer to go back to the previous design, set:
+    - `--admin-bar-inset-size: 0;`
+    - `--admin-bar-border-radius: 0;` (and then override it again for `<admin-bar-button>` elements)
+- Width of `<admin-bar>` is no longer set to `100%` by default.
+  - This fixes some issues that come up when `position: fixed;` on `<admin-bar>` elements.
+- Re-ordered default styles to be alphabetic in related groups.
+
+### Removed
+- Removed the following CSS variables
+  - `--admin-bar-backdrop-filter`
+    - Use `--admin-bar-bg-filter` instead.
+  - `--admin-bar-glass-bg`
+    - Use `--admin-bar-bg-color` instead.
+  - `--admin-bar-glass-thickness`
+  - `--admin-bar-shadow`
+
+
 ## 1.5.4 - 2025-07-01
 ### Added
 - Automatically reduce the transparency on `<admin-bar>` and popover backgrounds using the `prefers-reduced-transparency` query.
