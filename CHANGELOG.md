@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+> [!IMPORTANT]  
+> This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
+
+
+## 1.7.0 - 2025-09-19
+### Added
+- Added new glass effect and replaced previous "glass" styles.
+  - This is off by default and can be enabled by setting `--admin-bar-enable-glass: true;`.
+  - The glass effect works on browsers that support SVG filters in `backdrop-filter` and container `style()` queries.
+
+### Changed
+- Refactored anchor position to iron out a few issues found in Safari’s recent implementation of CSS Anchor Positioning.
+- Updated dependencies and raised Node version to 22.
+
+### Removed
+- Removed the following CSS variables
+    - `--admin-bar-bg-image`
+      - Use `--admin-bar-bg` instead as it will be used in all areas where `--admin-bar-bg-image` was.
+
 
 ## 1.6.1 - 2025-07-04
 ### Changed

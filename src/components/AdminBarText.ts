@@ -10,10 +10,6 @@ export class AdminBarText extends LitElement {
    */
   static styles = css`
     :host {
-      --padding-left: 10px;
-      --padding-right: 10px;
-      --margin: 4px;
-      --border-radius: 4px;
       display: inline-block;
       text-box: trim-both cap alphabetic;
     }

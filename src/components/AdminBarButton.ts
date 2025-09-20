@@ -1,7 +1,8 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { property, state } from 'lit/decorators.js'
-import { glassStyles } from './css.ts'
+import { AdminBarSurface } from './AdminBarSurface.ts'
+import { hoverClickableElement } from './css.ts'
 
 export class AdminBarButton extends LitElement {
   /**
@@ -10,18 +11,23 @@ export class AdminBarButton extends LitElement {
    * =========================================================================
    */
   static styles = css`
+    @position-try --popover-above {
+      inset: auto;
+      bottom: anchor(top);
+    }
+    @position-try --popover-below {
+      inset: auto;
+      top: anchor(bottom);
+    }
     :host {
-      --padding-left: 10px;
-      --padding-right: 10px;
-      --margin: 4px;
-      --border-radius: 4px;
       display: block;
       text-box: trim-both cap alphabetic;
-      --achor-name: --popover-anchor;
     }
     .admin-bar-button {
+      ${hoverClickableElement()}
+      --popover-name: --popover-anchor;
+      anchor-name: var(--popover-name);
       appearance: none;
-      anchor-name: var(--achor-name);
       box-sizing: border-box;
       display: flex;
       flex-wrap: nowrap;
@@ -30,28 +36,12 @@ export class AdminBarButton extends LitElement {
       padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);
       min-width: 100%;
       height: var(--admin-bar-height, 43px);
-      background-color: var(--admin-bar-button-color-bg, transparent);
       border: none;
       outline-color: var(--admin-bar-color-highlight);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--font-size);
       text-decoration: none;
-      color: var(--admin-bar-button-color-text, white);
       white-space: nowrap;
-      cursor: pointer;
-      transition:
-        background var(--admin-bar-transition-duration, 0.4s) ease-out,
-        color var(--admin-bar-transition-duration, 0.4s) ease-out;
-
-      &:hover {
-        transition-duration: calc(var(--admin-bar-transition-duration, 0.4s) / 2);
-      }
-      &:not(.admin-bar-button--logout):hover {
-        --admin-bar-button-color-bg: var(--admin-bar-button-color-bg-hover, var(--admin-bar-button-color-text, white));
-        --admin-bar-text-label-color-bg: var(--admin-bar-color-highlight);
-        --admin-bar-text-label-color-text: var(--admin-bar-button-color-bg-hover);
-        color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
-      }
 
       &.admin-bar-button--greeting {
         border-start-start-radius: var(--admin-bar-border-radius);
@@ -89,39 +79,37 @@ export class AdminBarButton extends LitElement {
       }
     }
 
-    @position-try --popover-bottom-right {
-      position-area: block-end span-inline-start;
-    }
-    @position-try --popover-top-left {
-      position-area: block-start span-inline-start;
-    }
-    @position-try --popover-top-right {
-      position-area: block-start span-inline-end;
-    }
     [popover] {
-      /* Must be at the top to allow background to be overridden. */
-      ${glassStyles()}
+      --admin-bar-context-popover: true;
       padding: 0;
       border: 0;
-      background: var(--admin-bar-button-popover-bg);
+      background: transparent;
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
       color: var(--admin-bar-button-popover-color-text, rgb(255 255 255));
       scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
       scrollbar-width: thin;
 
-      @supports (position-anchor: var(--achor-name)) and (position-try-fallbacks: --popover-top) {
+      @supports (position-anchor: var(--popover-name)) and (position-try-fallbacks: flip-block) {
         & {
-          position-anchor: var(--achor-name);
+          position-anchor: var(--popover-name);
           position: fixed;
-          position-area: block-end span-inline-end;
-          position-try-fallbacks: --popover-bottom-right, --popover-top-left, --popover-top-right;
-          margin: 2px 0 calc(var(--environment-height) + 2px);
+          position-try-fallbacks: --popover-above;
+          justify-self: anchor-center;
+          inset: auto;
+          top: anchor(bottom);
+          margin: 4px;
+
+          @container style(--admin-bar-class-bottom: true) {
+            position-try-fallbacks: --popover-below;
+            inset: auto;
+            bottom: anchor(top);
+          }
         }
       }
-      @supports not (position-anchor: var(--achor-name)) {
+      @supports not (position-anchor: --popover-anchor) {
         &::backdrop {
-          backdrop-filter: var(--admin-bar-glass-filter, blur(20px) saturate(200%));
-          background: var(--admin-bar-button-popover-bg, var(--admin-bar-glass-color));
+          backdrop-filter: blur(20px) saturate(200%);
+          background: var(--admin-bar-button-popover-bg);
         }
       }
     }
@@ -183,6 +171,12 @@ export class AdminBarButton extends LitElement {
    * LIFECYCLE
    * =========================================================================
    */
+  constructor() {
+    super()
+    if (!customElements.get('admin-bar-surface')) {
+      customElements.define('admin-bar-surface', AdminBarSurface)
+    }
+  }
   render() {
     const adminBarClasses = {
       'admin-bar-button': true,
@@ -209,9 +203,9 @@ export class AdminBarButton extends LitElement {
       return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
           ${labelContent}
         </button>
-        <div popover id="admin-bar-button-popover" class="glass-surface" part="popover">
+        <admin-bar-surface popover id="admin-bar-button-popover" part="popover">
           <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>
-        </div>`
+        </admin-bar-surface>`
     }
 
     return html`<button class="${classMap(adminBarClasses)}">${labelContent}</button

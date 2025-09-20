@@ -3,7 +3,7 @@ import { classMap } from 'lit/directives/class-map.js'
 import { property, state } from 'lit/decorators.js'
 
 import './AdminBarButton.ts'
-import { glassStyles } from './css.ts'
+import { AdminBarSurface } from './AdminBarSurface.ts'
 
 export class AdminBar extends LitElement {
   /**
@@ -12,6 +12,15 @@ export class AdminBar extends LitElement {
    * ===========================================================================
    */
   static styles = css`
+    :host(.fixed) {
+      --admin-bar-class-fixed: true;
+    }
+    :host(.sticky) {
+      --admin-bar-class-sticky: true;
+    }
+    :host(.bottom) {
+      --admin-bar-class-bottom: true;
+    }
     * {
       position: relative;
       margin: 0;
@@ -19,10 +28,11 @@ export class AdminBar extends LitElement {
       box-sizing: border-box;
     }
 
+    admin-bar-surface {
+      display: block;
+    }
     .admin-bar {
-      /* Must be at the top to allow background to be overridden. */
-      ${glassStyles()}
-      --border-color: color-mix(in srgb, currentColor, transparent 80%);
+      --border-color: color-mix(in srgb, rgb(255 255 255 / 0.5), var(--admin-bar-bg-color));
       display: grid;
       grid-template-areas:
         'environment environment environment'
@@ -225,6 +235,12 @@ export class AdminBar extends LitElement {
    * LIFECYCLE
    * ===========================================================================
    */
+  constructor() {
+    super()
+    if (!customElements.get('admin-bar-surface')) {
+      customElements.define('admin-bar-surface', AdminBarSurface)
+    }
+  }
   render() {
     const adminBarClasses = {
       'admin-bar': true,
@@ -268,12 +284,14 @@ export class AdminBar extends LitElement {
       : nothing
 
     return html`
-      <nav class="${classMap(adminBarClasses)}">
-        <div class="environment"></div>
-        ${greetingContent}
-        <div class="buttons" part="buttons"><slot></slot></div>
-        <div class="logout">${logoutContent}</div>
-      </nav>
+      <admin-bar-surface>
+        <nav class="${classMap(adminBarClasses)}">
+          <div class="environment"></div>
+          ${greetingContent}
+          <div class="buttons" part="buttons"><slot></slot></div>
+          <div class="logout">${logoutContent}</div>
+        </nav>
+      </admin-bar-surface>
     `
   }
 }
