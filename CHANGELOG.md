@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.7.3 - 2025-09-20
+### Fixed
+- Fixed incorrect default value for `--admin-bar-color-text-logout`.
+
+
 ## 1.7.2 - 2025-09-20
 ### Added
 - Added `--admin-bar-color-text-logout` CSS Variable.

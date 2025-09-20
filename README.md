@@ -428,7 +428,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
 
     /* The color of the text when the logout button is in the hover state. */
-    --admin-bar-color-text-logout: var(--admin-bar-bg-color);
+    --admin-bar-color-text-logout: var(--admin-bar-color-text);
 
     /* The color of text for everything but button labels.. */
     --admin-bar-color-text: oklch(1 0 89.876 / 0.9);

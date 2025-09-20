@@ -2,13 +2,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "deploy": "npm run test && npm run build && npm publish",
     "preview": "vite preview",
-    "publish": "npm run test && npm run build && npm publish",
     "test": "cypress run --component",
     "test:open": "cypress open"
   },
   "name": "admin-bar-component",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "dist/admin-bar.js",
