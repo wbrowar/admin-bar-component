@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.7.1 - 2025-09-19
+### Fixed
+- Ran build.
+
+
 ## 1.7.0 - 2025-09-19
 ### Added
 - Added new glass effect and replaced previous "glass" styles.
