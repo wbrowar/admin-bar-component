@@ -9,7 +9,7 @@
     /*--admin-bar-bg: var(--admin-bar-bg-color);*/
 
     /* The color of the glass background. Will get overridden if `--admin-bar-bg` is set. */
-    --admin-bar-bg-color: oklch(0, 0, 0 / 0.5);
+    --admin-bar-bg-color: oklch(0 0 0 / 0.5);
 
     /* The backdrop-filter value for the glass background. */
     --admin-bar-bg-filter: blur(13px) brightness(0.65) saturate(2.5);
@@ -27,10 +27,13 @@
     a different color to make it more obvious that the logout button is not a link. */
     --admin-bar-color-highlight-logout: var(--admin-bar-color-highlight);
 
+    /* The color of the text when the logout button is in the hover state. */
+    --admin-bar-color-text-logout: var(--admin-bar-bg-color);
+
     /* The color of text for everything but button labels.. */
     --admin-bar-color-text: oklch(1 0 89.876 / 0.9);
 
-    /* When `show-environment` is added to an `<admin-bar>` an environment
+    /* When the `show-environment` attribute is added to an `<admin-bar>` an environment
     warning will appear. The default looks like yellow, striped police tape,
     but you can use any CSS value used in the background shorthand property. */
     --admin-bar-environment-bg: repeating-linear-gradient(

@@ -61,6 +61,7 @@ export class AdminBarButton extends LitElement {
 
         &:hover {
           --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
+          --admin-bar-button-color-text: var(--admin-bar-color-text-logout);
         }
 
         @container style(--admin-bar-show-environment) {
@@ -86,6 +87,9 @@ export class AdminBarButton extends LitElement {
       background: transparent;
       border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
       color: var(--admin-bar-button-popover-color-text, rgb(255 255 255));
+      box-shadow:
+        0 6px 6px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(0, 0, 0, 0.1);
       scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
       scrollbar-width: thin;
 

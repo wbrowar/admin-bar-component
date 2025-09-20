@@ -15,12 +15,15 @@ export class AdminBar extends LitElement {
     :host(.fixed) {
       --admin-bar-class-fixed: true;
     }
+
     :host(.sticky) {
       --admin-bar-class-sticky: true;
     }
+
     :host(.bottom) {
       --admin-bar-class-bottom: true;
     }
+
     * {
       position: relative;
       margin: 0;
@@ -31,8 +34,9 @@ export class AdminBar extends LitElement {
     admin-bar-surface {
       display: block;
     }
+
     .admin-bar {
-      --border-color: color-mix(in srgb, rgb(255 255 255 / 0.5), var(--admin-bar-bg-color));
+      --border-color: color-mix(in oklch, var(--admin-bar-color-text), transparent 90%);
       display: grid;
       grid-template-areas:
         'environment environment environment'
@@ -44,17 +48,19 @@ export class AdminBar extends LitElement {
       border-radius: var(--admin-bar-border-radius);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--admin-bar-font-size, 0.9rem);
-      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
-      scrollbar-color: color-mix(in srgb, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
+      color: var(--admin-bar-color-text, oklch(1 0 89.876 / 0.8));
+      scrollbar-color: color-mix(in oklch, var(--admin-bar-color-text), transparent 20%) var(--admin-bar-bg-color);
       scrollbar-width: thin;
 
       &.admin-bar--environment {
         --admin-bar-show-environment: true;
         grid-template-rows: var(--environment-height) var(--admin-bar-height, 43px);
       }
+
       &.admin-bar--greeting {
         --admin-bar-show-greeting: true;
       }
+
       &.admin-bar--logout {
         --admin-bar-show-logout: true;
       }
@@ -145,6 +151,7 @@ export class AdminBar extends LitElement {
       .admin-bar--greeting & {
         border-left: 1px solid var(--border-color);
       }
+
       .admin-bar--logout & {
         border-right: 1px solid var(--border-color);
       }

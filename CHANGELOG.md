@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.7.2 - 2025-09-20
+### Added
+- Added `--admin-bar-color-text-logout` CSS Variable.
+
+### Changed
+- Replaced box-shadow borders with gradient border on `<admin-bar-surface>` elements.
+
+### Fixed
+- Added box-shadows to popovers.
+
+
 ## 1.7.1 - 2025-09-19
 ### Fixed
 - Ran build.

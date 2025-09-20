@@ -27,6 +27,7 @@ export class AdminBarSurface extends LitElement {
         }
       }
     }
+
     .effect {
       position: absolute;
       inset: 0;
@@ -42,6 +43,7 @@ export class AdminBarSurface extends LitElement {
         }
       }
     }
+
     .tint {
       position: absolute;
       inset: 0;
@@ -55,15 +57,28 @@ export class AdminBarSurface extends LitElement {
         }
       }
     }
+
     .shine {
       position: absolute;
       inset: 0;
-      box-shadow:
-        inset 2px 2px 1px 0 color-mix(in oklch, var(--admin-bar-bg-color), rgb(255 255 255 / 0.5) 50%),
-        inset -1px -1px 1px 1px color-mix(in oklch, var(--admin-bar-bg-color), rgb(255 255 255 / 0.5) 50%);
+      background: linear-gradient(
+          140deg,
+          color-mix(in oklch, var(--admin-bar-bg-color), oklch(1 0 89.876 / 0.8)),
+          10%,
+          var(--admin-bar-bg-color) 70%,
+          color-mix(in oklch, var(--admin-bar-bg-color), oklch(1 0 89.876 / 0.7))
+        )
+        border-box;
+      border: 1px solid transparent;
+      border-radius: var(--admin-bar-border-radius);
+      mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
       overflow: hidden;
       z-index: 2;
     }
+
     .content {
       z-index: 3;
     }
