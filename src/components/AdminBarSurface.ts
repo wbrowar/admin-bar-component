@@ -1,4 +1,7 @@
 import { css, html, LitElement } from 'lit'
+import { property, state } from 'lit/decorators.js'
+
+export type ProgressState = 'error' | 'progress' | 'reset' | 'success'
 
 export class AdminBarSurface extends LitElement {
   /**
@@ -7,6 +10,14 @@ export class AdminBarSurface extends LitElement {
    * =========================================================================
    */
   static styles = css`
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
     .wrapper {
       display: grid;
       border-radius: var(--admin-bar-border-radius);
@@ -79,11 +90,88 @@ export class AdminBarSurface extends LitElement {
       z-index: 2;
     }
 
-    .content {
+    .progress {
+      --_progress-color: var(--admin-bar-progress-color, oklch(0.6 0.24 253.14 / 0.7));
+      position: absolute;
+      inset-block-end: 0;
+      height: var(--admin-bar-progress-height, var(--admin-bar-height));
+      width: var(--_progress-width, 0);
+      background-color: var(--_progress-color);
+      border-radius: var(--admin-bar-border-radius);
+      box-shadow:
+        0 0 5px color-mix(in oklch, var(--_progress-color), transparent 10%),
+        0 0 40px color-mix(in oklch, var(--_progress-color), transparent 50%);
+      transition:
+        background-color var(--admin-bar-transition-duration) ease-out,
+        box-shadow var(--admin-bar-transition-duration) ease-out,
+        width var(--admin-bar-transition-duration) ease-out;
       z-index: 3;
+
+      &:is(.error, .success) {
+        animation: fadeOut calc(var(--admin-bar-transition-duration) * 2) ease-out forwards 2s;
+
+        &.error {
+          animation-delay: 5s;
+        }
+      }
+      &.reset {
+        transition:
+          background-color var(--admin-bar-transition-duration) ease-out,
+          box-shadow var(--admin-bar-transition-duration) ease-out,
+          width 0s ease-out;
+        width: 0;
+      }
+      &.error {
+        --_progress-color: var(--admin-bar-progress-color-error, oklch(0.66 0.29 30.27 / 0.7));
+      }
+      &.success {
+        --_progress-color: var(--admin-bar-progress-color-success, oklch(0.85 0.36 146.38 / 0.7));
+      }
+    }
+
+    .content {
+      z-index: 4;
     }
   `
 
+  /**
+   * ===========================================================================
+   * PROPS
+   * ===========================================================================
+   */
+  /**
+   * TODO
+   */
+  @property({ attribute: 'progress-value', type: Number })
+  progressValue = 0
+
+  /**
+   * =========================================================================
+   * STATE
+   * =========================================================================
+   */
+  /**
+   * TODO
+   */
+  @state()
+  private _progressState: ProgressState = 'reset'
+
+  /**
+   * TODO
+   */
+  @state()
+  private _progressWidth = 0
+
+  /**
+   * =========================================================================
+   * METHODS
+   * =========================================================================
+   */
+  private _onProgressAnimationEnd() {
+    if (['error', 'success'].includes(this._progressState)) {
+      this._progressState = 'reset'
+    }
+  }
   /**
    * =========================================================================
    * LIFECYCLE
@@ -94,6 +182,11 @@ export class AdminBarSurface extends LitElement {
       <div class="effect"></div>
       <div class="tint"></div>
       <div class="shine"></div>
+      <div
+        class="progress ${this._progressState}"
+        @animationend="${this._onProgressAnimationEnd}"
+        style="--_progress-width: ${this._progressWidth}%;"
+      ></div>
       <div class="content">
         <slot></slot>
       </div>
@@ -135,6 +228,23 @@ export class AdminBarSurface extends LitElement {
         </defs>
       </svg>
     </div>`
+  }
+
+  protected willUpdate(changedProperties: Map<string, any>) {
+    if (changedProperties.has('progressValue')) {
+      this._progressWidth = 0
+
+      if (this.progressValue < 0) {
+        this._progressState = 'error'
+        this._progressWidth = 100
+      } else if (this.progressValue >= 100) {
+        this._progressState = 'success'
+        this._progressWidth = 100
+      } else if (this.progressValue >= 0 && this.progressValue < 100) {
+        this._progressState = 'progress'
+        this._progressWidth = this.progressValue
+      }
+    }
   }
 }
 

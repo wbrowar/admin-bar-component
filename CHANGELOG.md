@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.8.0 - 2025-10-07
+### Added
+- You can now use `<admin-bar>` as a visual progress bar.
+  - Added a new `progress` attribute to `<admin-bar>` elements.
+  - Added new CSS variables for progress styles:
+    - `--admin-bar-progress-color`
+    - `--admin-bar-progress-color-error`
+    - `--admin-bar-progress-color-success`
+    - `--admin-bar-progress-height`
+- Added border radius to the default placeholder for when `<admin-bar>` is not yet defined.
+
+### Changed
+- Changed the default check for SVG filters to specifically exclude Safari and Firefox.
+  - Ideally this check would be feature-based, but right now that is not possible with svg filters.
+
+
 ## 1.7.3 - 2025-09-20
 ### Fixed
 - Fixed incorrect default value for `--admin-bar-color-text-logout`.

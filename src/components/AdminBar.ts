@@ -198,6 +198,12 @@ export class AdminBar extends LitElement {
   logoutLabel = 'Sign out'
 
   /**
+   * Displays the default logout button or content added to the `logout` slot.
+   */
+  @property({ attribute: 'progress', type: Number })
+  progressValue = 0
+
+  /**
    * Displays the environment warning, letting users know what environment they are currently logged into.
    */
   @property({ attribute: 'show-environment', type: Boolean })
@@ -291,7 +297,7 @@ export class AdminBar extends LitElement {
       : nothing
 
     return html`
-      <admin-bar-surface>
+      <admin-bar-surface progress-value="${this.progressValue}">
         <nav class="${classMap(adminBarClasses)}">
           <div class="environment"></div>
           ${greetingContent}

@@ -101,6 +101,17 @@ Now your custom text will appear. If you would also like to add an avatar next t
 > [!NOTE]
 > If `show-greeting` is removed, the avatar image and the content in the `greeting` slot will no longer be rendered.
 
+## Using Admin Bar to Show Progress
+
+When using Admin Bar to make AJAX requests, you can show the progress and resolution of the request using Admin Bar as a visual progress bar. Setting the `progress` attribute to a number other than `0` will display a progress bar using a percentage from `0` to `100`.
+
+Accepted values:
+- `0-99` displays a blue progress bar where the blue is a percentage of the full Admin Bar element.
+- `100` (or above) displays a green progress bar that indicates that the request has completed successfully.
+- `-1` (or below) displays a red progress bar that indicates that the request has failed.
+
+The colors and the height of the progress bar can be customized using CSS Custom Properties. When the hight is changed, the progress bar will align to the bottom of Admin Bar.
+
 ### Admin Bar Public Properties
 
 | Attribute Name     | Type      | Default                       | Description                                                                                           |
@@ -110,6 +121,7 @@ Now your custom text will appear. If you would also like to add an avatar next t
 | `greeting-text`    | _string_  | `'Hello'`                     | Sets the greeting text content.                                                                       |
 | `logout-href`      | _string_  | `'#'`                         | A URL added to the default logout button, when `show-logout` is added to an `<admin-bar>`.            |
 | `logout-label`     | _string_  | `'Sign out'`                  | The label of the default logout button.                                                               |
+| `progress`         | _number_  | `0`                           | Displays a visual progress bar based on the number `progress` is set to.                              |
 | `show-environment` | _boolean_ | `false`                       | Displays the environment warning, letting users know what environment they are currently logged into. |
 | `show-greeting`    | _boolean_ | `false`                       | Displays the avatar and greeting message.                                                             |
 | `show-logout`      | _boolean_ | `false`                       | Displays the default logout button or content added to the `logout` slot.                             |
@@ -482,6 +494,27 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 
     /* ====================================================================== */
 
+    /* The color used for the the progress bar when displaying progress below 100. */
+    --admin-bar-progress-color: oklch(0.6 0.24 253.14 / 0.7);
+
+    /**
+     * The color used for the the progress bar when displaying an error.
+     * (When the `progress` attribute is set below 0)
+     */
+    --admin-bar-progress-color-error: oklch(0.66 0.29 30.27 / 0.7);
+
+    /**
+     * The color used for the the progress bar when displaying a successful action.
+     * (When the `progress` attribute is set to 100 or higher)
+     */
+    --admin-bar-progress-color-success: oklch(0.85 0.36 146.38 / 0.7);
+
+    /* The height of the progress bar. */
+    --admin-bar-progress-height: var(--admin-bar-height);
+    /*--admin-bar-progress-height: 4px;*/
+
+    /* ====================================================================== */
+
     /* The background of all buttons. */
     --admin-bar-button-color-bg: transparent;
 
@@ -562,6 +595,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     /* Avoid layout shift from happening before Admin Bar Component is registered. */
     &:not(:defined) {
       background: var(--admin-bar-bg-color);
+      border-radius: var(--admin-bar-border-radius);
       opacity: 0.75;
 
       /* Hide all slot content until Admin Bar Component is registered. */
@@ -571,7 +605,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     }
 
     /* Opt into glass distortion effect on browsers that support SVG filtering and boolean style queries. */
-    @supports (not (-webkit-backdrop-filter: blur(1px))) and (backdrop-filter: url(#filter)) {
+    @supports (not (font: -apple-system-body)) and (not (-moz-appearance: none)) {
       & {
         /*--admin-bar-enable-glass: true;*/
         /*--admin-bar-bg-filter: blur(2px) brightness(0.65) saturate(2.5);*/
