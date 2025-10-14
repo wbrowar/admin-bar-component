@@ -195,9 +195,8 @@ export class AdminBarButton extends LitElement {
       'admin-bar-button--logout': this.isLogoutButton,
     }
 
-    // TODO:2.x remove `label-before` and `label-after` slots
-    const labelContent = html`<slot name="before-label"></slot><slot name="label-before"></slot
-      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot><slot name="label-after"></slot
+    const labelContent = html`<slot name="before-label"></slot
+      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
       ><slot name="after-label"></slot>`
 
     if (this.href) {
