@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit'
 import { property, state } from 'lit/decorators.js'
 
-export type ProgressState = 'error' | 'progress' | 'reset' | 'success'
+export type ProgressState = 'error' | 'display' | 'reset' | 'success'
 
 export class AdminBarSurface extends LitElement {
   /**
@@ -28,7 +28,7 @@ export class AdminBarSurface extends LitElement {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
       overflow: hidden;
 
-      & > div {
+      & > div:not(.progress) {
         border-radius: var(--admin-bar-border-radius);
       }
 
@@ -243,7 +243,7 @@ export class AdminBarSurface extends LitElement {
         this._progressState = 'success'
         this._progressWidth = 100
       } else if (this.progressValue >= 0 && this.progressValue < 100) {
-        this._progressState = 'progress'
+        this._progressState = 'display'
         this._progressWidth = this.progressValue
       }
     }
