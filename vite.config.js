@@ -18,4 +18,9 @@ export default defineConfig({
       external: ['lib'],
     },
   },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+    },
+  },
 })
