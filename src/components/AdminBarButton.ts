@@ -221,10 +221,6 @@ export class AdminBarButton extends LitElement {
   }
 }
 
-if (!customElements.get('admin-bar-button')) {
-  customElements.define('admin-bar-button', AdminBarButton)
-}
-
 declare global {
   interface HTMLElementTagNameMap {
     'admin-bar-button': AdminBarButton

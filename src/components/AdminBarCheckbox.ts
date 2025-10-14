@@ -181,10 +181,6 @@ export class AdminBarCheckbox extends LitElement {
   }
 }
 
-if (!customElements.get('admin-bar-checkbox')) {
-  customElements.define('admin-bar-checkbox', AdminBarCheckbox)
-}
-
 declare global {
   interface HTMLElementTagNameMap {
     'admin-bar-checkbox': AdminBarCheckbox

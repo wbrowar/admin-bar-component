@@ -3,5 +3,6 @@ import { AdminBarBuilder } from '../src/utils/AdminBarBuilder'
 import { AdminBarButton } from '../src/components/AdminBarButton'
 import { AdminBarCheckbox } from '../src/components/AdminBarCheckbox.ts'
 import { AdminBarText } from '../src/components/AdminBarText'
+import { defineAdminBarElements } from '../src/utils/defineAdminBarElements'
 
-export { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarCheckbox, AdminBarText }
+export { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarCheckbox, AdminBarText, defineAdminBarElements }

@@ -2,7 +2,8 @@ import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { property, state } from 'lit/decorators.js'
 
-import './AdminBarButton.ts'
+import { AdminBarButton } from './AdminBarButton.ts'
+
 import { AdminBarSurface } from './AdminBarSurface.ts'
 
 export class AdminBar extends LitElement {
@@ -255,6 +256,9 @@ export class AdminBar extends LitElement {
    */
   constructor() {
     super()
+    if (!customElements.get('admin-bar-button')) {
+      customElements.define('admin-bar-button', AdminBarButton)
+    }
     if (!customElements.get('admin-bar-surface')) {
       customElements.define('admin-bar-surface', AdminBarSurface)
     }
@@ -312,10 +316,6 @@ export class AdminBar extends LitElement {
       </admin-bar-surface>
     `
   }
-}
-
-if (!customElements.get('admin-bar')) {
-  customElements.define('admin-bar', AdminBar)
 }
 
 declare global {

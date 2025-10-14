@@ -4,8 +4,9 @@
     "build": "tsc && vite build",
     "deploy": "npm run test && npm run build && npm publish",
     "preview": "vite preview",
-    "test": "cypress run --component",
-    "test:open": "cypress open"
+    "test": "npm run test:e2e",
+    "test:e2e": "cypress run --component",
+    "test:e2e:open": "cypress open"
   },
   "name": "admin-bar-component",
   "version": "1.10.1",
@@ -36,7 +37,7 @@
   },
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
   "devDependencies": {
-    "cypress": "^15.2.0",
+    "cypress": "^15.4.0",
     "cypress-ct-lit": "^1.0.0",
     "lit": "^3.3.1",
     "prettier": "^3.6.2",

@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 2.0.0 - 2025-10-13
+- Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
+  - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
+
+
 ## 1.10.1 - 2025-10-08
 ### Added
 - Added `position: relative;` to the wrapper around `<admin-bar-surface>` elements.

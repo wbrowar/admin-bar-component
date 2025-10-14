@@ -208,10 +208,6 @@ export class AdminBarText extends LitElement {
   }
 }
 
-if (!customElements.get('admin-bar-text')) {
-  customElements.define('admin-bar-text', AdminBarText)
-}
-
 declare global {
   interface HTMLElementTagNameMap {
     'admin-bar-text': AdminBarText
