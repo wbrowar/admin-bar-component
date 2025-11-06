@@ -164,6 +164,9 @@ export class AdminBarButton extends LitElement {
    * SLOTS
    * =========================================================================
    */
+  /**
+   * Event fired when content in the `popover` slot changes.
+   */
   handlePopoverSlotchange(e: any) {
     const childNodes = e.target.assignedNodes({ flatten: true })
 

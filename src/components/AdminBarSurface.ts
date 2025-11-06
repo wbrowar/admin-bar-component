@@ -172,6 +172,7 @@ export class AdminBarSurface extends LitElement {
       this._progressState = 'reset'
     }
   }
+
   /**
    * =========================================================================
    * LIFECYCLE

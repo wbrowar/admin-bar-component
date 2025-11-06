@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.9.0 - 2025-11-05
+### Added
+- Added experimental component, called `<admin-bar-checkbox>`. The API for this component might change over the next few releases, so please feel free to give it a try, but know that it might break as props and slots naming are finalized.
+  - NOTE: documentation for this component will be added when it is no longer experimental.
+
+
 ## 1.8.0 - 2025-10-07
 ### Added
 - You can now use `<admin-bar>` as a visual progress bar.
