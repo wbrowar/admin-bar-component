@@ -1,4 +1,4 @@
-import { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarText } from '../lib/main.ts'
+import { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarCheckbox, AdminBarText } from '../lib/main.ts'
 
 /**
  * Admin Bar Components
@@ -91,4 +91,4 @@ export interface BuilderAdminBarText {
   type: 'text'
 }
 
-export { AdminBar, AdminBarButton, AdminBarBuilder, AdminBarText }
+export { AdminBar, AdminBarButton, AdminBarBuilder, AdminBarCheckbox, AdminBarText }

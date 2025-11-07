@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit'
+import { css, html, LitElement, nothing, PropertyValues } from 'lit'
 import { property, state } from 'lit/decorators.js'
 import { hoverClickableElement } from './css.ts'
 import { classMap } from 'lit/directives/class-map.js'
@@ -96,6 +96,12 @@ export class AdminBarCheckbox extends LitElement {
   private _hasUncheckedIconSlot = false
 
   /**
+   * Tracks whether the `unchecked-icon` slot has content.
+   */
+  @state()
+  private _readyForUpdates = false
+
+  /**
    * =========================================================================
    * SLOTS
    * =========================================================================
@@ -131,6 +137,9 @@ export class AdminBarCheckbox extends LitElement {
    * LIFECYCLE
    * =========================================================================
    */
+  protected firstUpdated(_changedProperties: PropertyValues) {
+    this._readyForUpdates = true
+  }
   render() {
     const labelContent = html`<slot>${this.inputLabel}</slot>`
     const iconContent = this.inputChecked
@@ -156,7 +165,7 @@ export class AdminBarCheckbox extends LitElement {
   }
 
   protected willUpdate(changedProperties: Map<string, any>) {
-    if (changedProperties.has('inputChecked')) {
+    if (this._readyForUpdates && changedProperties.has('inputChecked')) {
       this.dispatchEvent(new CustomEvent('change', { detail: { checked: this.inputChecked } }))
 
       if (this.inputChecked) {
