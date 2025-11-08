@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.10.0 - 2025-10-08
+### Changed
+- Moved height or min-height properties to component `:host` selectors so you can adjust heights of text, button, or checkbox elements.
+- Adjusted the height of the greeting slot and the logout button to match the height of the toolbar.
+  - This helps when the toolbar is taller than the height of `--admin-bar-height`.
+
+
 ## 1.9.1 - 2025-11-07
 ### Fixed
 - AdminBarCheckbox no longer fires change events until after first render.

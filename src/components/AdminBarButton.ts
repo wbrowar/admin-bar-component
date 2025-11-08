@@ -21,6 +21,7 @@ export class AdminBarButton extends LitElement {
     }
     :host {
       display: block;
+      height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
     }
     .admin-bar-button {
@@ -35,7 +36,7 @@ export class AdminBarButton extends LitElement {
       align-items: center;
       padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);
       min-width: 100%;
-      height: var(--admin-bar-height, 43px);
+      height: 100%;
       border: none;
       outline-color: var(--admin-bar-color-highlight);
       font-family: var(--admin-bar-font-stack);

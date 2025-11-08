@@ -40,6 +40,27 @@
           --admin-bar-bg-filter: blur(2px) brightness(0.65) saturate(2.5);
         }
       }
+
+      admin-bar.on-page {
+        --admin-bar-height: max-content;
+
+        & > span {
+          display: none;
+        }
+        &::part(avatar) {
+          border-radius: 5px;
+          width: 50px;
+        }
+        &::part(buttons) {
+          flex-flow: row wrap;
+          justify-content: space-between;
+          overflow: auto;
+        }
+
+        & > * {
+          --admin-bar-height: 43px;
+        }
+      }
     </style>
 
     <script>
@@ -87,9 +108,9 @@
       <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="label-before" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="5"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button button-href="https://craftcms.com">Link Slot</admin-bar-button>
       <admin-bar-button onclick="alert('Hello')">Function Action<span slot="label-before"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>settings</title><path class="cls-1" d="M240,135V104.5l-35.93-15L201.32,81l15-34.87L194.87,24.5,158.63,39l-8.25-3.75L134.64,0h-29.5L90.06,35.55,82,38.84,45.33,24.94,24,46.38,39.55,81l-4,9L0,105v30l35.82,14.75,4,9-14.72,35.5L46.37,215l35.76-14.5,8.75,4L105.64,240h30l14.74-36.25,8.49-3.25,35.74,14.75L216.09,194l-14.55-36,3.27-8.5ZM120.45,165.13a45.25,45.25,0,1,1,45.25-45.25A45.25,45.25,0,0,1,120.45,165.13Z"/></svg></span></admin-bar-button>
-      <admin-bar-checkbox checked class="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
-      <admin-bar-checkbox input-switch checked>Switch style</admin-bar-checkbox>
-      <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>
+<!--      <admin-bar-checkbox checked class="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>-->
+<!--      <admin-bar-checkbox input-switch checked>Switch style</admin-bar-checkbox>-->
+<!--      <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>-->
       <admin-bar-button>Popover Slot 1<span slot="popover"><admin-bar-text>Hi, this is popover content 🍾</admin-bar-text></span></admin-bar-button>
       <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
         <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
@@ -202,7 +223,7 @@
       <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, aliquid aut cupiditate debitis delectus iure minus possimus rem. Accusamus alias corporis distinctio est fuga id ipsum nemo odit, possimus quis?</li>
     </ul>
 
-    <admin-bar show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
+    <admin-bar class="on-page" show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
       <nav slot="greeting-popover">
         <admin-bar-text multi-line label-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>

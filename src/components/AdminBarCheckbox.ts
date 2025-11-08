@@ -14,6 +14,10 @@ export class AdminBarCheckbox extends LitElement {
    * =========================================================================
    */
   static styles = css`
+    :host {
+      display: block;
+      height: var(--admin-bar-height, 43px);
+    }
     .admin-bar-checkbox {
       ${hoverClickableElement()}
       display: flex;
@@ -21,7 +25,7 @@ export class AdminBarCheckbox extends LitElement {
       gap: 5px;
       align-items: center;
       padding: var(--admin-bar-text-padding, var(--admin-bar-block-padding) var(--admin-bar-inline-padding));
-      height: var(--admin-bar-height, 43px);
+      height: 100%;
       accent-color: var(--admin-bar-color-highlight);
       white-space: nowrap;
 

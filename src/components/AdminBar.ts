@@ -86,6 +86,11 @@ export class AdminBar extends LitElement {
       }
     }
 
+    admin-bar-button:is([greeting-button], [logout-button]),
+    .logout {
+      display: block;
+      height: 100%;
+    }
     .admin-bar--greeting .greeting {
       grid-area: greeting;
       display: none;
@@ -132,7 +137,7 @@ export class AdminBar extends LitElement {
         }
 
         &:has(img) {
-          --grid-template-columns: var(--admin-bar-avatar-size, 25px) 1fr;
+          --grid-template-columns: max-content 1fr;
 
           & *:not(img) {
             display: initial;

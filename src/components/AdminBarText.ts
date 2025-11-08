@@ -10,16 +10,18 @@ export class AdminBarText extends LitElement {
    */
   static styles = css`
     :host {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
     }
     .admin-bar-text {
       display: flex;
       flex-wrap: nowrap;
-      gap: 5px;
       align-items: center;
+      gap: 5px;
       padding: var(--admin-bar-text-padding, var(--admin-bar-block-padding) var(--admin-bar-inline-padding));
-      height: var(--admin-bar-height, 43px);
+      height: 100%;
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
       color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
