@@ -20,6 +20,7 @@ export class AdminBarSurface extends LitElement {
     }
     .wrapper {
       display: grid;
+      position: relative;
       border-radius: var(--admin-bar-border-radius);
       box-shadow:
         0 6px 6px rgba(0, 0, 0, 0.2),

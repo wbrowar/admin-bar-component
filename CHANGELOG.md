@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 > This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
 
+## 1.10.1 - 2025-10-08
+### Added
+- Added `position: relative;` to the wrapper around `<admin-bar-surface>` elements.
+  - This can help make sure the surface background stays put when resizing `[popover]` elements.
+
+
 ## 1.10.0 - 2025-10-08
 ### Changed
 - Moved height or min-height properties to component `:host` selectors so you can adjust heights of text, button, or checkbox elements.
