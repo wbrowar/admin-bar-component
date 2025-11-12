@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Test files
-cypress/screenshots/*
+__screenshots__

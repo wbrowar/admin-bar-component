@@ -13,6 +13,11 @@ export class AdminBar extends LitElement {
    * ===========================================================================
    */
   static styles = css`
+    :host {
+      container-name: admin-bar;
+      container-type: inline-size;
+    }
+
     :host(.fixed) {
       --admin-bar-class-fixed: true;
     }
@@ -95,7 +100,7 @@ export class AdminBar extends LitElement {
     .admin-bar--greeting .greeting {
       grid-area: greeting;
       display: none;
-      grid-template-columns: var(--grid-template-columns, 1fr);
+      grid-template-columns: var(--grid-template-columns, max-content);
       gap: 7px;
       align-items: center;
       margin-block-start: var(--margin-block-start, 0.5rem);
@@ -112,12 +117,12 @@ export class AdminBar extends LitElement {
       &:has(img) {
         display: grid;
 
-        & *:not(img) {
+        *:not(img) {
           display: none;
         }
       }
 
-      & img {
+      img {
         display: block;
         aspect-ratio: 1 / 1;
         width: var(--admin-bar-avatar-size, 25px);
@@ -128,19 +133,15 @@ export class AdminBar extends LitElement {
       }
     }
 
-    @media (min-width: 700px) {
+    @container (width >= 700px) {
       .admin-bar--greeting .greeting {
-        --grid-template-columns: 1fr;
+        --grid-template-columns: max-content;
         display: grid;
 
-        @supports not selector(:has(*)) {
-          display: flex;
-        }
-
         &:has(img) {
-          --grid-template-columns: max-content 1fr;
+          --grid-template-columns: max-content max-content;
 
-          & *:not(img) {
+          *:not(img) {
             display: initial;
           }
         }
@@ -286,11 +287,16 @@ export class AdminBar extends LitElement {
           <admin-bar-button greeting-button>
             ${greetingInnerContent}
             <div slot="popover">
-              <slot name="greeting-popover" @slotchange="${this.handleGreetingPopoverSlotchange}"></slot>
+              <slot
+                data-testid="admin-bar-greeting-popover--slotted"
+                name="greeting-popover"
+                @slotchange="${this.handleGreetingPopoverSlotchange}"
+              ></slot>
             </div>
           </admin-bar-button>
         `
       : html`${greetingInnerContent}<slot
+            data-testid="admin-bar-greeting-popover--empty"
             name="greeting-popover"
             @slotchange="${this.handleGreetingPopoverSlotchange}"
           ></slot>`
@@ -308,7 +314,7 @@ export class AdminBar extends LitElement {
     return html`
       <admin-bar-surface progress-value="${this.progressValue}">
         <nav class="${classMap(adminBarClasses)}">
-          <div class="environment"></div>
+          <div data-testid="admin-bar-environment" class="environment"></div>
           ${greetingContent}
           <div class="buttons" part="buttons"><slot></slot></div>
           <div class="logout">${logoutContent}</div>

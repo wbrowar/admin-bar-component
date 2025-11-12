@@ -9,7 +9,7 @@ type AdminBarElement = 'button' | 'checkbox' | 'text'
  * Defines the `<admin-bar>` custom element, then defines the custom elements specified in the list.
  * @param list A list of Admin Bar’s custom elements.
  */
-export function defineAdminBarElements(list: AdminBarElement[]) {
+export function defineAdminBarElements(list: AdminBarElement[] = []) {
   /**
    * Define all supporting elements specified in the list.
    */

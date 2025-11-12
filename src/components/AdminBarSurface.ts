@@ -185,6 +185,7 @@ export class AdminBarSurface extends LitElement {
       <div class="tint"></div>
       <div class="shine"></div>
       <div
+        data-testid="admin-bar-surface-progress"
         class="progress ${this._progressState}"
         @animationend="${this._onProgressAnimationEnd}"
         style="--_progress-width: ${this._progressWidth}%;"
