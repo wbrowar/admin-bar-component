@@ -5,9 +5,7 @@
     "deploy": "npm run test:run && npm run build && npm publish",
     "preview": "vite preview",
     "test": "vitest --test-timeout=500",
-    "test:browser": "vitest --project=browser",
-    "test:run": "vitest run --browser.headless",
-    "test:unit": "vitest --project=unit"
+    "test:run": "vitest run --browser.headless"
   },
   "name": "admin-bar-component",
   "version": "1.10.1-alpha.0",

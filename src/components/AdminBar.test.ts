@@ -3,6 +3,16 @@ import { describe, expect, test } from 'vitest'
 import { html } from 'lit'
 import { page } from 'vitest/browser'
 
+describe('Toolbar Component', () => {
+  test('Displays toolbar', async () => {
+    const screen = render(html`<admin-bar></admin-bar>`)
+
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-blank')
+    }
+  })
+})
+
 describe('Greeting', () => {
   test('Displays greeting avatar and alt text', async () => {
     const screen = render(html`<admin-bar show-greeting avatar-alt="test" avatar-src="#"></admin-bar>`)
@@ -65,6 +75,10 @@ describe('Environment Warning', () => {
 
     adminBarElement.setAttribute('show-environment', '')
     await expect.element(screen.getByTestId('admin-bar-environment')).toBeVisible()
+
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-environment')
+    }
   })
 })
 
@@ -91,5 +105,9 @@ describe('Progress Bar', () => {
     const screen = render(html`<admin-bar progress="50"></admin-bar>`)
 
     await expect.element(screen.getByTestId('admin-bar-surface-progress')).toBeVisible()
+
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-progress')
+    }
   })
 })

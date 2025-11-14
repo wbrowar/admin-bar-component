@@ -23,16 +23,25 @@ describe('Checkbox Component', () => {
     await expect.element(screen.getByText('Checkbox Label')).toBeVisible()
   })
 
-  test.skip('Displays label before checkbox when attribute is set', async () => {
+  test('Displays label before checkbox when attribute is set', async () => {
     const screen = render(
       html`<admin-bar>
         <admin-bar-checkbox label-position="before">Checkbox Label</admin-bar-checkbox>
       </admin-bar>`
     )
 
-    await expect.element(screen.getByText('Checkbox Label')).toBeVisible()
-    expect(screen.getByText('Checkbox Label').element()).toMatchInlineSnapshot(
-      `"div >> internal:text="Checkbox Label"i"`
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-checkbox-label-before-input')
+    }
+  })
+
+  test('Sets the input name', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-checkbox input-name="Hello">Checkbox Label</admin-bar-checkbox>
+      </admin-bar>`
     )
+
+    await expect.element(screen.getByRole('checkbox')).toBeVisible()
   })
 })

@@ -22,6 +22,32 @@ describe('Button Component', () => {
 
     await expect.element(screen.getByText('Button Label')).toBeVisible()
   })
+
+  test('Displays button as greeting button when attribute is set', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-button greeting-button>Button Label</admin-bar-button>
+      </admin-bar>`
+    )
+
+    await screen.getByText('Button Label').hover()
+
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-greeting-button')
+    }
+  })
+
+  test('Displays button as logout button when attribute is set', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-button logout-button>Button Label</admin-bar-button>
+      </admin-bar>`
+    )
+
+    if (import.meta.env.VISUAL_TEST) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-logout-button')
+    }
+  })
 })
 
 describe('Button Actions', () => {

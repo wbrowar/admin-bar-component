@@ -25,36 +25,21 @@ export default defineConfig({
     },
   },
   test: {
-    projects: [
-      {
-        resolve: {
-          alias: {
-            '@': resolve(__dirname, 'src'),
+    browser: {
+      enabled: true,
+      expect: {
+        toMatchScreenshot: {
+          comparatorName: 'pixelmatch',
+          comparatorOptions: {
+            threshold: 0.1,
+            allowedMismatchedPixelRatio: 0.1,
           },
-        },
-        test: {
-          environment: 'jsdom',
-          include: ['**/*.unit.test.?(c|m)[jt]s?(x)'],
-          name: 'unit',
         },
       },
-      {
-        resolve: {
-          alias: {
-            '@': resolve(__dirname, 'src'),
-          },
-        },
-        test: {
-          browser: {
-            enabled: true,
-            instances: [{ browser: 'chromium' }],
-            provider: playwright(),
-          },
-          include: ['**/*.browser.test.?(c|m)[jt]s?(x)'],
-          name: 'browser',
-          setupFiles: ['./vitest/setup-file.ts'],
-        },
-      },
-    ],
+      instances: [{ browser: 'chromium' }],
+      provider: playwright(),
+    },
+    name: 'browser',
+    setupFiles: ['./vitest/setup-file.ts'],
   },
 })
