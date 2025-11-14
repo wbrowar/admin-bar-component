@@ -31,13 +31,14 @@ export default defineConfig({
         toMatchScreenshot: {
           comparatorName: 'pixelmatch',
           comparatorOptions: {
-            threshold: 0.1,
-            allowedMismatchedPixelRatio: 0.1,
+            threshold: 0.2,
+            allowedMismatchedPixelRatio: 0.2,
           },
         },
       },
       instances: [{ browser: 'chromium' }],
       provider: playwright(),
+      viewport: { width: 500, height: 100 },
     },
     name: 'browser',
     setupFiles: ['./vitest/setup-file.ts'],

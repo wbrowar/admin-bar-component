@@ -32,9 +32,7 @@ describe('Button Component', () => {
 
     await screen.getByText('Button Label').hover()
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-greeting-button')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-greeting-button')
   })
 
   test('Displays button as logout button when attribute is set', async () => {
@@ -44,9 +42,7 @@ describe('Button Component', () => {
       </admin-bar>`
     )
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-logout-button')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-logout-button')
   })
 })
 

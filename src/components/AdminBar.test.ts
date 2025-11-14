@@ -7,9 +7,7 @@ describe('Toolbar Component', () => {
   test('Displays toolbar', async () => {
     const screen = render(html`<admin-bar></admin-bar>`)
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-blank')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-blank')
   })
 })
 
@@ -27,7 +25,7 @@ describe('Greeting', () => {
       </admin-bar>`
     )
 
-    page.viewport(800, 100)
+    await page.viewport(800, 100)
     screen.baseElement.style.width = '700px'
     await expect.element(screen.getByText('Greeting Text')).toBeVisible()
   })
@@ -37,7 +35,7 @@ describe('Greeting', () => {
       html`<admin-bar show-greeting avatar-alt="test" avatar-src="#" greeting-text="Test"></admin-bar>`
     )
 
-    page.viewport(800, 100)
+    await page.viewport(800, 100)
     screen.baseElement.style.width = '700px'
     await expect.element(screen.getByText('Test')).toBeVisible()
     await expect.element(screen.getByAltText('test')).toBeVisible()
@@ -48,7 +46,7 @@ describe('Greeting', () => {
       html`<admin-bar show-greeting avatar-alt="test" avatar-src="#" greeting-text="Test"></admin-bar>`
     )
 
-    page.viewport(800, 100)
+    await page.viewport(800, 100)
     screen.baseElement.style.width = '699px'
     await expect.element(screen.getByText('Test')).not.toBeVisible()
     await expect.element(screen.getByAltText('test')).toBeVisible()
@@ -76,9 +74,7 @@ describe('Environment Warning', () => {
     adminBarElement.setAttribute('show-environment', '')
     await expect.element(screen.getByTestId('admin-bar-environment')).toBeVisible()
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-environment')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-environment')
   })
 })
 
@@ -101,13 +97,23 @@ describe('Logout Button', () => {
 })
 
 describe('Progress Bar', () => {
-  test('Display progress bar when attribute is set', async () => {
+  test('Display progress bar at 50% when attribute is set', async () => {
     const screen = render(html`<admin-bar progress="50"></admin-bar>`)
 
     await expect.element(screen.getByTestId('admin-bar-surface-progress')).toBeVisible()
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-progress')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-progress')
+  })
+
+  test('Display success progress bar when attribute is set to 100', async () => {
+    const screen = render(html`<admin-bar progress="100"></admin-bar>`)
+
+    await expect.element(screen.getByTestId('admin-bar-surface-progress')).toHaveStyle('--_progress-width: 100%;')
+  })
+
+  test('Display failure progress bar when attribute is set to -1', async () => {
+    const screen = render(html`<admin-bar progress="-1"></admin-bar>`)
+
+    await expect.element(screen.getByTestId('admin-bar-surface-progress')).toHaveStyle('--_progress-width: 100%;')
   })
 })

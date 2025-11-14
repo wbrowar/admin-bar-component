@@ -10,5 +10,4 @@ beforeAll(() => {
 
 beforeEach(async () => {
   document.body.style.colorScheme = 'light'
-  // await page.viewport(500, 100)
 })

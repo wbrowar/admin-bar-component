@@ -30,18 +30,28 @@ describe('Checkbox Component', () => {
       </admin-bar>`
     )
 
-    if (import.meta.env.VISUAL_TEST) {
-      await expect(screen.baseElement).toMatchScreenshot('admin-bar-checkbox-label-before-input')
-    }
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
+      'admin-bar-checkbox-label-before-input'
+    )
   })
 
-  test('Sets the input name', async () => {
+  test('Sets the input checked attribute', async () => {
     const screen = render(
       html`<admin-bar>
-        <admin-bar-checkbox input-name="Hello">Checkbox Label</admin-bar-checkbox>
+        <admin-bar-checkbox checked>Checkbox Label</admin-bar-checkbox>
       </admin-bar>`
     )
 
-    await expect.element(screen.getByRole('checkbox')).toBeVisible()
+    await expect.element(screen.getByRole('checkbox', { checked: true })).toBeVisible()
+  })
+
+  test('Sets the input disabled attribute', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-checkbox disabled>Checkbox Label</admin-bar-checkbox>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByRole('checkbox', { disabled: true })).toBeVisible()
   })
 })
