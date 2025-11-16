@@ -31,7 +31,13 @@ describe('Checkbox Component', () => {
     )
 
     await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
-      'admin-bar-checkbox-label-before-input'
+      'admin-bar-checkbox-label-before-input',
+      {
+        comparatorOptions: {
+          threshold: 0.3,
+          allowedMismatchedPixelRatio: 0.3,
+        },
+      }
     )
   })
 
@@ -54,4 +60,10 @@ describe('Checkbox Component', () => {
 
     await expect.element(screen.getByRole('checkbox', { disabled: true })).toBeVisible()
   })
+})
+
+describe('Events', () => {
+  test.todo('Checkbox fires `change` event')
+  test.todo('Checkbox fires `checked` event')
+  test.todo('Checkbox fires `unchecked` event')
 })

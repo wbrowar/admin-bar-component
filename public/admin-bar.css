@@ -56,9 +56,6 @@
     /* The font stack for all text. Set this to `inherit` to match the font-family of the parent element (including fonts set in @font-face). */
     --admin-bar-font-stack: system-ui, sans-serif;
 
-    /* The default direction of gradients. */
-    --admin-bar-gradient-direction: to bottom;
-
     /* The height of the bar and all of the buttons. */
     --admin-bar-height: 43px;
 
