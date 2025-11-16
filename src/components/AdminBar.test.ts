@@ -2,6 +2,7 @@ import { render } from 'vitest-browser-lit'
 import { describe, expect, test } from 'vitest'
 import { html } from 'lit'
 import { page } from 'vitest/browser'
+import { fpoImageSrc } from '../../vitest/helpers.ts'
 
 describe('Toolbar Component', () => {
   test('Displays toolbar', async () => {
@@ -13,7 +14,7 @@ describe('Toolbar Component', () => {
 
 describe('Greeting', () => {
   test('Displays greeting avatar and alt text', async () => {
-    const screen = render(html`<admin-bar show-greeting avatar-alt="test" avatar-src="#"></admin-bar>`)
+    const screen = render(html`<admin-bar show-greeting avatar-alt="test" avatar-src="${fpoImageSrc}"></admin-bar>`)
 
     await expect.element(screen.getByAltText('test')).toBeVisible()
   })
@@ -32,7 +33,7 @@ describe('Greeting', () => {
 
   test('Displays greeting avatar and text when Admin Bar is wide enough', async () => {
     const screen = render(
-      html`<admin-bar show-greeting avatar-alt="test" avatar-src="#" greeting-text="Test"></admin-bar>`
+      html`<admin-bar show-greeting avatar-alt="test" avatar-src="${fpoImageSrc}" greeting-text="Test"></admin-bar>`
     )
 
     await page.viewport(800, 100)
@@ -43,7 +44,7 @@ describe('Greeting', () => {
 
   test('Greeting avatar and text are hidden when Admin Bar is not wide enough', async () => {
     const screen = render(
-      html`<admin-bar show-greeting avatar-alt="test" avatar-src="#" greeting-text="Test"></admin-bar>`
+      html`<admin-bar show-greeting avatar-alt="test" avatar-src="${fpoImageSrc}" greeting-text="Test"></admin-bar>`
     )
 
     await page.viewport(800, 100)
@@ -54,7 +55,7 @@ describe('Greeting', () => {
 
   test('Greeting popover slot is displayed', async () => {
     const screen = render(html`
-      <admin-bar show-greeting avatar-alt="test" avatar-src="#">
+      <admin-bar show-greeting avatar-alt="test" avatar-src="${fpoImageSrc}">
         <span slot="greeting-popover">Greeting Popover</span>
       </admin-bar>
     `)
@@ -115,5 +116,34 @@ describe('Progress Bar', () => {
     const screen = render(html`<admin-bar progress="-1"></admin-bar>`)
 
     await expect.element(screen.getByTestId('admin-bar-surface-progress')).toHaveStyle('--_progress-width: 100%;')
+  })
+})
+
+describe('CSS Parts (pseudo-elements)', () => {
+  test('`avatar` part is stylable', async () => {
+    const screen = render(html`
+      <admin-bar show-greeting avatar-src="${fpoImageSrc}"></admin-bar>
+      <style>
+        admin-bar::part(avatar) {
+          border-radius: 3px;
+        }
+      </style>
+    `)
+
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-avatar')
+  })
+
+  test('`buttons` part is stylable', async () => {
+    const screen = render(html`
+      <admin-bar><admin-bar-text>Text Eelement</admin-bar-text></admin-bar>
+      <style>
+        admin-bar::part(buttons) {
+          display: flex;
+          background-color: rebeccapurple;
+        }
+      </style>
+    `)
+
+    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-buttons')
   })
 })

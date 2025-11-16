@@ -10,7 +10,7 @@ export class AdminBarText extends LitElement {
    */
   static styles = css`
     :host {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       min-height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
