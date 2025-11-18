@@ -161,6 +161,29 @@ export class AdminBarButton extends LitElement {
   private _hasPopoverSlot = false
 
   /**
+   * Tracks whether the popover is currently open.
+   */
+  @state()
+  private _popoverOpen = false
+
+  /**
+   * =========================================================================
+   * METHODS
+   * =========================================================================
+   */
+  private _onPopoverToggle(e: ToggleEvent) {
+    this._popoverOpen = e.newState === 'open'
+
+    this.dispatchEvent(new CustomEvent('toggle', { detail: { open: this._popoverOpen } }))
+
+    if (this._popoverOpen) {
+      this.dispatchEvent(new CustomEvent('opened'))
+    } else {
+      this.dispatchEvent(new CustomEvent('closed'))
+    }
+  }
+
+  /**
    * =========================================================================
    * SLOTS
    * =========================================================================
@@ -210,7 +233,7 @@ export class AdminBarButton extends LitElement {
       return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
           ${labelContent}
         </button>
-        <admin-bar-surface popover id="admin-bar-button-popover" part="popover">
+        <admin-bar-surface popover id="admin-bar-button-popover" part="popover" @toggle="${this._onPopoverToggle}">
           <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>
         </admin-bar-surface>`
     }

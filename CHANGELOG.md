@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
+- Added AdminBarButton `toggle` event.
+
+### Changed
+- Added Vitest and replaced Cypress tests.
 
 ### Removed
 - Removed `--admin-bar-gradient-direction` variable

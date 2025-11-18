@@ -12,7 +12,9 @@ describe('Text Component', () => {
     )
 
     await expect.element(screen.getByText('Hello, World!')).toBeVisible()
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text')
+    }
   })
 
   test('Display slotted elements as flex content', async () => {
@@ -23,7 +25,9 @@ describe('Text Component', () => {
     )
 
     await expect.element(screen.getByText('Hello')).toBeVisible()
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-slot-flex')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-slot-flex')
+    }
   })
 
   test('Display text content', async () => {
@@ -48,7 +52,9 @@ describe('Text Component', () => {
 
     await screen.getByText('Button Label').click()
     await expect.element(screen.getByText('multiple words')).toBeVisible()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-multi-line')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-multi-line')
+    }
   })
 })
 
@@ -61,7 +67,9 @@ describe('Labels', () => {
     )
 
     await expect.element(screen.getByText('X')).toBeVisible()
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-label-content')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-label-content')
+    }
   })
 
   test('Display label before text content', async () => {
@@ -72,9 +80,11 @@ describe('Labels', () => {
     )
 
     await expect.element(screen.getByText('X')).toBeVisible()
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
-      'admin-bar-text-label-position-before'
-    )
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
+        'admin-bar-text-label-position-before'
+      )
+    }
   })
 })
 
@@ -96,7 +106,9 @@ describe('Definition List', () => {
 
     await screen.getByText('Button Label').click()
     await expect.element(screen.getByText('Line 1 title')).toBeVisible()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-dl-content')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-dl-content')
+    }
   })
 })
 
@@ -117,7 +129,9 @@ describe('Table', () => {
     )
     await screen.getByText('Button Label').click()
     await expect.element(screen.getByText('Total 1')).toBeVisible()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-table-content')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-table-content')
+    }
   })
 })
 
@@ -141,7 +155,9 @@ describe('CSS Parts (pseudo-elements)', () => {
     `)
 
     await screen.getByText('Button Label').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-dl')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-dl')
+    }
   })
 
   test('`table` part is stylable', async () => {
@@ -163,6 +179,8 @@ describe('CSS Parts (pseudo-elements)', () => {
     `)
 
     await screen.getByText('Button Label').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-table')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-table')
+    }
   })
 })

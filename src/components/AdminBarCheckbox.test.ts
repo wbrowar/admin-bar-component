@@ -30,15 +30,17 @@ describe('Checkbox Component', () => {
       </admin-bar>`
     )
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
-      'admin-bar-checkbox-label-before-input',
-      {
-        comparatorOptions: {
-          threshold: 0.3,
-          allowedMismatchedPixelRatio: 0.3,
-        },
-      }
-    )
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
+        'admin-bar-checkbox-label-before-input',
+        {
+          comparatorOptions: {
+            threshold: 0.3,
+            allowedMismatchedPixelRatio: 0.3,
+          },
+        }
+      )
+    }
   })
 
   test('Sets the input checked attribute', async () => {

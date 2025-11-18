@@ -33,7 +33,9 @@ describe('Button Component', () => {
 
     await screen.getByText('Button Label').hover()
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-greeting-button')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-greeting-button')
+    }
   })
 
   test('Displays button as logout button when attribute is set', async () => {
@@ -43,7 +45,9 @@ describe('Button Component', () => {
       </admin-bar>`
     )
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-logout-button')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-logout-button')
+    }
   })
 })
 
@@ -85,7 +89,9 @@ describe('Button Actions', () => {
     )
 
     await screen.getByText('Button Label').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover')
+    }
   })
 
   test('Button click opens one popover at a time', async () => {
@@ -105,10 +111,14 @@ describe('Button Actions', () => {
     )
 
     await screen.getByText('Button One').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-one')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-one')
+    }
 
     await screen.getByText('Button Two').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-two')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-two')
+    }
   })
 })
 
@@ -129,6 +139,8 @@ describe('CSS Parts (pseudo-elements)', () => {
     `)
 
     await screen.getByText('Button Label').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-popover')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-popover')
+    }
   })
 })

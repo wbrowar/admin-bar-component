@@ -1,14 +1,10 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from 'vitest-browser-lit'
 import { html, nothing } from 'lit'
 import { fpoImageSrc } from '../vitest/helpers.ts'
 
 describe('Admin Bar general styles', () => {
-  beforeEach(async () => {
-    await page.viewport(1000, 500)
-  })
-
   test.each([
     {
       name: '--admin-bar-avatar-size',
@@ -170,6 +166,8 @@ describe('Admin Bar general styles', () => {
       options: [],
     },
   ])('$name', async ({ name, css, options }) => {
+    await page.viewport(1000, 500)
+
     let progressValue = ''
     if (options.includes('show-progress')) {
       progressValue = '50'
@@ -224,12 +222,12 @@ describe('Admin Bar general styles', () => {
       await userEvent.hover(screen.getByText('Logout'))
     }
 
-    await expect(screen.baseElement).toMatchScreenshot(`css-variable${name}`)
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot(`css-variable${name}`)
+    }
 
     await userEvent.click(screen.getByTestId('reset-button'))
     await userEvent.hover(screen.getByTestId('reset-button'))
-
-    screen.unmount()
   })
 })
 
@@ -257,7 +255,9 @@ describe('Admin Bar classes', () => {
       </admin-bar>`
     )
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-class-rtl')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-class-rtl')
+    }
   })
 
   test('Displays toolbar is in the correct position when setting `fixed` class', async () => {
@@ -301,7 +301,9 @@ describe('Admin Bar classes', () => {
         </style>`
     )
 
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-fixed')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-fixed')
+    }
   })
 
   test('Displays toolbar is in the correct position when setting `fixed bottom` class', async () => {
@@ -345,7 +347,9 @@ describe('Admin Bar classes', () => {
         </style>`
     )
 
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-fixed-bottom')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-fixed-bottom')
+    }
   })
 
   test('Displays toolbar is in the correct position when setting `sticky` class', async () => {
@@ -389,7 +393,9 @@ describe('Admin Bar classes', () => {
         </style>`
     )
 
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-sticky')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-sticky')
+    }
   })
 
   test('Displays toolbar is in the correct position when setting `sticky bottom` class', async () => {
@@ -433,6 +439,8 @@ describe('Admin Bar classes', () => {
         </style>`
     )
 
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-sticky-bottom')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-class-sticky-bottom')
+    }
   })
 })

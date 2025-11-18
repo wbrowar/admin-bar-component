@@ -12,6 +12,8 @@ describe('defineAdminBarElements', () => {
       </admin-bar>
     `)
 
-    await expect(screen.baseElement).toMatchScreenshot('define-admin-bar-elements-all-elements')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('define-admin-bar-elements-all-elements')
+    }
   })
 })

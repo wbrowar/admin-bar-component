@@ -4,9 +4,9 @@
     "build": "tsc && vite build",
     "deploy": "npm run test:run && npm run build && npm publish",
     "preview": "vite preview",
-    "test": "vitest --browser.headless --test-timeout=1000",
-    "test:ui": "vitest --test-timeout=1000",
-    "test:run": "vitest run --browser.headless"
+    "test": "vitest --test-timeout=1000",
+    "test:ui": "VITE_DISABLE_SCREENSHOTS=true vitest --browser.headless=false --test-timeout=1000",
+    "test:run": "vitest run"
   },
   "name": "admin-bar-component",
   "version": "1.10.1-alpha.0",

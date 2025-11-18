@@ -76,9 +76,13 @@ describe('defineAdminBarElements', () => {
       data: builderData,
     })
 
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-builder')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-builder')
+    }
 
     await screen.getByText('Popover Children').click()
-    await expect(screen.baseElement).toMatchScreenshot('admin-bar-builder-popover')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement).toMatchScreenshot('admin-bar-builder-popover')
+    }
   })
 })

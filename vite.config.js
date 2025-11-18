@@ -1,11 +1,11 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import { playwright } from '@vitest/browser-playwright'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   build: {
     cssMinify: 'lightningcss',
     lib: {
@@ -36,11 +36,14 @@ export default defineConfig({
           },
         },
       },
+      headless: true,
       instances: [{ browser: 'chromium' }],
       provider: playwright(),
       viewport: { width: 500, height: 100 },
     },
-    name: 'browser',
+    env: {
+      ENABLE_SCREENSHOTS: !loadEnv(mode, process.cwd(), '').VITE_DISABLE_SCREENSHOTS,
+    },
     setupFiles: ['./vitest/setup-file.ts'],
   },
-})
+}))

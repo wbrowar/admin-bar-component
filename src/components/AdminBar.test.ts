@@ -8,7 +8,9 @@ describe('Toolbar Component', () => {
   test('Displays toolbar', async () => {
     const screen = render(html`<admin-bar></admin-bar>`)
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-blank')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-blank')
+    }
   })
 })
 
@@ -75,7 +77,9 @@ describe('Environment Warning', () => {
     adminBarElement.setAttribute('show-environment', '')
     await expect.element(screen.getByTestId('admin-bar-environment')).toBeVisible()
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-environment')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-environment')
+    }
   })
 })
 
@@ -102,8 +106,9 @@ describe('Progress Bar', () => {
     const screen = render(html`<admin-bar progress="50"></admin-bar>`)
 
     await expect.element(screen.getByTestId('admin-bar-surface-progress')).toBeVisible()
-
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-progress')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-progress')
+    }
   })
 
   test('Display success progress bar when attribute is set to 100', async () => {
@@ -130,7 +135,9 @@ describe('CSS Parts (pseudo-elements)', () => {
       </style>
     `)
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-avatar')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-avatar')
+    }
   })
 
   test('`buttons` part is stylable', async () => {
@@ -144,6 +151,8 @@ describe('CSS Parts (pseudo-elements)', () => {
       </style>
     `)
 
-    await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-buttons')
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-css-part-buttons')
+    }
   })
 })
