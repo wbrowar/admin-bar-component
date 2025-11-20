@@ -1,5 +1,15 @@
 import { css } from 'lit'
 
+export function focusElement() {
+  return css`
+    & {
+      background-color: color-mix(in srgb, var(--admin-bar-color-highlight), transparent 90%);
+      outline: 3px solid color-mix(in srgb, var(--admin-bar-color-highlight), transparent 10%);
+      outline-offset: -3px;
+    }
+  `
+}
+
 /*
  * The hover styles for an element that can be interacted with, such as buttons or checkbox labels.
  */

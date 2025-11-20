@@ -12,9 +12,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
+- Added `<admin-bar-checkbox>` element (no longer experimental).
 - Added AdminBarButton `toggle` event.
+- Added support for keyboard navigation for popovers in `<admin-bar-button>` elements.
+- Added support for ARIA labels on `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
+    - On `<admin-bar-button>` elements, use `button-aria-label`.
+    - On `<admin-bar>` elements that use the `greeting` slot you can set the ARIA label on the greeting button using `greeting-button-aria-label`.
+    - On `<admin-bar-checkbox>` elements, use `input-aria-label`.
 
 ### Changed
+- On `<admin-bar-text>` element, `label` has been renamed to `badge`.
+  - Related CSS Custom Properties have been renamed:
+    - `--admin-bar-text-label-color-bg` is now `--admin-bar-text-badge-color-bg`
+    - `--admin-bar-text-label-color-text` is now `--admin-bar-text-badge-color-text`
+- Changed the `:focus-visible` style for `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
 - Added Vitest and replaced Cypress tests.
 
 ### Removed

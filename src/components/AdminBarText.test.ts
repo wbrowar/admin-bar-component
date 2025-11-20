@@ -58,11 +58,11 @@ describe('Text Component', () => {
   })
 })
 
-describe('Labels', () => {
-  test('Display label content', async () => {
+describe('Badges', () => {
+  test('Display badge content', async () => {
     const screen = render(
       html`<admin-bar>
-        <admin-bar-text label-content="X">Hello, World!</admin-bar-text>
+        <admin-bar-text badge-content="X">Hello, World!</admin-bar-text>
       </admin-bar>`
     )
 
@@ -72,17 +72,17 @@ describe('Labels', () => {
     }
   })
 
-  test('Display label before text content', async () => {
+  test('Display badge before text content', async () => {
     const screen = render(
       html`<admin-bar>
-        <admin-bar-text label-position="before" label-content="X">Hello, World!</admin-bar-text>
+        <admin-bar-text badge-content="X" badge-position="before">Hello, World!</admin-bar-text>
       </admin-bar>`
     )
 
     await expect.element(screen.getByText('X')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
-        'admin-bar-text-label-position-before'
+        'admin-bar-text-badge-position-before'
       )
     }
   })

@@ -1,8 +1,8 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
-import { property, state } from 'lit/decorators.js'
+import { property, queryAssignedElements, state } from 'lit/decorators.js'
 import { AdminBarSurface } from './AdminBarSurface.ts'
-import { hoverClickableElement } from './css.ts'
+import { focusElement, hoverClickableElement } from './css.ts'
 
 export class AdminBarButton extends LitElement {
   /**
@@ -24,6 +24,9 @@ export class AdminBarButton extends LitElement {
       height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
     }
+    :host:has(:focus-visible) {
+      ${focusElement()}
+    }
     .admin-bar-button {
       ${hoverClickableElement()}
       --popover-name: --popover-anchor;
@@ -38,10 +41,10 @@ export class AdminBarButton extends LitElement {
       min-width: 100%;
       height: 100%;
       border: none;
-      outline-color: var(--admin-bar-color-highlight);
       font-family: var(--admin-bar-font-stack);
       font-size: var(--font-size);
       text-decoration: none;
+      outline: none;
       white-space: nowrap;
 
       &.admin-bar-button--greeting {
@@ -126,6 +129,12 @@ export class AdminBarButton extends LitElement {
    * =========================================================================
    */
   /**
+   * Add an aria-label to the `button` or `a` element.
+   */
+  @property({ attribute: 'button-aria-label' })
+  buttonAriaLabel: string | undefined
+
+  /**
    * Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute.
    */
   @property({ attribute: 'button-href' })
@@ -171,9 +180,91 @@ export class AdminBarButton extends LitElement {
    * METHODS
    * =========================================================================
    */
+  /**
+   * Handles keyboard navigation for the popover.
+   */
+  private _onPopoverButtonKeyDown(e: KeyboardEvent) {
+    if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+      e.preventDefault()
+
+      // If the popover is closed, open it.
+      if (!this._popoverOpen) {
+        const popoverElement: HTMLElement | null = this.shadowRoot?.querySelector('[popovertarget]') ?? null
+
+        if (popoverElement) {
+          popoverElement.click()
+        }
+      }
+
+      // Focus on the selected child element.
+      if (this._popoverFocusableChildren.length) {
+        const focusableSelectors =
+          'admin-bar-button, admin-bar-checkbox, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+
+        // Look for focusable elements as the slotted element in the popover slot.
+        let focusableElements = this._popoverFocusableChildren.filter((child) => {
+          return child.matches(focusableSelectors)
+        })
+
+        // If no focusable elements were found, look for focusable elements in the children of the popover slotted elements.
+        if (!focusableElements.length) {
+          focusableElements = []
+          const focusableParent = this.isGreetingButton
+            ? this._popoverFocusableChildren[0].querySelector('slot')?.assignedNodes({ flatten: true })
+            : this._popoverFocusableChildren
+
+          if (focusableParent) {
+            ;(focusableParent as HTMLElement[]).forEach((child) => {
+              const focusableChildren: NodeListOf<HTMLElement> = child.querySelectorAll(focusableSelectors)
+              for (const focusableChild of focusableChildren) {
+                focusableElements.push(focusableChild)
+              }
+            })
+          }
+        }
+
+        // If there are focusable elements, handle keyboard navigation.
+        if (focusableElements.length) {
+          let focusElement: HTMLElement | null = null
+          const focusedElementIndex = focusableElements.findIndex((el) => el === document.activeElement)
+
+          if (e.key === 'ArrowUp') {
+            // If the focused element is the first element, move focus to the last element.
+            if (focusedElementIndex <= 0) {
+              focusElement = focusableElements[focusableElements.length - 1]
+            } else {
+              focusElement = focusableElements[focusedElementIndex - 1]
+            }
+          } else if (e.key === 'ArrowDown') {
+            // If the focused element is the last element, move focus to the first element.
+            if (focusedElementIndex >= focusableElements.length - 1) {
+              focusElement = focusableElements[0]
+            } else {
+              focusElement = focusableElements[focusedElementIndex + 1]
+            }
+          }
+
+          if (focusElement) {
+            if (focusElement.tagName === 'ADMIN-BAR-BUTTON') {
+              focusElement = focusElement.shadowRoot?.querySelector('a, button') ?? null
+            } else if (focusElement.tagName === 'ADMIN-BAR-CHECKBOX') {
+              focusElement = focusElement.shadowRoot?.querySelector('input') ?? null
+            }
+
+            if (focusElement) {
+              focusElement.focus()
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Emits events when the popover is opened or closed.
+   */
   private _onPopoverToggle(e: ToggleEvent) {
     this._popoverOpen = e.newState === 'open'
-
     this.dispatchEvent(new CustomEvent('toggle', { detail: { open: this._popoverOpen } }))
 
     if (this._popoverOpen) {
@@ -189,9 +280,18 @@ export class AdminBarButton extends LitElement {
    * =========================================================================
    */
   /**
+   * The elements slotted into the popover slot.
+   */
+  @queryAssignedElements({
+    flatten: true,
+    slot: 'popover',
+  })
+  _popoverFocusableChildren!: Array<HTMLElement>
+
+  /**
    * Event fired when content in the `popover` slot changes.
    */
-  handlePopoverSlotchange(e: any) {
+  _handlePopoverSlotchange(e: any) {
     const childNodes = e.target.assignedNodes({ flatten: true })
 
     this._hasPopoverSlot = childNodes.length > 0
@@ -207,6 +307,10 @@ export class AdminBarButton extends LitElement {
     if (!customElements.get('admin-bar-surface')) {
       customElements.define('admin-bar-surface', AdminBarSurface)
     }
+  }
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('keydown', this._onPopoverButtonKeyDown)
   }
   render() {
     const adminBarClasses = {
@@ -224,22 +328,32 @@ export class AdminBarButton extends LitElement {
 
     if (this.href) {
       adminBarClasses['admin-bar-button--el-a'] = true
-      return html`<a class="${classMap(adminBarClasses)}" href="${this.href}">${labelContent}</a>`
+      return html`<a
+        class="${classMap(adminBarClasses)}"
+        aria-label="${this.buttonAriaLabel ?? nothing}"
+        href="${this.href}"
+        >${labelContent}</a
+      >`
     }
 
     adminBarClasses['admin-bar-button--el-button'] = true
 
     if (this._hasPopoverSlot) {
-      return html`<button class="${classMap(adminBarClasses)}" popovertarget="admin-bar-button-popover">
+      return html`<button
+          class="${classMap(adminBarClasses)}"
+          aria-label="${this.buttonAriaLabel ?? nothing}"
+          popovertarget="admin-bar-button-popover"
+        >
           ${labelContent}
         </button>
         <admin-bar-surface popover id="admin-bar-button-popover" part="popover" @toggle="${this._onPopoverToggle}">
-          <slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>
+          <slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>
         </admin-bar-surface>`
     }
 
-    return html`<button class="${classMap(adminBarClasses)}">${labelContent}</button
-      ><slot name="popover" @slotchange="${this.handlePopoverSlotchange}"></slot>`
+    return html`<button class="${classMap(adminBarClasses)}" aria-label="${this.buttonAriaLabel ?? nothing}">
+        ${labelContent}</button
+      ><slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>`
   }
 }
 

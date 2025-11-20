@@ -189,6 +189,12 @@ export class AdminBar extends LitElement {
   /**
    * Sets the greeting text content.
    */
+  @property({ attribute: 'greeting-button-aria-label' })
+  greetingButtonAriaLabel: string | undefined
+
+  /**
+   * Sets the greeting text content.
+   */
   @property({ attribute: 'greeting-text' })
   greetingText = 'Hello'
 
@@ -284,7 +290,7 @@ export class AdminBar extends LitElement {
 
     const greetingContent = this._hasGreetingPopoverSlot
       ? html`
-          <admin-bar-button greeting-button>
+          <admin-bar-button button-aria-label="${this.greetingButtonAriaLabel ?? nothing}" greeting-button>
             ${greetingInnerContent}
             <div slot="popover">
               <slot

@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit'
 import { property, state } from 'lit/decorators.js'
-import { hoverClickableElement } from './css.ts'
+import { focusElement, hoverClickableElement } from './css.ts'
 import { classMap } from 'lit/directives/class-map.js'
 
 /**
@@ -18,6 +18,9 @@ export class AdminBarCheckbox extends LitElement {
       display: block;
       height: var(--admin-bar-height, 43px);
     }
+    :host:has(:focus-visible) {
+      ${focusElement()}
+    }
     .admin-bar-checkbox {
       ${hoverClickableElement()}
       display: flex;
@@ -29,6 +32,9 @@ export class AdminBarCheckbox extends LitElement {
       accent-color: var(--admin-bar-color-highlight);
       white-space: nowrap;
 
+      input {
+        outline: none;
+      }
       &.admin-bar-checkbox--has-icon input[type='checkbox'] {
         clip: rect(0 0 0 0);
         clip-path: inset(100%);
@@ -47,13 +53,19 @@ export class AdminBarCheckbox extends LitElement {
    * =========================================================================
    */
   /**
+   * Add an aria-label to the `input` element.
+   */
+  @property({ attribute: 'input-aria-label' })
+  inputAriaLabel: string | undefined
+
+  /**
    * The label text content for the checkbox.
    */
   @property({ attribute: 'label-text' })
   inputLabel: string = ''
 
   /**
-   * Sets the position for the label. Accepts: 'after', 'before'
+   * Sets the position for the label in relation to the checkbox. Accepts: 'after', 'before'
    */
   @property({ attribute: 'label-position' })
   labelPosition: 'after' | 'before' = 'after'
@@ -162,6 +174,7 @@ export class AdminBarCheckbox extends LitElement {
         ?switch="${this.inputSwitch}"
         ?checked="${this.inputChecked ? 'checked' : nothing}"
         ?disabled="${this.inputDisabled ? 'disabled' : nothing}"
+        aria-label="${this.inputAriaLabel ?? nothing}"
         type="checkbox"
         @click="${this._toggleChecked}"
       />${this.labelPosition === 'after' ? labelContent : nothing}</label

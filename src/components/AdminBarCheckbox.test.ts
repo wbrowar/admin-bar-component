@@ -13,6 +13,17 @@ describe('Checkbox Component', () => {
     await expect.element(screen.getByText('Checkbox Label')).toBeVisible()
   })
 
+  test('Includes ARIA label on input when attribute is set', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-checkbox input-aria-label="test">Checkbox Label</admin-bar-checkbox>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByText('Checkbox Label')).toBeVisible()
+    expect(screen.getByRole('checkbox').element().ariaLabel).toEqual('test')
+  })
+
   test('Displays input label when attribute is set', async () => {
     const screen = render(
       html`<admin-bar>
@@ -62,6 +73,11 @@ describe('Checkbox Component', () => {
 
     await expect.element(screen.getByRole('checkbox', { disabled: true })).toBeVisible()
   })
+})
+
+describe('Keyboard Navigation', () => {
+  test.todo('Checkbox shows focus style')
+  test.todo('Checkbox shows focus style when custom icon is used')
 })
 
 describe('Events', () => {

@@ -14,6 +14,17 @@ describe('Button Component', () => {
     await expect.element(screen.getByText('Button Label')).toBeVisible()
   })
 
+  test('Includes ARIA label when attribute is set', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-button button-aria-label="test">Button Label</admin-bar-button>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByRole('button')).toBeVisible()
+    expect(screen.getByRole('button').element().ariaLabel).toEqual('test')
+  })
+
   test('Displays button label when attribute is set', async () => {
     const screen = render(
       html`<admin-bar>
@@ -143,4 +154,12 @@ describe('CSS Parts (pseudo-elements)', () => {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-popover')
     }
   })
+})
+
+describe('Keyboard Navigation', () => {
+  test.todo('Button shows focus style')
+  test.todo('Popover is shown when button is clicked via keyboard')
+  test.todo('Popover is shown when arrow keys are pressed')
+  test.todo('Arrow keys select the right item when popover is open')
+  test.todo('Arrow keys select the right item when greeting popover is open')
 })

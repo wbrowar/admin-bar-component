@@ -65,8 +65,8 @@ export class AdminBarText extends LitElement {
         --table-border-radius: calc(var(--admin-bar-border-radius) * 0.6);
 
         & thead {
-          background-color: var(--admin-bar-text-label-color-bg);
-          color: var(--admin-bar-text-label-color-text);
+          background-color: var(--admin-bar-text-badge-color-bg);
+          color: var(--admin-bar-text-badge-color-text);
 
           & th:first-child {
             border-start-start-radius: var(--table-border-radius);
@@ -76,7 +76,7 @@ export class AdminBarText extends LitElement {
           }
         }
         & tfoot {
-          background-color: color-mix(in srgb, var(--admin-bar-text-label-color-bg), transparent 80%);
+          background-color: color-mix(in srgb, var(--admin-bar-text-badge-color-bg), transparent 80%);
 
           & td:first-child {
             border-end-start-radius: var(--table-border-radius);
@@ -93,14 +93,14 @@ export class AdminBarText extends LitElement {
         }
       }
     }
-    .label {
+    .badge {
       padding: 0.4em;
-      background-color: var(--admin-bar-text-label-color-bg, rgb(255 255 255 / 0.9));
+      background-color: var(--admin-bar-text-badge-color-bg, rgb(255 255 255 / 0.9));
       border-radius: 4px;
       line-height: 1;
       text-box: trim-both cap alphabetic;
       font-size: 0.8em;
-      color: var(--admin-bar-text-label-color-text, black);
+      color: var(--admin-bar-text-badge-color-text, black);
     }
   `
 
@@ -116,16 +116,16 @@ export class AdminBarText extends LitElement {
   dlContent: TextDlContent = []
 
   /**
-   * Sets the label for the `<admin-bar-text>`.
+   * Sets the badge for the `<admin-bar-text>`.
    */
-  @property({ attribute: 'label-content' })
-  labelContent = ''
+  @property({ attribute: 'badge-content' })
+  badgeContent = ''
 
   /**
-   * Sets the position for the label. Accepts: 'after', 'before'
+   * Sets the position for the badge. Accepts: 'after', 'before'
    */
-  @property({ attribute: 'label-position' })
-  labelPosition: 'after' | 'before' = 'after'
+  @property({ attribute: 'badge-position' })
+  badgePosition: 'after' | 'before' = 'after'
 
   /**
    * Allows the content to wrap to the next line.
@@ -196,12 +196,12 @@ export class AdminBarText extends LitElement {
 
     let slotContent = html`<slot>${textContent}</slot>`
 
-    // Add the label before or after the text content
-    if (this.labelContent ?? false) {
+    // Add the badge before or after the text content
+    if (this.badgeContent ?? false) {
       slotContent =
-        this.labelPosition === 'before'
-          ? html`<span class="label">${this.labelContent}</span>${slotContent}`
-          : html`${slotContent}<span class="label">${this.labelContent}</span>`
+        this.badgePosition === 'before'
+          ? html`<span class="badge">${this.badgeContent}</span>${slotContent}`
+          : html`${slotContent}<span class="badge">${this.badgeContent}</span>`
     }
 
     return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`

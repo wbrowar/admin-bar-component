@@ -123,10 +123,10 @@
     /*--admin-bar-text-padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);*/
 
     /* The background for labels in `admin-bar-text` components. */
-    --admin-bar-text-label-color-bg: oklch(1 0 89.876 / 0.9);
+    --admin-bar-text-badge-color-bg: oklch(1 0 89.876 / 0.9);
 
     /* The text for labels in `admin-bar-text` components. */
-    --admin-bar-text-label-color-text: oklch(0 0 0);
+    --admin-bar-text-badge-color-text: oklch(0 0 0);
 
     /* ====================================================================== */
 

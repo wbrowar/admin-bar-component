@@ -33,6 +33,17 @@ describe('Greeting', () => {
     await expect.element(screen.getByText('Greeting Text')).toBeVisible()
   })
 
+  test('Includes ARIA label on greeting button when attribute is set', async () => {
+    const screen = render(
+      html`<admin-bar show-greeting greeting-button-aria-label="test" greeting-text="Greeting Label">
+        <admin-bar-text slot="greeting-popover">Text in Popover</admin-bar-text>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByText('Greeting Label')).toBeVisible()
+    expect(screen.getByRole('button').element().ariaLabel).toEqual('test')
+  })
+
   test('Displays greeting avatar and text when Admin Bar is wide enough', async () => {
     const screen = render(
       html`<admin-bar show-greeting avatar-alt="test" avatar-src="${fpoImageSrc}" greeting-text="Test"></admin-bar>`

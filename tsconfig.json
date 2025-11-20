@@ -8,10 +8,7 @@
     "skipLibCheck": true,
 
     /* Types */
-    "types": [
-      "cypress",
-      "cypress-ct-lit"
-    ],
+    "types": [],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

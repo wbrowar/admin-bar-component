@@ -74,7 +74,7 @@
 
         if (button) {
           button.addEventListener('toggle', (e) => {
-            log('uhhhh', e.detail.open)
+            log('#popover-test is toggled', e.detail.open)
           })
         }
       })
@@ -107,7 +107,7 @@
   <body>
     <admin-bar class="sticky" show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
       <nav slot="greeting-popover">
-        <admin-bar-text multi-line label-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
+        <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
         <admin-bar-button button-href="/">Edit Author</admin-bar-button>
         <admin-bar-button onclick="makeApiRequest(100)">API Success</admin-bar-button>
@@ -115,7 +115,7 @@
       </nav>
       <admin-bar-button label-text="Label Text"><span slot="before-label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon"><path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zm11 2A1.5 1.5 0 0012 6.5v7a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0017.5 5h-4zm-10 7A1.5 1.5 0 002 13.5v2A1.5 1.5 0 003.5 17h6a1.5 1.5 0 001.5-1.5v-2A1.5 1.5 0 009.5 12h-6z" clip-rule="evenodd" /></svg></span></admin-bar-button>
       <admin-bar-button><span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg></span>Label Slot</admin-bar-button>
-      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="5"></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text badge-content="5"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button button-href="https://craftcms.com">Link Slot</admin-bar-button>
       <admin-bar-button onclick="alert('Hello')">Function Action<span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>settings</title><path class="cls-1" d="M240,135V104.5l-35.93-15L201.32,81l15-34.87L194.87,24.5,158.63,39l-8.25-3.75L134.64,0h-29.5L90.06,35.55,82,38.84,45.33,24.94,24,46.38,39.55,81l-4,9L0,105v30l35.82,14.75,4,9-14.72,35.5L46.37,215l35.76-14.5,8.75,4L105.64,240h30l14.74-36.25,8.49-3.25,35.74,14.75L216.09,194l-14.55-36,3.27-8.5ZM120.45,165.13a45.25,45.25,0,1,1,45.25-45.25A45.25,45.25,0,0,1,120.45,165.13Z"/></svg></span></admin-bar-button>
       <admin-bar-checkbox checked id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
@@ -136,14 +136,26 @@
               table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"]]}'
               text-content="Hi, this is popover content 🍾"
       ></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button>Popover Slot 6<div slot="popover">
+        <admin-bar-button>Button</admin-bar-button>
+        <admin-bar-checkbox>Checkbox</admin-bar-checkbox>
+        <h1>Heading</h1>
+        <p>Paragraph</p>
+        <button>Button</button>
+        <a href="#">Link</a>
+        <input type="text">
+        <select><option>Option 1</option><option>Option 2</option><option>Option 3</option></select>
+        <textarea></textarea>
+        <button tabindex="-1">Tabbable button</button>
+      </div></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
-      <admin-bar-text label-content="25" label-position="before">Badge goes before</admin-bar-text>
-      <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
+      <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
+      <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
       <admin-bar-text style="--admin-bar-text-padding: 0;">
         <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
       </admin-bar-text>
-      <admin-bar-text label-content="STAGING" style="--admin-bar-text-label-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
+      <admin-bar-text badge-content="STAGING" style="--admin-bar-text-badge-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>
 
     <ul>
@@ -235,14 +247,14 @@
 
     <admin-bar class="on-page" show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
       <nav slot="greeting-popover">
-        <admin-bar-text multi-line label-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
+        <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
         <admin-bar-button button-href="/">Edit Author</admin-bar-button>
         <admin-bar-checkbox input-switch>Dark mode</admin-bar-checkbox>
       </nav>
       <admin-bar-button label-text="Label Text"><span slot="before-label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon"><path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zm11 2A1.5 1.5 0 0012 6.5v7a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0017.5 5h-4zm-10 7A1.5 1.5 0 002 13.5v2A1.5 1.5 0 003.5 17h6a1.5 1.5 0 001.5-1.5v-2A1.5 1.5 0 009.5 12h-6z" clip-rule="evenodd" /></svg></span></admin-bar-button>
       <admin-bar-button><span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg></span>Label Slot</admin-bar-button>
-      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="5"></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text badge-content="5"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button button-href="https://craftcms.com">Link Slot</admin-bar-button>
       <admin-bar-button onclick="alert('hi')">Function Action<span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>settings</title><path class="cls-1" d="M240,135V104.5l-35.93-15L201.32,81l15-34.87L194.87,24.5,158.63,39l-8.25-3.75L134.64,0h-29.5L90.06,35.55,82,38.84,45.33,24.94,24,46.38,39.55,81l-4,9L0,105v30l35.82,14.75,4,9-14.72,35.5L46.37,215l35.76-14.5,8.75,4L105.64,240h30l14.74-36.25,8.49-3.25,35.74,14.75L216.09,194l-14.55-36,3.27-8.5ZM120.45,165.13a45.25,45.25,0,1,1,45.25-45.25A45.25,45.25,0,0,1,120.45,165.13Z"/></svg></span></admin-bar-button>
       <admin-bar-checkbox input-switch>Dark mode</admin-bar-checkbox>
@@ -262,13 +274,13 @@
               text-content="Hi, this is popover content 🍾"
       ></admin-bar-text></span></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
-      <admin-bar-text label-content="25" label-position="before">Badge goes before</admin-bar-text>
-      <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
+      <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
+      <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
       <admin-bar-text style="--admin-bar-text-padding: 0;">
         <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
       </admin-bar-text>
-      <admin-bar-text label-content="STAGING" style="--admin-bar-text-label-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
+      <admin-bar-text badge-content="STAGING" style="--admin-bar-text-badge-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>
 
     <ul>
@@ -417,14 +429,14 @@
 
     <admin-bar class="bottom sticky rtl" show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
       <nav slot="greeting-popover">
-        <admin-bar-text multi-line label-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
+        <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
         <admin-bar-button button-href="/">Edit Author</admin-bar-button>
         <admin-bar-checkbox input-switch>Dark mode</admin-bar-checkbox>
       </nav>
       <admin-bar-button label-text="Label Text"><span slot="before-label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon"><path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zm11 2A1.5 1.5 0 0012 6.5v7a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0017.5 5h-4zm-10 7A1.5 1.5 0 002 13.5v2A1.5 1.5 0 003.5 17h6a1.5 1.5 0 001.5-1.5v-2A1.5 1.5 0 009.5 12h-6z" clip-rule="evenodd" /></svg></span></admin-bar-button>
       <admin-bar-button><span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg></span>Label Slot</admin-bar-button>
-      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text label-content="5"></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text badge-content="5"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button button-href="https://craftcms.com">Link Slot</admin-bar-button>
       <admin-bar-button onclick="alert('hi')">Function Action<span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>settings</title><path class="cls-1" d="M240,135V104.5l-35.93-15L201.32,81l15-34.87L194.87,24.5,158.63,39l-8.25-3.75L134.64,0h-29.5L90.06,35.55,82,38.84,45.33,24.94,24,46.38,39.55,81l-4,9L0,105v30l35.82,14.75,4,9-14.72,35.5L46.37,215l35.76-14.5,8.75,4L105.64,240h30l14.74-36.25,8.49-3.25,35.74,14.75L216.09,194l-14.55-36,3.27-8.5ZM120.45,165.13a45.25,45.25,0,1,1,45.25-45.25A45.25,45.25,0,0,1,120.45,165.13Z"/></svg></span></admin-bar-button>
       <admin-bar-checkbox input-switch>Dark mode</admin-bar-checkbox>
@@ -444,13 +456,13 @@
               text-content="Hi, this is popover content 🍾"
       ></admin-bar-text></span></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
-      <admin-bar-text label-content="25" label-position="before">Badge goes before</admin-bar-text>
-      <admin-bar-text label-content="25">Badge goes after</admin-bar-text>
+      <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
+      <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
       <admin-bar-text style="--admin-bar-text-padding: 0;">
         <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
       </admin-bar-text>
-      <admin-bar-text label-content="STAGING" style="--admin-bar-text-label-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
+      <admin-bar-text badge-content="STAGING" style="--admin-bar-text-badge-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>
 
     <div style="height: 50px"></div>
