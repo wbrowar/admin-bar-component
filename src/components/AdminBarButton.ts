@@ -20,6 +20,7 @@ export class AdminBarButton extends LitElement {
       top: anchor(bottom);
     }
     :host {
+      --popover-name: --popover-anchor;
       display: block;
       height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
@@ -29,7 +30,6 @@ export class AdminBarButton extends LitElement {
     }
     .admin-bar-button {
       ${hoverClickableElement()}
-      --popover-name: --popover-anchor;
       anchor-name: var(--popover-name);
       appearance: none;
       box-sizing: border-box;
@@ -104,13 +104,13 @@ export class AdminBarButton extends LitElement {
           position-try-fallbacks: --popover-above;
           justify-self: anchor-center;
           inset: auto;
-          top: anchor(bottom);
-          margin: 4px;
+          inset-block-start: calc(anchor(end) + 4px);
+          margin: 0;
 
           @container style(--admin-bar-class-bottom: true) {
             position-try-fallbacks: --popover-below;
             inset: auto;
-            bottom: anchor(top);
+            inset-block-end: anchor(start);
           }
         }
       }
@@ -265,12 +265,12 @@ export class AdminBarButton extends LitElement {
    */
   private _onPopoverToggle(e: ToggleEvent) {
     this._popoverOpen = e.newState === 'open'
-    this.dispatchEvent(new CustomEvent('toggle', { detail: { open: this._popoverOpen } }))
+    this.dispatchEvent(new AdminBarButtonToggleEvent(e.oldState, e.newState))
 
     if (this._popoverOpen) {
-      this.dispatchEvent(new CustomEvent('opened'))
+      this.dispatchEvent(new AdminBarButtonOpenedEvent())
     } else {
-      this.dispatchEvent(new CustomEvent('closed'))
+      this.dispatchEvent(new AdminBarButtonClosedEvent())
     }
   }
 
@@ -354,6 +354,75 @@ export class AdminBarButton extends LitElement {
     return html`<button class="${classMap(adminBarClasses)}" aria-label="${this.buttonAriaLabel ?? nothing}">
         ${labelContent}</button
       ><slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>`
+  }
+}
+
+/**
+ * =========================================================================
+ * EVENTS
+ * =========================================================================
+ */
+/**
+ * Event fired when the checkbox state changes.
+ *
+ * Returns `open` value that is `true` when the popover is open and `false` when it is closed.
+ * It also provides the `oldState` and `newState` values from the internal popover `toggle` event.
+ *
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('toggle', (e) => {
+ *   console.log(e.newState === 'open');
+ *   console.log(e.open);
+ * });
+ * ```
+ */
+export class AdminBarButtonToggleEvent extends Event {
+  static readonly eventName = 'toggle'
+
+  readonly newState: string = 'closed'
+  readonly oldState: string = 'closed'
+  readonly open: boolean = false
+
+  constructor(oldState: string, newState: string) {
+    super(AdminBarButtonToggleEvent.eventName, { bubbles: true, composed: true })
+
+    this.newState = newState
+    this.oldState = oldState
+    this.open = newState === 'open'
+  }
+}
+
+/**
+ * Event fired when the popover is opened.
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('opened', (e) => {
+ *   // Do something based on popover opening.
+ * });
+ * ```
+ */
+export class AdminBarButtonOpenedEvent extends Event {
+  static readonly eventName = 'opened'
+
+  constructor() {
+    super(AdminBarButtonOpenedEvent.eventName, { bubbles: true, composed: true })
+  }
+}
+
+/**
+ * Event fired when the popover is closed.
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('closed', (e) => {
+ *   // Do something based on popover closing.
+ * });
+ * ```
+ */
+export class AdminBarButtonClosedEvent extends Event {
+  static readonly eventName = 'closed'
+
+  constructor() {
+    super(AdminBarButtonClosedEvent.eventName, { bubbles: true, composed: true })
   }
 }
 

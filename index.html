@@ -66,7 +66,7 @@
       defineAdminBarElements(['button', 'checkbox', 'text'])
 
       function onDarkModeToggle(e) {
-        console.log('#my-checkbox is checked', e.detail.checked)
+        console.log('#my-checkbox is checked', e.checked)
       }
 
       customElements.whenDefined('admin-bar-button').then(() => {
@@ -74,8 +74,10 @@
 
         if (button) {
           button.addEventListener('toggle', (e) => {
-            log('#popover-test is toggled', e.detail.open)
+            log('#popover-test is toggled', `oldState: ${e.oldState}`, `newState: ${e.newState}`, `open: ${e.open}`)
           })
+          button.addEventListener('opened', () => console.log('#popover-test opened event'))
+          button.addEventListener('closed', () => console.log('#popover-test closed event'))
         }
       })
       customElements.whenDefined('admin-bar-checkbox').then(() => {
@@ -83,6 +85,7 @@
 
         if (checkbox) {
           checkbox.addEventListener('change', onDarkModeToggle)
+          checkbox.addEventListener('checked', () => console.log('#my-checkbox checked event'))
           checkbox.addEventListener('unchecked', () => console.log('#my-checkbox unchecked event'))
 
           setTimeout(() => {
@@ -118,9 +121,131 @@
       <admin-bar-button button-href="https://craftcms.com" label-text="Badge + Link"><span slot="before-label" style="--admin-bar-text-padding: 0"><admin-bar-text badge-content="5"></admin-bar-text></span></admin-bar-button>
       <admin-bar-button button-href="https://craftcms.com">Link Slot</admin-bar-button>
       <admin-bar-button onclick="alert('Hello')">Function Action<span slot="before-label"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>settings</title><path class="cls-1" d="M240,135V104.5l-35.93-15L201.32,81l15-34.87L194.87,24.5,158.63,39l-8.25-3.75L134.64,0h-29.5L90.06,35.55,82,38.84,45.33,24.94,24,46.38,39.55,81l-4,9L0,105v30l35.82,14.75,4,9-14.72,35.5L46.37,215l35.76-14.5,8.75,4L105.64,240h30l14.74-36.25,8.49-3.25,35.74,14.75L216.09,194l-14.55-36,3.27-8.5ZM120.45,165.13a45.25,45.25,0,1,1,45.25-45.25A45.25,45.25,0,0,1,120.45,165.13Z"/></svg></span></admin-bar-button>
-      <admin-bar-checkbox checked id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
+      <admin-bar-checkbox id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
       <admin-bar-checkbox input-switch checked label-position="before">Switch style</admin-bar-checkbox>
       <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>
+      <admin-bar-button>Popover Slot 7<ul slot="popover">
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+      </ul></admin-bar-button>
       <admin-bar-button id="popover-test">Popover Slot 1<span slot="popover"><admin-bar-text>Hi, this is popover content 🍾</admin-bar-text></span></admin-bar-button>
       <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
         <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
@@ -273,6 +398,128 @@
               table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"]]}'
               text-content="Hi, this is popover content 🍾"
       ></admin-bar-text></span></admin-bar-button>
+      <admin-bar-button>Popover Slot 7<ul slot="popover">
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+        <li>
+          <p>List Item</p>
+        </li>
+      </ul></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
       <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>

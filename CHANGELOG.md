@@ -19,6 +19,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
     - On `<admin-bar-button>` elements, use `button-aria-label`.
     - On `<admin-bar>` elements that use the `greeting` slot you can set the ARIA label on the greeting button using `greeting-button-aria-label`.
     - On `<admin-bar-checkbox>` elements, use `input-aria-label`.
+- Events have been added to `<admin-bar-button>` elements to allow you to listen for open and close toggle events:
+  - The `toggle` event fires when the popover is opened or closed.
+  - The `opened` event fires when the popover is opened.
+  - The `closed` event fires when the popover is closed.
+- Events have been added to `<admin-bar-checkbox>` elements to allow you to listen for input change events:
+    - The `change` event fires when the checkbox state changes.
+    - The `checked` event fires when the checkbox is checked.
+    - The `unchecked` event fires when the checkbox is unchecked.
+- Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
 
 ### Changed
 - On `<admin-bar-text>` element, `label` has been renamed to `badge`.

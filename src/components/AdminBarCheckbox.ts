@@ -3,10 +3,6 @@ import { property, state } from 'lit/decorators.js'
 import { focusElement, hoverClickableElement } from './css.ts'
 import { classMap } from 'lit/directives/class-map.js'
 
-/**
- * WARNING: This component is currently in development and is not yet ready for production use. It will be released in a future version.
- */
-
 export class AdminBarCheckbox extends LitElement {
   /**
    * =========================================================================
@@ -34,6 +30,9 @@ export class AdminBarCheckbox extends LitElement {
 
       input {
         outline: none;
+      }
+      &.admin-bar-checkbox--disabled {
+        cursor: not-allowed;
       }
       &.admin-bar-checkbox--has-icon input[type='checkbox'] {
         clip: rect(0 0 0 0);
@@ -164,6 +163,7 @@ export class AdminBarCheckbox extends LitElement {
 
     const labelClasses = {
       'admin-bar-checkbox': true,
+      'admin-bar-checkbox--disabled': this.inputDisabled,
       'admin-bar-checkbox--has-icon': this.inputChecked ? this._hasCheckedIconSlot : this._hasUncheckedIconSlot,
     }
 
@@ -183,14 +183,74 @@ export class AdminBarCheckbox extends LitElement {
 
   protected willUpdate(changedProperties: Map<string, any>) {
     if (this._readyForUpdates && changedProperties.has('inputChecked')) {
-      this.dispatchEvent(new CustomEvent('change', { detail: { checked: this.inputChecked } }))
+      this.dispatchEvent(new AdminBarCheckboxChangeEvent(this.inputChecked))
 
       if (this.inputChecked) {
-        this.dispatchEvent(new CustomEvent('checked'))
+        this.dispatchEvent(new AdminBarCheckboxCheckedEvent())
       } else {
-        this.dispatchEvent(new CustomEvent('unchecked'))
+        this.dispatchEvent(new AdminBarCheckboxUncheckedEvent())
       }
     }
+  }
+}
+
+/**
+ * =========================================================================
+ * EVENTS
+ * =========================================================================
+ */
+/**
+ * Event fired when the checkbox state changes.
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('change', (e) => {
+ *   console.log(e.checked);
+ * });
+ * ```
+ */
+export class AdminBarCheckboxChangeEvent extends Event {
+  static readonly eventName = 'change'
+
+  readonly checked: boolean = false
+
+  constructor(checked: boolean) {
+    super(AdminBarCheckboxChangeEvent.eventName, { bubbles: true, composed: true })
+
+    this.checked = checked
+  }
+}
+
+/**
+ * Event fired when the checkbox state changes to checked.
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('checked', (e) => {
+ *   // Do something based on chechbox getting checked.
+ * });
+ * ```
+ */
+export class AdminBarCheckboxCheckedEvent extends Event {
+  static readonly eventName = 'checked'
+
+  constructor() {
+    super(AdminBarCheckboxCheckedEvent.eventName, { bubbles: true, composed: true })
+  }
+}
+
+/**
+ * Event fired when the checkbox state changes to unchecked.
+ * Usage:
+ * ```js
+ * checkbox.addEventListener('checked', (e) => {
+ *   // Do something based on chechbox removing checked.
+ * });
+ * ```
+ */
+export class AdminBarCheckboxUncheckedEvent extends Event {
+  static readonly eventName = 'unchecked'
+
+  constructor() {
+    super(AdminBarCheckboxUncheckedEvent.eventName, { bubbles: true, composed: true })
   }
 }
 
