@@ -1,7 +1,8 @@
 {
   "scripts": {
+    "analyze": "cem analyze",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run analyze",
     "deploy": "npm run test:run && npm run build && npm publish",
     "preview": "vite preview",
     "test": "vitest --test-timeout=1000",
@@ -37,6 +38,7 @@
   },
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
     "@vitest/browser-playwright": "^4.0.9",
     "jsdom": "^27.1.0",
     "lit": "^3.3.1",
@@ -45,5 +47,6 @@
     "vite": "^7.2.2",
     "vitest": "^4.0.9",
     "vitest-browser-lit": "^1.0.1"
-  }
+  },
+  "customElements": "dist/custom-elements.json"
 }
