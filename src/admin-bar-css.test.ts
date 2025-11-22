@@ -195,7 +195,7 @@ describe('Admin Bar general styles', () => {
           <p slot="popover">Popover Content</p>
         </admin-bar-button>
         <admin-bar-checkbox>Checkbox Label</admin-bar-checkbox>
-        <admin-bar-text label-content="67">Text Label</admin-bar-text>
+        <admin-bar-text badge-content="67">Text Label</admin-bar-text>
       </admin-bar>
       <style>
         ${css} admin-bar {
@@ -251,7 +251,7 @@ describe('Admin Bar classes', () => {
           <p slot="popover">Popover Content</p>
         </admin-bar-button>
         <admin-bar-checkbox>Checkbox Label</admin-bar-checkbox>
-        <admin-bar-text label-content="67">Text Label</admin-bar-text>
+        <admin-bar-text badge-content="67">Text Label</admin-bar-text>
       </admin-bar>`
     )
 
@@ -282,7 +282,7 @@ describe('Admin Bar classes', () => {
             <p slot="popover">Popover Content</p>
           </admin-bar-button>
           <admin-bar-checkbox>Checkbox Label</admin-bar-checkbox>
-          <admin-bar-text label-content="67">Text Label</admin-bar-text>
+          <admin-bar-text badge-content="67">Text Label</admin-bar-text>
         </admin-bar>
         <style>
           body {
@@ -328,7 +328,7 @@ describe('Admin Bar classes', () => {
             <p slot="popover">Popover Content</p>
           </admin-bar-button>
           <admin-bar-checkbox>Checkbox Label</admin-bar-checkbox>
-          <admin-bar-text label-content="67">Text Label</admin-bar-text>
+          <admin-bar-text badge-content="67">Text Label</admin-bar-text>
         </admin-bar>
         <style>
           body {
@@ -373,7 +373,7 @@ describe('Admin Bar classes', () => {
             <p slot="popover">Popover Content</p>
           </admin-bar-button>
           <admin-bar-checkbox>Checkbox Label</admin-bar-checkbox>
-          <admin-bar-text label-content="67">Text Label</admin-bar-text>
+          <admin-bar-text badge-content="67">Text Label</admin-bar-text>
         </admin-bar>
         <div style="aspect-ratio: 1; width: 400px; background-color: deeppink;"></div>
         <style>

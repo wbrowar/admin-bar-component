@@ -94,7 +94,7 @@ export class AdminBarBuilder {
       adminBarElement.setAttribute('show-environment', '')
       adminBarElement.append(
         this._addChildText({
-          labelContent: this.#formattedData.environment.label,
+          badgeContent: this.#formattedData.environment.badge,
           style: {
             '--admin-bar-text-label-color-bg': 'var(--admin-bar-environment-bg-color)',
           },
@@ -216,8 +216,8 @@ export class AdminBarBuilder {
   /**
    * Creates an `<admin-bar-text>` element.
    *
-   * @param labelContent
-   * @param labelPosition
+   * @param badgeContent
+   * @param badgePosition
    * @param style
    * @param textContent
    * @private
@@ -225,8 +225,8 @@ export class AdminBarBuilder {
   private _addChildText({
     class: textClass,
     dlContent,
-    labelContent,
-    labelPosition,
+    badgeContent,
+    badgePosition,
     multiLine,
     style,
     tableContent,
@@ -240,11 +240,11 @@ export class AdminBarBuilder {
         textElement.classList.add(classString)
       })
     }
-    if (labelContent) {
-      textElement.setAttribute('label-content', labelContent)
+    if (badgeContent) {
+      textElement.setAttribute('badge-content', badgeContent)
     }
-    if (labelPosition) {
-      textElement.setAttribute('label-position', labelPosition)
+    if (badgePosition) {
+      textElement.setAttribute('badge-position', badgePosition)
     }
     if (multiLine) {
       textElement.setAttribute('multi-line', '')

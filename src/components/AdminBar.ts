@@ -5,6 +5,7 @@ import { property, state } from 'lit/decorators.js'
 import { AdminBarButton } from './AdminBarButton.ts'
 
 import { AdminBarSurface } from './AdminBarSurface.ts'
+import { visuallyHidden } from '@/components/css.ts'
 
 export class AdminBar extends LitElement {
   /**
@@ -89,6 +90,10 @@ export class AdminBar extends LitElement {
             transparent 30px
           )
         );
+      }
+
+      p {
+        ${visuallyHidden()}
       }
     }
 
@@ -187,7 +192,13 @@ export class AdminBar extends LitElement {
   avatarSrc: string | undefined
 
   /**
-   * Sets the greeting text content.
+   * Sets visually-hidden text that explains the reason why the environment warning is displayed.
+   */
+  @property({ attribute: 'environment-description' })
+  environmentDescription: string | undefined
+
+  /**
+   * Sets an ARIA label on the button that toggles the `greeting-popover` content.
    */
   @property({ attribute: 'greeting-button-aria-label' })
   greetingButtonAriaLabel: string | undefined
@@ -211,7 +222,13 @@ export class AdminBar extends LitElement {
   logoutLabel = 'Sign out'
 
   /**
-   * Displays the default logout button or content added to the `logout` slot.
+   * Displays a progress bar in the background of the `<admin-bar>` element.
+   *
+   * Setting different values determines the state of progress bar shown:
+   * 1-99 – Displays progress as a percentage
+   * 100 – Displays successful state
+   * -1 – Displays error state
+   *
    */
   @property({ attribute: 'progress', type: Number })
   progressValue = 0
@@ -279,6 +296,8 @@ export class AdminBar extends LitElement {
       'glass-surface': true,
     }
 
+    const environmentContent = this.environmentDescription ? html`<p>${this.environmentDescription}</p>` : nothing
+
     const greetingInnerContent = this.showGreeting
       ? html`<div class="greeting">
           ${this.avatarSrc
@@ -320,7 +339,7 @@ export class AdminBar extends LitElement {
     return html`
       <admin-bar-surface progress-value="${this.progressValue}">
         <nav class="${classMap(adminBarClasses)}">
-          <div data-testid="admin-bar-environment" class="environment"></div>
+          <div data-testid="admin-bar-environment" class="environment">${environmentContent}</div>
           ${greetingContent}
           <div class="buttons" part="buttons"><slot></slot></div>
           <div class="logout">${logoutContent}</div>

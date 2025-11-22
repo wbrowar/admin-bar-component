@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit'
 import { property, state } from 'lit/decorators.js'
-import { focusElement, hoverClickableElement } from './css.ts'
+import { focusElement, hoverClickableElement, visuallyHidden } from './css.ts'
 import { classMap } from 'lit/directives/class-map.js'
 
 export class AdminBarCheckbox extends LitElement {
@@ -35,13 +35,7 @@ export class AdminBarCheckbox extends LitElement {
         cursor: not-allowed;
       }
       &.admin-bar-checkbox--has-icon input[type='checkbox'] {
-        clip: rect(0 0 0 0);
-        clip-path: inset(100%);
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        white-space: nowrap;
-        overflow: hidden;
+        ${visuallyHidden()}
       }
     }
   `

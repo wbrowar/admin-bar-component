@@ -76,62 +76,11 @@
        * Embeds an `<admin-bar>` element upon load.
        */
       import {AdminBarBuilder} from './src/utils/AdminBarBuilder.ts';
+      import {builderData} from './vitest/builder-data.js';
+      import {defineAdminBarElements} from './lib/main.js';
 
-      const builderData = {
-        buttons: [
-          {
-            buttonHref: '/',
-            labelText: 'Dashboard',
-            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72" style="width: 16px; height: auto;"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg>',
-            type: 'button',
-          },
-          {
-            labelText: 'Edit',
-            // Icon will not render due to `<script>` tag
-            icon: '<svg><p>Hahaha</p><script>console.log("This should NOT fire!")<' + '/script></svg>',
-            popover: [
-              {
-                textContent: 'Popover content!',
-                type: 'text',
-              },
-            ],
-            type: 'button',
-          },
-          {
-            labelText: 'Will not render',
-            popover: [
-              {
-                textContent: 'Popover content!',
-                type: 'text',
-              },
-              {
-                // Invalid text element will not let the button render
-                type: 'text',
-              },
-            ],
-            type: 'button',
-          },
-          {
-            textContent: 'This is a message!',
-            type: 'text',
-          },
-        ],
-        environment: {
-          enable: true,
-          label: 'DEV',
-        },
-        greeting: {
-          avatarAlt: 'randomly generated image',
-          avatarSrc: 'https://picsum.photos/150/150',
-          enable: true,
-          text: 'Hello, Author',
-        },
-        logout: {
-          enable: true,
-          href: '/logout',
-          label: 'Logout',
-        },
-      }
+      defineAdminBarElements(['button', 'checkbox', 'text'])
+
       new AdminBarBuilder({
         options: {
           adminBarClass: 'sticky',
@@ -146,58 +95,10 @@
        * Gets an adminBar object and then renders an `<admin-bar>` element.
        */
       import {AdminBarBuilder} from './src/utils/AdminBarBuilder.ts';
+      import {builderData} from './vitest/builder-data.js';
 
       const builderContainer = document.getElementById('admin-bar-split-target')
       if (builderContainer) {
-        const builderData = {
-          buttons: [
-            {
-              buttonHref: '/',
-              labelText: 'Dashboard',
-              icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.47 193.88" style="width: 18px; height: auto;"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>dashboard</title><path class="cls-1" d="M125.92,97.18A18.93,18.93,0,0,0,118,92.43L57,55.88l37.48,60.79a19,19,0,1,0,31.48-19.49Z"/><path class="cls-1" d="M114.24,0C51.15,0,0,51.33,0,114.42a115.09,115.09,0,0,0,17.8,61.45c4.25,6,11.17,18,21.67,18h148c10.5,0,18.95-12,23.2-18A114.54,114.54,0,0,0,114.24,0ZM40.63,175.88a96.86,96.86,0,0,1-22.16-61.51,95.76,95.76,0,1,1,169.37,61.51Z"/></svg>',
-              type: 'button',
-            },
-            {
-              labelText: 'Edit',
-              icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.93 228.72" style="width: 16px; height: auto;"><defs><style>.cls-1{fill:currentColor;}</style></defs><title>edit</title><path class="cls-1" d="M227.35,48.35a14.64,14.64,0,0,0-2.79-17L197.84,4.58a15.47,15.47,0,0,0-17.42-3.17l-5.95,4.74L14.29,166.33,0,228.72l62.39-14.29L222.57,54.26ZM32.59,210.92a30,30,0,0,0-14.84-14.58l5.53-24.15,14.14,6.91,13.06,13.06,6.86,13,0,0Z"/></svg>',
-              popover: [
-                {
-                  class: 'long-text',
-                  multiLine: true,
-                  style: {
-                    maxWidth: '50ch',
-                  },
-                  textContent: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!',
-                  type: 'text',
-                },
-                {
-                  dlContent: [['Title 1', 'Item 1'],['Title 2', 'Item 2']],
-                  type: 'text',
-                },
-              ],
-              type: 'button',
-            },
-            {
-              onclick: () => console.log('This onclick callback worked!'),
-              labelText: 'Console Log',
-              type: 'button',
-            },
-            {
-              textContent: 'This is a message!',
-              type: 'text',
-            },
-          ],
-          environment: {
-            enable: true,
-          },
-          greeting: {
-            enable: true,
-          },
-          logout: {
-            enable: true,
-          },
-        }
-
         // Init a new AdminBarBuilder instance.
         const adminBarBuilder = new AdminBarBuilder()
 

@@ -28,8 +28,8 @@ export interface BuilderAdminBar {
   environment?: {
     /* Enables or disables the environment indicator. */
     enable: boolean
-    /* Creates a `<admin-bar-text>` element that displays a label for the current environment. */
-    label?: string
+    /* Creates a `<admin-bar-text>` element that displays a badge for the current environment. */
+    badge?: string
   }
   /* Options for the greeting area that confirms the logged-in user and welcomes them. */
   greeting?: {
@@ -75,10 +75,10 @@ export interface BuilderAdminBarText {
   class?: string
   /* Sets a definition list in place of the `textContent` text. If this is an object it will be converted to a string. If this is a string it will be passed through as-is. */
   dlContent?: TextDlContent
-  /* Sets the label text. */
-  labelContent?: string
-  /* Moves the label before or after the text. */
-  labelPosition?: 'after' | 'before'
+  /* Sets the badge text. */
+  badgeContent?: string
+  /* Moves the badge before or after the text. */
+  badgePosition?: 'after' | 'before'
   /* Allows text to wrap when using `textContent`. */
   multiLine?: boolean
   /* Sets the `style` attribute on the `<admin-bar-text>` element. */

@@ -1,5 +1,8 @@
 import { css } from 'lit'
 
+/**
+ * Styles for elements in the `focus-visible` state.
+ */
 export function focusElement() {
   return css`
     & {
@@ -33,6 +36,23 @@ export function hoverClickableElement() {
       --admin-bar-text-label-color-bg: var(--admin-bar-color-highlight);
       --admin-bar-text-label-color-text: var(--admin-bar-button-color-bg-hover);
       color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
+    }
+  `
+}
+
+/*
+ * Styles for elements that are visually hidden, but remain accessible to screen readers.
+ */
+export function visuallyHidden() {
+  return css`
+    & {
+      clip: rect(0 0 0 0);
+      clip-path: inset(100%);
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      white-space: nowrap;
+      overflow: hidden;
     }
   `
 }

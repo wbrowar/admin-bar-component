@@ -68,7 +68,7 @@ describe('Badges', () => {
 
     await expect.element(screen.getByText('X')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
-      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-label-content')
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-badge-content')
     }
   })
 

@@ -31,6 +31,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Changed
 - On `<admin-bar-text>` element, `label` has been renamed to `badge`.
+  - Related props have been renamed:
+    - `label-text` is now `badge-content`
+    - `label-position` is now `badge-position`
   - Related CSS Custom Properties have been renamed:
     - `--admin-bar-text-label-color-bg` is now `--admin-bar-text-badge-color-bg`
     - `--admin-bar-text-label-color-text` is now `--admin-bar-text-badge-color-text`
@@ -38,7 +41,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added Vitest and replaced Cypress tests.
 
 ### Removed
-- Removed `--admin-bar-gradient-direction` variable
+- Removed `--admin-bar-gradient-direction` variable.
 
 
 ## 1.10.1 - 2025-10-08
