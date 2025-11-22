@@ -52,16 +52,22 @@ export class AdminBarCheckbox extends LitElement {
   inputAriaLabel: string | undefined
 
   /**
+   * Sets the value of the checkbox.
+   */
+  @property({ attribute: 'checked', reflect: true, type: Boolean, useDefault: true })
+  inputChecked: boolean = false
+
+  /**
+   * Disables the checkbox.
+   */
+  @property({ attribute: 'disabled', type: Boolean })
+  inputDisabled: boolean = false
+
+  /**
    * The label text content for the checkbox.
    */
   @property({ attribute: 'label-text' })
   inputLabel: string = ''
-
-  /**
-   * Sets the position for the label in relation to the checkbox. Accepts: 'after', 'before'
-   */
-  @property({ attribute: 'label-position' })
-  labelPosition: 'after' | 'before' = 'after'
 
   /**
    * The `name` attribute of the checkbox.
@@ -76,16 +82,10 @@ export class AdminBarCheckbox extends LitElement {
   inputSwitch: boolean = false
 
   /**
-   * Sets the value of the checkbox.
+   * Sets the position for the label in relation to the checkbox. Accepts: 'after', 'before'
    */
-  @property({ attribute: 'checked', reflect: true, type: Boolean, useDefault: true })
-  inputChecked: boolean = false
-
-  /**
-   * Disables the checkbox.
-   */
-  @property({ attribute: 'disabled', type: Boolean })
-  inputDisabled: boolean = false
+  @property({ attribute: 'label-position' })
+  labelPosition: 'after' | 'before' = 'after'
 
   /**
    * =========================================================================

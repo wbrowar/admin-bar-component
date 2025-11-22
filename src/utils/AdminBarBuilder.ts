@@ -1,4 +1,11 @@
-import type { BuilderAdminBar, BuilderAdminBarButton, BuilderAdminBarText, BuilderOptions } from '../../types'
+import {
+  BuilderAdminBar,
+  BuilderAdminBarButton,
+  BuilderAdminBarCheckbox,
+  BuilderAdminBarSubComponent,
+  BuilderAdminBarText,
+  BuilderOptions,
+} from '../../types'
 
 export class AdminBarBuilder {
   // The element where the `<admin-bar>` is rendered. It will replace the contents of the container element.
@@ -59,10 +66,10 @@ export class AdminBarBuilder {
     // Create `<admin-bar>` element
     const adminBarElement = document.createElement('admin-bar')
 
-    // Add `id` attribute to `<admin-bar>`.
+    // Add an `id` attribute to `<admin-bar>`.
     adminBarElement.setAttribute('id', adminBarId ?? 'admin-bar')
 
-    // Add `class` attribute to `<admin-bar>`.
+    // Add a `class` attribute to `<admin-bar>`.
     if (adminBarClass) {
       const classes = adminBarClass.split(' ')
       classes.forEach((classString) => {
@@ -70,7 +77,7 @@ export class AdminBarBuilder {
       })
     }
 
-    // Add `style` attribute to `<admin-bar>`.
+    // Add a `style` attribute to `<admin-bar>`.
     if (adminBarStyle) {
       this._addStylesToElement(adminBarStyle, adminBarElement)
     }
@@ -79,6 +86,8 @@ export class AdminBarBuilder {
     this.#formattedData?.buttons?.forEach((button) => {
       if (button.type === 'button') {
         adminBarElement.append(this._addChildButton(button))
+      } else if (button.type === 'checkbox') {
+        adminBarElement.append(this._addChildCheckbox(button))
       } else if (button.type === 'text') {
         adminBarElement.append(this._addChildText(button))
       }
@@ -151,6 +160,7 @@ export class AdminBarBuilder {
    */
   private _addChildButton({
     class: buttonClass,
+    buttonAriaLabel,
     buttonHref,
     icon,
     labelText,
@@ -177,6 +187,9 @@ export class AdminBarBuilder {
         buttonElement.append(beforeLabelElement)
       }
     }
+    if (buttonAriaLabel) {
+      buttonElement.setAttribute('button-aria-label', buttonAriaLabel)
+    }
     if (labelText) {
       buttonElement.setAttribute('label-text', labelText)
     }
@@ -197,20 +210,62 @@ export class AdminBarBuilder {
       buttonElement.setAttribute('button-href', buttonHref)
     }
     if (style) {
-      const cssProperties: Record<string, string> = {}
-      // If CSS Custom Propery, set it right away
-      // If regular CSS property, add it to object and add it later
-      Object.keys(style).forEach((key: string) => {
-        if (key.startsWith('--')) {
-          buttonElement.style.setProperty(key, style[key])
-        } else {
-          cssProperties[key] = style[key]
-        }
-      })
-      Object.assign(buttonElement.style, cssProperties)
+      this._addStylesToElement(style, buttonElement)
     }
 
     return buttonElement
+  }
+
+  /**
+   * Creates an `<admin-bar-checkbox>` element.
+   *
+   * @private
+   */
+  private _addChildCheckbox({
+    class: checkboxClass,
+    inputAriaLabel,
+    inputChecked,
+    inputDisabled,
+    inputName,
+    inputSwitch,
+    labelPosition,
+    labelText,
+    style,
+  }: BuilderAdminBarCheckbox) {
+    const checkboxElement = document.createElement('admin-bar-checkbox')
+
+    if (checkboxClass) {
+      const classes = checkboxClass.split(' ')
+      classes.forEach((classString) => {
+        checkboxElement.classList.add(classString)
+      })
+    }
+    if (inputAriaLabel) {
+      checkboxElement.setAttribute('input-aria-label', inputAriaLabel)
+    }
+    if (inputChecked) {
+      checkboxElement.setAttribute('checked', '')
+    }
+    if (inputDisabled) {
+      checkboxElement.setAttribute('disabled', '')
+    }
+    if (inputName) {
+      checkboxElement.setAttribute('input-name', inputName)
+    }
+    if (inputSwitch) {
+      checkboxElement.setAttribute('input-switch', '')
+    }
+    if (labelPosition) {
+      checkboxElement.setAttribute('label-position', labelPosition)
+    }
+    if (labelText) {
+      checkboxElement.setAttribute('label-text', labelText)
+    }
+    if (style) {
+      this._addStylesToElement(style, checkboxElement)
+    }
+
+    return checkboxElement
   }
 
   /**
@@ -224,9 +279,9 @@ export class AdminBarBuilder {
    */
   private _addChildText({
     class: textClass,
-    dlContent,
     badgeContent,
     badgePosition,
+    dlContent,
     multiLine,
     style,
     tableContent,
@@ -269,7 +324,7 @@ export class AdminBarBuilder {
   private _addStylesToElement(styles: Record<string, string>, element: HTMLElement) {
     const cssProperties: Record<string, string> = {}
     // If CSS Custom Property, set it right away
-    // If regular CSS property, add it to object and add it later
+    // If regular CSS property, add it to an object and add it later
     Object.keys(styles).forEach((key: string) => {
       if (key.startsWith('--')) {
         element.style.setProperty(key, styles[key])
@@ -292,16 +347,17 @@ export class AdminBarBuilder {
     this.#formattedData = null
 
     if (buttons?.length) {
-      const childIsValid = (button: BuilderAdminBarButton | BuilderAdminBarText) => {
+      const childIsValid = (button: BuilderAdminBarSubComponent) => {
         let isValidChild = false
         const childIsValidButton =
           button.type === 'button' &&
           (button.onclick !== undefined || button.popover?.length !== undefined || button.buttonHref !== undefined)
+        const childIsValidCheckbox = button.type === 'checkbox'
         const childIsValidText =
           button.type === 'text' &&
           (button.dlContent !== undefined || button.tableContent !== undefined || button.textContent !== undefined)
 
-        isValidChild = childIsValidButton || childIsValidText
+        isValidChild = childIsValidButton || childIsValidCheckbox || childIsValidText
 
         if (button.type === 'button' && button.popover?.length) {
           button.popover.forEach((popoverChild) => {
@@ -312,7 +368,7 @@ export class AdminBarBuilder {
         return isValidChild
       }
 
-      const validButtons: (BuilderAdminBarButton | BuilderAdminBarText)[] = []
+      const validButtons: BuilderAdminBarSubComponent[] = []
       buttons.forEach((button) => {
         if (childIsValid(button)) {
           validButtons.push(button)
@@ -329,7 +385,8 @@ export class AdminBarBuilder {
     if (environment?.enable) {
       formattedData.environment = {
         enable: environment.enable,
-        label: environment.label ?? undefined,
+        badge: environment.badge ?? undefined,
+        description: environment.description ?? undefined,
       }
     }
 
@@ -338,6 +395,7 @@ export class AdminBarBuilder {
       formattedData.greeting = {
         avatarAlt: greeting.avatarAlt ?? undefined,
         avatarSrc: greeting.avatarSrc ?? undefined,
+        buttonAriaLabel: greeting.buttonAriaLabel ?? undefined,
         enable: greeting.enable,
         text: greeting.text ?? undefined,
       }

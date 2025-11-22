@@ -84,6 +84,9 @@
       new AdminBarBuilder({
         options: {
           adminBarClass: 'sticky',
+          adminBarStyle: {
+            '--admin-bar-z-index': '999',
+          }
         },
         container: document.getElementById('admin-bar-autorender-target'),
         data: builderData,

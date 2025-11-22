@@ -23,6 +23,11 @@ export const builderData: BuilderAdminBar = {
       type: 'button',
     },
     {
+      labelText: 'Checkbox',
+      inputSwitch: true,
+      type: 'checkbox',
+    },
+    {
       labelText: 'Will not render',
       popover: [
         {

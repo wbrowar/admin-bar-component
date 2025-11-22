@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
     - The `checked` event fires when the checkbox is checked.
     - The `unchecked` event fires when the checkbox is unchecked.
 - Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
+- Added a Custom Element Manifest file to `dist/custom-elements.json`
 
 ### Changed
 - On `<admin-bar-text>` element, `label` has been renamed to `badge`.
