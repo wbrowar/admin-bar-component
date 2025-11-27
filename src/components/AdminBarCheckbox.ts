@@ -4,6 +4,8 @@ import { focusElement, hoverClickableElement, visuallyHidden } from './css.ts'
 import { classMap } from 'lit/directives/class-map.js'
 
 export class AdminBarCheckbox extends LitElement {
+  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true }
+
   /**
    * =========================================================================
    * CSS
@@ -13,9 +15,6 @@ export class AdminBarCheckbox extends LitElement {
     :host {
       display: block;
       height: var(--admin-bar-height, 43px);
-    }
-    :host:has(:focus-visible) {
-      ${focusElement()}
     }
     .admin-bar-checkbox {
       ${hoverClickableElement()}
@@ -27,6 +26,10 @@ export class AdminBarCheckbox extends LitElement {
       height: 100%;
       accent-color: var(--admin-bar-color-highlight);
       white-space: nowrap;
+
+      &:has(:focus-visible) {
+        ${focusElement()}
+      }
 
       input {
         outline: none;

@@ -4,29 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-> [!IMPORTANT]  
-> This release includes some style-breaking changes. A few CSS variables have been removed and noted below. New CSS variables are added to the `public/admin-bar.css` file.
 
-
-## 2.0.0 - 2025-10-13
+## 2.0.0 - 2025-12-01
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
+- Added vertical mode, letting you display `<admin-bar>` as a vertical list in a column or on thinner screens.
+  - Added a `vertical` class that automatically sets the toolbar to vertical mode based on a media query.
+  - Added a CSS variable, called `--admin-bar-vertical`, that controls whether the toolbar is vertical or not.
+- Added a toggle that allows you to collapse the `<admin-bar>` toolbar down to a single button—getting it out of the way.
+  - Hitting the button will toggle the toolbar.
+- Added the ability to use a mouse or touch event to drag the toolbar toggle button to another location on the screen.
 - Added `<admin-bar-checkbox>` element (no longer experimental).
-- Added AdminBarButton `toggle` event.
+  - Added the ability to set custom icons based on the checkbox being checked or unchecked.
+- Added AdminBarButton `toggle` event to track when popovers are toggled on or off.
+- Added a prop that watches for changes in the `<admin-bar>` width and automatically toggles between vertical mode and the default toolbar.
 - Added support for keyboard navigation for popovers in `<admin-bar-button>` elements.
 - Added support for ARIA labels on `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
-    - On `<admin-bar-button>` elements, use `button-aria-label`.
-    - On `<admin-bar>` elements that use the `greeting` slot you can set the ARIA label on the greeting button using `greeting-button-aria-label`.
-    - On `<admin-bar-checkbox>` elements, use `input-aria-label`.
+  - On `<admin-bar-button>` elements, use `button-aria-label`.
+  - On `<admin-bar>` elements that use the `greeting` slot you can set the ARIA label on the greeting button using `greeting-button-aria-label`.
+  - On `<admin-bar-checkbox>` elements, use `input-aria-label`.
+- Added visually hidden descriptions to `<admin-bar>` interactive features and the ability to change them using props.
 - Events have been added to `<admin-bar-button>` elements to allow you to listen for open and close toggle events:
   - The `toggle` event fires when the popover is opened or closed.
   - The `opened` event fires when the popover is opened.
   - The `closed` event fires when the popover is closed.
 - Events have been added to `<admin-bar-checkbox>` elements to allow you to listen for input change events:
-    - The `change` event fires when the checkbox state changes.
-    - The `checked` event fires when the checkbox is checked.
-    - The `unchecked` event fires when the checkbox is unchecked.
+  - The `change` event fires when the checkbox state changes.
+  - The `checked` event fires when the checkbox is checked.
+  - The `unchecked` event fires when the checkbox is unchecked.
 - Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
 - Added a Custom Element Manifest file to `dist/custom-elements.json`
 
@@ -39,10 +45,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
     - `--admin-bar-text-label-color-bg` is now `--admin-bar-text-badge-color-bg`
     - `--admin-bar-text-label-color-text` is now `--admin-bar-text-badge-color-text`
 - Changed the `:focus-visible` style for `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
+- Changed the default greeting text to a pencil icon when no `greeting-text` prop is provided.
+- Added a default height to popover elements when using the `fixed` or `sticky` classes.
 - Added Vitest and replaced Cypress tests.
 
 ### Removed
+- Admin Bar and all subcomponents no longer automatically define themselves.
+  - Each component can be defined individually, or select components can be defined using the `defineAdminBarElements` method.
 - Removed `--admin-bar-gradient-direction` variable.
+- Removed deprecated `label-after` and `label-before` slots on `<admin-bar-button>` elements.
 
 
 ## 1.10.1 - 2025-10-08

@@ -6,8 +6,10 @@ Admin Bar Component is a web component that is built with [Lit](https://lit.dev)
 
 - 👋 Show an avatar and a greeting to confirm the currently logged-in user.
 - 🚧 A customizable environment warning can be shown to let users know they are not on production.
-- 🎛️ Buttons are customizable and can link to a URL or trigger JavaScript events.
+- 🎛️ Buttons are customizable and can link to a URL, trigger JavaScript events, or show extra content in an HTML popover.
 - 2️⃣ Text elements can be added to provide stats and small notes to authors.
+- ✅ Checkbox elements can be used to toggle settings.
+- 📐 A progress bar can show successful or failed AJAX requests.
 - 🚪 A dedicated logout button gives users a way to sign out of your app.
 
 ## Installation
@@ -22,9 +24,31 @@ npm install admin-bar-component --save-dev
 
 ## Setup
 
-This package includes a JavaScript file that registers web components when you import it into a file or load it with a `<script type="module">` tag.
+Admin Bar can be set up manually or by using a built-in helper method.
 
-It also includes a CSS file that can be imported into your project’s CSS or loaded onto the page in a `<link>` tag.
+### Manual Setup
+
+To add Admin Bar to your project, import it in as an ES module, then define it as a custom element:
+
+```javascript
+import { AdminBar } from 'admin-bar-component'
+
+// Define Admin Bar element.
+customElements.define('admin-bar', AdminBar)
+
+// ... Define `<admin-bar-button>`, `<admin-bar-text>`, and other elements...
+```
+
+### Helper Setup
+
+The `defineAdminBarElements` helper method will automatically define Admin Bar as a custom element, then define any subcomponents defined in its arguments:
+
+```javascript
+import { defineAdminBarElements } from 'admin-bar-component'
+
+// Defines `<admin-bar>`, `<admin-bar-button>`, `<admin-bar-checkbox>`, and `<admin-bar-text>` elements.
+defineAdminBarElements(['button', 'checkbox', 'text'])
+```
 
 ### Setup Examples
 
@@ -45,6 +69,11 @@ It also includes a CSS file that can be imported into your project’s CSS or lo
 1. Add the JavaScript file wherever you load your scripts:
    ```html
    <script type="module" src="path-to-your-assets/admin-bar.js"></script>
+   ```
+1. Import and define your custom elements:
+   ```html
+   import { defineAdminBarElements } from 'admin-bar-component'
+   defineAdminBarElements(['button', 'checkbox', 'text'])
    ```
 1. Add and configure an `<admin-bar>` element:
    ```html
@@ -84,14 +113,14 @@ For example, you can add a greeting message by adding the `show-greeting` attrib
 <admin-bar show-greeting></admin-bar>
 ```
 
-By default, this will say "Hello", but you can change the message by adding your own text or element into the `greeting` slot:
+By default, this will show a pencil icon, but you can add a custom message by adding text into the `greeting-text` prop or an element into the `greeting` slot:
 ```html
 <admin-bar show-greeting>
   <div slot="greeting">Hello, Sam</div>
 </admin-bar>
 ```
 
-Now your custom text will appear. If you would also like to add an avatar next to your message you can use the `avatar-src` and `avatar-alt` attributes:
+Now your custom text will appear. If you would also like to add an avatar next to your message, you can use the `avatar-src` and `avatar-alt` attributes:
 ```html
 <admin-bar show-greeting avatar-src="path-to-your-assets/user-photo.jpg" avatar-atr="Sam’s avatar">
   <div slot="greeting">Hello, Sam</div>
@@ -100,6 +129,52 @@ Now your custom text will appear. If you would also like to add an avatar next t
 
 > [!NOTE]
 > If `show-greeting` is removed, the avatar image and the content in the `greeting` slot will no longer be rendered.
+
+## Displaying Admin Bar on Thinner Screens and Mobile Devices
+
+Admin Bar is a horizontal bar that scrolls horizontally by default. On mobile devices, or if you prefer Admin Bar to appear as a vertical column, you can enable vertical mode using a boolean CSS variable, called `--admin-bar-vertical`.
+
+To turn on vertical mode, you can add the `vertical` class to `<admin-bar>` and this will enable vertical mode based on a media query.
+
+If you prefer to use vertical mode in another scenario, you can set `--admin-bar-vertical: true;` in your CSS and it will always be in vertical mode. Or you can create a media query that sets `--admin-bar-vertical: true;` at a specific breakpoint.
+
+> [!NOTE]
+> Using `--admin-bar-vertical: true;` is only supported in browser that support CSS `style()` queries.
+
+
+### Collapsing and Expanding Admin Bar
+
+Buttons can be added to the `<admin-bar>` element to toggle between the full Admin Bar toolbar and a collapsed version that gets out of the way of the page content. To add the toggle button, add the `toolbar-toggle` attribute to the `<admin-bar>` element.
+
+```html
+<!-- Displays the full toolbar along with a toggle button. -->
+<admin-bar toggle-toolbar="toolbar"></admin-bar>
+```
+
+Setting `toggle-toolbar="toolbar"` will display the full toolbar and a button that users may use to collapse the toolbar. Clicking the collapse button will change the state of the `toolbar-toggle` attribute and replace the toolbar with a button:
+
+```html
+<!-- Displays a button. -->
+<admin-bar toggle-toolbar="button"></admin-bar>
+```
+
+#### Automatically Switching Between Vertical and Horizonal Mode
+
+Add the `auto-toggle-vertical` attribute will automatically switch between the full toolbar and a collapsed version of the toolbar based on the screen width. The collapsed version will allow you to toggle between the toggle button and the vertical toolbar.
+
+```html
+<!-- Displays a button. -->
+<admin-bar auto-toggle-vertical></admin-bar>
+```
+
+#### Dragging the Collapsed Toolbar Button
+
+Adding the `toolbar-toggle-drag` attribute allows users to drag the collapsed toolbar button to another location on the page when Admin Bar is in the collapsed state.
+
+```html
+<!-- Displays a button. -->
+<admin-bar auto-toggle-vertical toolbar-toggle-drag></admin-bar>
+```
 
 ## Using Admin Bar to Show Progress
 
@@ -114,17 +189,24 @@ The colors and the height of the progress bar can be customized using CSS Custom
 
 ### Admin Bar Public Properties
 
-| Attribute Name     | Type      | Default                       | Description                                                                                           |
-|--------------------|-----------|-------------------------------|-------------------------------------------------------------------------------------------------------|
-| `avatar-alt`       | _string_  | `'Avatar of logged in user.'` | Sets the alt text on an avatar image.                                                                 |
-| `avatar-src`       | _string_  | `undefined`                   | Sets the `src` on an avatar image and enables the avatar image to be displayed.                       |
-| `greeting-text`    | _string_  | `'Hello'`                     | Sets the greeting text content.                                                                       |
-| `logout-href`      | _string_  | `'#'`                         | A URL added to the default logout button, when `show-logout` is added to an `<admin-bar>`.            |
-| `logout-label`     | _string_  | `'Sign out'`                  | The label of the default logout button.                                                               |
-| `progress`         | _number_  | `0`                           | Displays a visual progress bar based on the number `progress` is set to.                              |
-| `show-environment` | _boolean_ | `false`                       | Displays the environment warning, letting users know what environment they are currently logged into. |
-| `show-greeting`    | _boolean_ | `false`                       | Displays the avatar and greeting message.                                                             |
-| `show-logout`      | _boolean_ | `false`                       | Displays the default logout button or content added to the `logout` slot.                             |
+| Attribute Name                           | Type      | Default                                                              | Description                                                                                           |
+|------------------------------------------|-----------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `auto-toggle-vertical`                   | _boolean_ | `false`                                                              | Automatically toggles between toolbar and button when resized.                                        |
+| `avatar-alt`                             | _string_  | `'Avatar of logged in user.'`                                        | Sets the alt text on an avatar image.                                                                 |
+| `avatar-src`                             | _string_  | `undefined`                                                          | Sets the `src` on an avatar image and enables the avatar image to be displayed.                       |
+| `environment-description`                | _string_  | `undefined`                                                          | Sets visually hidden text that explains the reason why the environment warning is displayed.          |
+| `greeting-text`                          | _string_  | `undefined`                                                          | Sets the greeting text content.                                                                       |
+| `logout-href`                            | _string_  | `'#'`                                                                | A URL added to the default logout button, when `show-logout` is added to an `<admin-bar>`.            |
+| `logout-label`                           | _string_  | `'Sign out'`                                                         | The label of the default logout button.                                                               |
+| `progress`                               | _number_  | `0`                                                                  | Displays a visual progress bar based on the number `progress` is set to.                              |
+| `show-environment`                       | _boolean_ | `false`                                                              | Displays the environment warning, letting users know what environment they are currently logged into. |
+| `show-greeting`                          | _boolean_ | `false`                                                              | Displays the avatar and greeting message.                                                             |
+| `show-logout`                            | _boolean_ | `false`                                                              | Displays the default logout button or content added to the `logout` slot.                             |
+| `toolbar-toggle`                         | _string_  | `'toolbar'`                                                          | Displays the toggle button that toggles the display of Admin Bar.                                     |
+| `toolbar-toggle-drag`                    | _string_  | `'reset'`                                                            | Adds a drag handle to the toggle button that lets users reposition it when needed.                    |
+| `toolbar-toggle-drag-handle-description` | _string_  | `'Click to drag the toggle button to another position on the page.'` | Add a description to guide the user on how the drag handle works.                                     |
+| `toolbar-toggle-inner-description`       | _string_  | `'Click to collapse toolbar.'`                                       | Add a description to guide the user on what will happen when the inner toggle button is clicked.      |
+| `toolbar-toggle-outer-description`       | _string_  | `'Click to expand toolbar.'`                                         | Add a description to guide the user on what will happen when the outer toggle button is clicked.      |
 
 ### Admin Bar Slots
 
@@ -133,7 +215,11 @@ The colors and the height of the progress bar can be customized using CSS Custom
 | `default`          | The `default` slot is where you would place `<admin-bar-button>` elements, but it can also be used for other elements. All children in the `default` slot will be laid out by CSS Flexbox and the contents will horizontally scroll when it gets too wide.                |
 | `greeting`         | This slot is meant to let the logged-in user verify they are logged in, but any HTML or text can appear in the `greeting` slot.                                                                                                                                           |
 | `greeting-popover` | Turns the `greeting` slot into a button and displays this slot content in a popover.                                                                                                                                                                                      |
+| `inner-toggle`     | Replace the collapse icon on the toolbar’s toggle button.                                                                                                                                                                                                                 |
 | `logout`           | When `show-logout` is set, a default logout button will be rendered, using the `logout-href` and `logout-label` attributes. Adding elements into the `logout` slot will repace the default logout button, allowing you to use your own `<admin-bar-button>` in its place. |
+| `outer-toggle`     | Replace the default pencil icon or greeting text on the toggle button when Admin Bar is collapsed.                                                                                                                                                                        |
+
+---
 
 ## Customizing Add Admin Bar Buttons
 
@@ -149,9 +235,9 @@ To create a `<button>` element with JavaScript click event, you can leave off th
 <admin-bar-button onclick="myEventHandlerMethod" label-text="My Button Label"></admin-bar-button>
 ```
 
-To differentiate your buttons, `<svg>` or `<img>` icons can be added to either the `label-before` or `label-after` slots:
+To differentiate your buttons, `<svg>` or `<img>` icons can be added to either the `before-label` or `after-label` slots:
 ```html
-<admin-bar-button onclick="myEventHandlerMethod" label-text="My Button Label"><span slot="label-before"><svg <!-- SVG code --> ></svg></span></admin-bar-button>
+<admin-bar-button onclick="myEventHandlerMethod" label-text="My Button Label"><span slot="before-label"><svg <!-- SVG code --> ></svg></span></admin-bar-button>
 ```
 
 ## Adding Sub-Menus Using Admin Bar Button Popovers
@@ -161,21 +247,29 @@ Populating the `popover` slot will render the `popover` slot and add a matching 
 > [!NOTE]
 > The `popover` slot content appears below its `<admin-bar-button>` on browsers that support [CSS Anchor Positioning](https://caniuse.com/css-anchor-positioning). Browsers that don’t support CSS Anchor Positioning yet will fall back to displaying the `popover` slot in the center of the screen (which is the default for HTML popover).
 
-Any HTML can be added to the `popover` slot, but for consistency, you can use `<admin-bar-text>` elements or `<admin-bar-button>` elements. Here’s an example of what an `<admin-bar-text>` popover could look like:
+Any HTML can be added to the `popover` slot, but for consistency, you can use `<admin-bar-text>`, `<admin-bar-checkbox>`, and `<admin-bar-button>` elements. Here’s an example of what an `<admin-bar-text>` popover could look like:
 
 ```html
-<admin-bar-button>Show Popover<span slot="popover"><admin-bar-text>Hi, this is popover content 🍾</admin-bar-text></span></admin-bar-button>
+<admin-bar-button>
+  Show Popover
+  <span slot="popover">
+    <admin-bar-text>Hi, this is popover content 🍾</admin-bar-text>
+  </span>
+</admin-bar-button>
 ```
 
-The "Show Popover" text will appear as the label on the button and "Hi, this is popover content 🍾" will appear in the popover when the button is clicked.
+The "Show Popover" text will appear as the label on the button, and "Hi, this is popover content 🍾" will appear in the popover when the button is clicked.
 
 To create a secondary row of links, you can populate the `popover` slot with `<admin-bar-button>` elements:
 
 ```html
-<admin-bar-button>Popover Slot 2<nav slot="popover">
+<admin-bar-button>
+  Popover Slot 2
+  <nav slot="popover">
    <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
    <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
-</nav></admin-bar-button>
+  </nav>
+</admin-bar-button>
 ```
 
 > [!NOTE]
@@ -183,11 +277,12 @@ To create a secondary row of links, you can populate the `popover` slot with `<a
 
 ### Admin Bar Button Public Properties
 
-| Attribute Name  | Type      | Default     | Description                                                                                                                  |
-|-----------------|-----------|-------------|------------------------------------------------------------------------------------------------------------------------------|
-| `button-href`   | _string_  | `undefined` | Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute. |
-| `label-text`    | _string_  | `''`        | Sets the label for the `<admin-bar-button>`.                                                                                 |
-| `logout-button` | _boolean_ | `false`     | Styles the button like the default logout button.                                                                            |
+| Attribute Name      | Type      | Default     | Description                                                                                                                  |
+|---------------------|-----------|-------------|------------------------------------------------------------------------------------------------------------------------------|
+| `button-aria-label` | _string_  | `''`        | Add an aria-label to the `button` or `a` element.                                                                            |
+| `button-href`       | _string_  | `undefined` | Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute. |
+| `label-text`        | _string_  | `''`        | Sets the label for the `<admin-bar-button>`.                                                                                 |
+| `logout-button`     | _boolean_ | `false`     | Styles the button like the default logout button.                                                                            |
 
 ### Admin Bar Button Slots
 
@@ -197,6 +292,15 @@ To create a secondary row of links, you can populate the `popover` slot with `<a
 | `before-label` | Adds content before the label. This can be used for icons or other indicators. |
 | `default`      | Adding text or elements into the `default` slot replaces the `label-text`.     |
 | `popover`      | Turns the button into a trigger and displays slot content in a popover.        |
+
+### Admin Bar Button Events
+
+| Event Name | Type                      | Payload                                                 | Description                                                                                                                                               |
+|------------|---------------------------|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `click`    | MouseEvent                | `''`                                                    | A standard `click` event, bubbled up from the internal `<button>` element.                                                                                |
+| `toggle`   | AdminBarButtonToggleEvent | `{ newState: string; oldState: string; open: boolean }` | An extended version of the popover `toggle` event that fires when the popover open state changes. Includes popover states and an `open` boolean property. |
+| `opened`   | AdminBarButtonOpenedEvent | ``                                                      | Event that fires when the popover is toggled to the `open` state.                                                                                         |
+| `closed`   | AdminBarButtonClosedEvent | ``                                                      | Event that fires when the popover is toggled to the `closed` state.                                                                                       |
 
 ### Replacing the Default Logout Button
 
@@ -217,7 +321,7 @@ You may have a situation where you need to replace the default logout button to�
      <admin-bar-button slot="logout" logout-button></admin-bar-button>
    </admin-bar>
    ```
-1. If you are using vanilla JavaScript you can use an `onclick` attribute to fire your logout script on click. If you are using a compatible framework, you can change `onclick` to the syntax used for click directives.
+1. If you are using vanilla JavaScript you can use an `onclick` attribute to fire your logout script on click. If you are using a compatible framework, you can change `onclick` to the syntax used to handle `click` events.
    ```html
    <admin-bar show-logout logout-href="/logout" logout-label="Log off">
      <admin-bar-button onclick="handleLogoutMethod" slot="logout" logout-button></admin-bar-button>
@@ -230,9 +334,114 @@ You may have a situation where you need to replace the default logout button to�
    </admin-bar>
    ```
 
+---
+
+## Adding Checkbox Inputs to Admin Bar
+
+Admin Bar comes with a custom checkbox subcomponent that is a wrapper around an HTML checkbox `<input>` element. It includes events that fire when the state of the checkbox changes.
+
+The way an `<admin-bar-checkbox>` is used is up to you. A simple example of how to use it can be to toggle a class on an HTML element:
+
+1. To start, add an `<admin-bar>` with an `<admin-bar-checkbox>` child element:
+   ```html
+   <admin-bar>
+    <admin-bar-checkbox label-text="Enable Dark Mode"></admin-bar-checkbox>
+   </admin-bar>
+   ```
+1. You can then add an event listener to watch for the `change` event. The `change` event extends the normal input `change` event, and it includes a `checked` property that returns a boolean value.
+   ```html
+   <admin-bar>
+    <admin-bar-checkbox label-text="Enable Dark Mode"></admin-bar-checkbox>
+   </admin-bar>
+   
+   <script>
+     const checkboxElement = document.querySelector('admin-bar-checkbox')
+   
+     if (checkboxElement) {
+       checkboxElement.addEventListener('change', (e) => {
+         if (e.checked) {
+           // If the `checked` value is `true` add class to the body element.
+           document.body.classList.add('dark-mode')
+         } else {
+           // If the `checked` value is `false` remove class from the body element.
+           document.body.classList.remove('dark-mode')
+         }
+       })
+     }
+   </script>
+   ```
+
+Another pattern you could follow is to use the `<admin-bar-checkbox>` element to make changes to user setting through an API request:
+
+```html
+<admin-bar>
+  <admin-bar-checkbox label-text="Enable Preference"></admin-bar-checkbox>
+</admin-bar>
+
+<script>
+  const adminBarElement = document.querySelector('admin-bar')
+  const checkboxElement = document.querySelector('admin-bar-checkbox')
+
+  if (adminBarElement && checkboxElement) {
+    checkboxElement.addEventListener('change', async (e) => {
+      // Sets checkbox to disabled state to prevent user from interacting with it during API request.
+      checkboxElement.setAttribute('disabled', '')
+
+      // Sets admin bar `progress` value to `50` to indicate progress.
+      adminBarElement.setAttribute('progress', '50')
+
+      // Make API request
+      try {
+        // You can use the custom boolean property, `checked`, from the event to pass into your API request.
+        // The `makeApiRequest` function is just an example.
+        await makeApiRequest({ enable: e.checked })
+        adminBarElement.setAttribute('progress', '100')
+      } catch (error) {
+        // Handle error ...
+
+        // Set admin bar `progress` value to `-1` to indicate an error.
+        adminBarElement.setAttribute('progress', '-1')
+      } finally {
+        // Enable checkbox again.
+        checkboxElement.removeAttribute('disabled')
+      }
+    })
+  }
+</script>
+```
+
+### Admin Bar Checkbox Public Properties
+
+| Attribute Name     | Type      | Default      | Description                                                                              |
+|--------------------|-----------|--------------|------------------------------------------------------------------------------------------|
+| `input-aria-label` | _string_  | `undefined`  | Add an aria-label to the `input` element.                                                |
+| `checked`          | _boolean_ | `false`      | Sets the value of the checkbox.                                                          |
+| `disabled`         | _boolean_ | `false`      | Disables the checkbox.                                                                   |
+| `label-text`       | _string_  | `''`         | The label text content for the checkbox.                                                 |
+| `input-name`       | _string_  | `'checkbox'` | The `name` attribute of the checkbox.                                                    |
+| `input-switch`     | _boolean_ | `false`      | Setting this to `true` will add the `switch` attribute to the checkbox element.          |
+| `label-position`   | _string_  | `'after'`    | Sets the position for the label in relation to the checkbox. Accepts: 'after', 'before'  |
+
+### Admin Bar Checkbox Slots
+
+| Slot Name        | Description                                                                                                                  |
+|------------------|------------------------------------------------------------------------------------------------------------------------------|
+| `checked-icon`   | Visually hides the browser checkbox element and shows custom HTML in its place when the `<admin-bar-checkbox>` is checked.   |
+| `unchecked-icon` | Visually hides the browser checkbox element and shows custom HTML in its place when the `<admin-bar-checkbox>` is unchecked. |
+
+### Admin Bar Checkbox Events
+
+| Event Name  | Type                           | Payload                | Description                                                                                        |
+|-------------|--------------------------------|------------------------|----------------------------------------------------------------------------------------------------|
+| `change`    | AdminBarCheckboxChangeEvent    | `{ checked: boolean }` | An extended version of the input `change` event that fires when the state of the checkbox changes. |
+| `checked`   | AdminBarCheckboxCheckedEvent   | ``                     | Event that fires when the input is changed to the `checked` state.                                 |
+| `unchecked` | AdminBarCheckboxUncheckedEvent | ``                     | Event that fires when the input is changed to the `unchecked` state.                               |
+
+---
+
 ## Adding Text Elements to Admin Bar
 
-The default slot of an `<admin-bar>` element is an element with `display: flex` on it. This means you can add `<admin-bar-button>` elements alongside any other HTML element you would like display next to them. You can add a `<div>` with text in it and use CSS to style it however you'd like, however, if you would simply like to display some text, you could use a `<admin-bar-text>` element:
+The default slot of an `<admin-bar>` element is an element with `display: flex` on it. This means you can add `<admin-bar-button>` elements alongside any other HTML element you would like displayed next to them. You can add a `<div>` with text in it and use CSS to style it however you’d like, however, if you would simply like to display some text, you could use a `<admin-bar-text>` element:
 
 ```html
 <admin-bar>
@@ -240,7 +449,7 @@ The default slot of an `<admin-bar>` element is an element with `display: flex` 
 </admin-bar>
 ```
 
-Using the `text-content` attribute will add plain text that is styled to look like the text in Admin Bar’s greeting. If you would like to style the text differently or if you would like to add your own HTML elements into the `<admin-bar-text>` element, you can use the default slot to add elements:
+Using the `text-content` attribute will add plain text styled to look like the text in Admin Bar’s greeting. If you would like to style the text differently or if you would like to add your own HTML elements into the `<admin-bar-text>` element, you can use the default slot to add elements:
 
 ```html
 <admin-bar>
@@ -248,26 +457,26 @@ Using the `text-content` attribute will add plain text that is styled to look li
 </admin-bar>
 ```
 
-### Adding Labels to Admin Bar Text Elements
+### Adding Badges to Admin Bar Text Elements
 
-You can use `<admin-bar-text>` elements for notes or for other useful information that is tied to the context of the current page you are on. Using the `label-content` attribute on a `<admin-bar-text>` element will let you call out stats and other information:
+You can use `<admin-bar-text>` elements for notes or for other useful information that is tied to the context of the current page you are on. Using the `badge-content` attribute on a `<admin-bar-text>` element will let you call out stats and other information:
 
 ```html
 <admin-bar>
-  <admin-bar-text label-content="25" text-content="Enries in this Section"></admin-bar-text>
+  <admin-bar-text badge-content="25" text-content="Entries in this Section"></admin-bar-text>
 </admin-bar>
 ```
 
-If you would like to create a text element that is made up of only a label, you can omit the default slot and the `text-content` attribute:
+If you would like to create a text element made up of only a badge, you can omit the default slot and the `text-content` attribute:
 
 ```html
 <admin-bar show-environment>
-  <admin-bar-text label-content="STAGING"></admin-bar-text>
+  <admin-bar-text badge-content="STAGING"></admin-bar-text>
 </admin-bar>
 ```
 
 > [!TIP]
-> The color of labels can be styled using CSS Custom Properties. This can be helpful in alerting users of important information.
+> The color of badges can be styled using CSS Custom Properties. This can be helpful in alerting users of important information.
 
 Text in `<admin-bar-text>` elements are not allowed to wrap by default, but adding the `multi-line` attribute unsets the CSS that keep its content on one line.
 
@@ -281,52 +490,45 @@ Text in `<admin-bar-text>` elements are not allowed to wrap by default, but addi
 
 The `dl-content` prop displays an array of key/value arrays in a `<dl>` element. While you otherwise can be creative with it, it’s intended to be used in popovers as part of `<admin-bar-button>` elements.
 
-To add a button that displays a list of items in a popover you can start with an `<admin-bar>` with an `<admin-bar-button>` element in it. In the `<admin-bar-button>` element, add the `popover` slot:
+To add a button that displays a list of items in a popover you can start with an `<admin-bar>` with an `<admin-bar-button>` element in it.
 
 ```html
 <admin-bar>
-  <admin-bar-text>
+  <admin-bar-button>
      List of items.
-     <span slot="popover"></span>
-  </admin-bar-text>
+  </admin-bar-button>
 </admin-bar>
 ```
 
-Add an `<admin-bar-text>` element with the `dl-content` prop. The value of the prop is an array of arrays. For each second-level array, 2 values are required. The first value will always render in a `<dt>` element and the second value will render in its matching `<dd>` element.
+Add an `<admin-bar-text>` element with the `popover` slot and the `dl-content` prop. The value of the prop is an array of arrays. For each second-level array, two values are required. The first value will always render in a `<dt>` element and the second value will render in its matching `<dd>` element.
 
 ```html
 <admin-bar>
-  <admin-bar-text>
+  <admin-bar-button>
      List of items.
-     <span slot="popover">
-        <admin-bar-text dl-content='[["Line 1 title", "Line 1 content"], ["Line 2 title", "Line 2 content"]]'></admin-bar-text>
-     </span>
-  </admin-bar-text>
+    <admin-bar-text slot="popover" dl-content='[["Line 1 title", "Line 1 content"], ["Line 2 title", "Line 2 content"]]'></admin-bar-text>
+  </admin-bar-button>
 </admin-bar>
 ```
 
-Notice how above the `dl-content` prop uses single quotes (`''`) for the attribute value? The contents of the `dl-content` prop need to be a valid JSON string. You can use single quotes so you can use double quotes like above, however, if you are working in a situation where you can’t do that, you can escape double quotes by using `&quot;` instead:
+Notice how above, the `dl-content` prop uses single quotes (`''`) for the attribute value? The contents of the `dl-content` prop need to be a valid JSON string. You can use single quotes so you can use double quotes like above, however, if you are working in a situation where you can’t do that, you can escape double quotes by using `&quot;` instead:
 
 ```html
 <admin-bar>
-  <admin-bar-text>
+  <admin-bar-button>
      List of items.
-     <span slot="popover">
-        <admin-bar-text dl-content="[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]"></admin-bar-text>
-     </span>
-  </admin-bar-text>
+    <admin-bar-text slot="popover" dl-content="[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]"></admin-bar-text>
+  </admin-bar-button>
 </admin-bar>
 ```
-
-
 
 ### Admin Bar Text Public Properties
 
 | Attribute Name   | Type               | Default        | Description                                                                                     |
 |------------------|--------------------|----------------|-------------------------------------------------------------------------------------------------|
 | `dl-content`     | _TextDlContent_    | `[]`           | A tuple array that is turned into an HTML definition list.                                      |
-| `label-content`  | _string_           | `''`           | Sets the label for the `<admin-bar-text>`.                                                      |
-| `label-position` | _string_           | `'after'`      | Sets the position for the label. Accepts: `'after'`, `'before'`                                 |
+| `badge-content`  | _string_           | `''`           | Sets the badge for the `<admin-bar-text>`.                                                      |
+| `badge-position` | _string_           | `'after'`      | Sets the position for the badge. Accepts: `'after'`, `'before'`                                 |
 | `multi-line`     | _boolean_          | `false`        | Allows the content to wrap to the next line.                                                    |
 | `table-content`  | _TextTableContent_ | `{ rows: [] }` | An object that is turned into an HTML table.                                                    |
 | `text-content`   | _string_           | `''`           | Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot. |
@@ -354,6 +556,20 @@ interface TextTableContent {
 |----------------|-------------------------------------------------------------------|
 | `default`      | Text or HTML elements rendered in the `<admin-bar-text>` element. |
 
+---
+
+## Translations and Accessibility
+
+Wherever possible, user-facing text should be able to be translated and replaced from its English default. Most text content can be set using prop attributes on elements.
+
+There are also several props dedicated to setting ARIA attributes on elements or for adding descriptions that are meant to be picked up by screen readers.
+
+There are currently proposals to add better support for accessibility features for shadow DOM elements. As these become baseline features, they will be added to Admin Bar Component.
+
+If you see any issues with accessibility or translations, please see the [Contributing](https://github.com/wbrowar/admin-bar-component/blob/main/README.md#contributing) section below.
+
+---
+
 ## Styling Admin Bar
 
 Admin Bar Component is a web component that renders via the Shadow DOM. This means that Admin Bar Component won’t pick up the styles from your project’s stylesheets, but it also means that you cannot directly style children in the `<admin-bar>` and `<admin-bar-button>` components.
@@ -367,24 +583,25 @@ Classes, CSS Cascade Layers, CSS Custom Properties can be used to customize the 
 
 Classes can be added to `<admin-bar>` elements to change the look and placement of the element on your page.
 
-| Class    | Description                                                                                                                                                                                                                       |
-|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `bottom` | Works along side the `fixed` or `sticky` class to move the `<admin-bar>` to the bottom of the page (sets the `bottom` CSS property to `0` and the `top` to `auto`).                                                               |
-| `fixed`  | Makes the `<admin-bar>` fixed to the top of the page, using CSS `position: fixed`. When using `fixed` you can move `<admin-bar>` to the bottom of your `<body>` element.                                                          |
-| `rtl`    | Changes the reading direction from `ltr` to `rtl` in situations where you need to manually set it. Admin Bar Component will automatcally switch to RTL if your page is set to RTL or if you have the CSS set to `direction: rtl`. |
-| `sticky` | Makes the `<admin-bar>` stick to the top of the page, using CSS `position: sticky` when the `<admin-bar>` is above the rest of the content on the page.                                                                           |
+| Class      | Description                                                                                                                                                                                                                       |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `bottom`   | Works along side the `fixed` or `sticky` class to move the `<admin-bar>` to the bottom of the page (sets the `bottom` CSS property to `0` and the `top` to `auto`).                                                               |
+| `fixed`    | Makes the `<admin-bar>` fixed to the top of the page, using CSS `position: fixed`. When using `fixed` you can move `<admin-bar>` to the bottom of your `<body>` element.                                                          |
+| `rtl`      | Changes the reading direction from `ltr` to `rtl` in situations where you need to manually set it. Admin Bar Component will automatcally switch to RTL if your page is set to RTL or if you have the CSS set to `direction: rtl`. |
+| `sticky`   | Makes the `<admin-bar>` stick to the top of the page, using CSS `position: sticky` when the `<admin-bar>` is above the rest of the content on the page.                                                                           |
+| `vertical` | Uses a media query to turn `--admin-bar-vertical` on—putting Admin Bar in vertical mode.                                                                                                                                          |
 
 > [!NOTE]
-> The `fixed` and `sticky` classes are there to make setting the position easy, however, instead of using those classes, you could style the `admin-bar` element position in your CSS.
+> These classes are there to make setting the position or modes easy. Instead of using those classes, you could style the `admin-bar` element in your CSS to achieve similar effects.
 ---
 
-Currently, there are no classes that can be added to `<admin-bar-button>` or `<admin-bar-text>` elements.
+Currently, there are no classes used by `<admin-bar-button>`, `<admin-bar-checkbox>`, or `<admin-bar-text>` elements.
 
 ### CSS Cascade Layers
 
 Linking or importing the `admin-bar.css` into your project sets default CSS Custom Property values. The CSS in this file is added to a [CSS Cascade Layer](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers), called `admin-bar`.
 
-If you are using CSS Cascade Layers in your project you can add the `admin-bar` layer to your layer stack and then override it with another layer:
+If you are using CSS Cascade Layers in your project, you can add the `admin-bar` layer to your layer stack and then override it with another layer:
 
 ```css
 @layer reset, third-party, admin-bar, theme, layout, utilities;
@@ -404,6 +621,19 @@ admin-bar {
     --admin-bar-bg: rgba(52, 215, 0, 0.5);
 }
 ```
+
+### CSS Parts
+
+CSS parts are used to style specific elements in the shadow DOM.
+
+| Component            | Part Name | Description                                                     |
+|----------------------|-----------|-----------------------------------------------------------------|
+| `<admin-bar>`        | `avatar`  | The avatar image in the greeting section.                       |
+| `<admin-bar>`        | `buttons` | The flex container that wraps all elements in the default slot. |
+| `<admin-bar>`        | `toolbar` | The wrapping element of the main toolbar.                       |
+| `<admin-bar-button>` | `popover` | The wrapping popover element.                                   |
+| `<admin-bar-text>`   | `dl`      | The `<dl>` element rendered by the `dl-content` prop.           |
+| `<admin-bar-text>`   | `table`   | The `<table>` element rendered by the `table-content` prop.     |
 
 ### CSS Custom Properties
 
@@ -468,14 +698,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     /* The font stack for all text. Set this to `inherit` to match the font-family of the parent element (including fonts set in @font-face). */
     --admin-bar-font-stack: system-ui, sans-serif;
 
-    /* The default direction of gradients. */
-    --admin-bar-gradient-direction: to bottom;
-
     /* The height of the bar and all of the buttons. */
     --admin-bar-height: 43px;
 
     /* The horizontal padding default for Admin Bar child elements. */
-    --admin-bar-inline-padding: clamp(4px, 1vw, 13px);
+    --admin-bar-inline-padding: 14px;
 
     /* Sets the amount of space Admin Bar is inset from the top, bottom, and sides of the viewport. */
     --admin-bar-inset-size: clamp(2px, 1vw, 10px);
@@ -511,7 +738,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 
     /* The height of the progress bar. */
     --admin-bar-progress-height: var(--admin-bar-height);
-    /*--admin-bar-progress-height: 4px;*/
+
+    /* ====================================================================== */
+
+    /* Overrides the display value of the internal toolbar toggle button. */
+    /*--admin-bar-toolbar-toggle-display: none;*/
 
     /* ====================================================================== */
 
@@ -539,28 +770,18 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
     /*--admin-bar-text-padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);*/
 
     /* The background for labels in `admin-bar-text` components. */
-    --admin-bar-text-label-color-bg: oklch(1 0 89.876 / 0.9);
+    --admin-bar-text-badge-color-bg: oklch(1 0 89.876 / 0.9);
 
     /* The text for labels in `admin-bar-text` components. */
-    --admin-bar-text-label-color-text: oklch(0 0 0);
+    --admin-bar-text-badge-color-text: oklch(0 0 0);
 
     /* ====================================================================== */
-
-    /* Default styles for the `<admin-bar>` element. */
-    --environment-height: 0px;
-    display: block;
-    width: var(--admin-bar-width);
-    height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
 
     /* Stop `admin-bar-button` elements from shrinking on resize. */
     & > admin-bar-button {
       flex-shrink: 0;
     }
 
-    /* Add height when environment warning is enabled. */
-    &[show-environment] {
-      --environment-height: var(--admin-bar-environment-height);
-    }
     /* Set read direction from right to left. */
     &.rtl {
       direction: rtl;
@@ -574,6 +795,11 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       &:not(.bottom) {
         inset-block-start: var(--admin-bar-inset-size, 0);
       }
+
+      admin-bar-button::part(popover) {
+        max-width: 900px;
+        max-height: calc(100dvh - calc(var(--admin-bar-height) * 2));
+      }
     }
     /* Sticks `<admin-bar>` to the top of the page when scrolling. */
     &.sticky {
@@ -584,12 +810,42 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       &:not(.bottom) {
         inset-block-start: var(--admin-bar-inset-size, 0);
       }
+
+      admin-bar-button::part(popover) {
+        max-width: 900px;
+        max-height: calc(100dvh - calc(var(--admin-bar-height) * 2));
+      }
     }
     /* Moves `<admin-bar>` to the bottom of the page when using `.fixed` or `.sticky`. */
     &.bottom {
-      --admin-bar-gradient-direction: to top;
       inset-inline: var(--admin-bar-inset-size, 0);
       inset-block-end: var(--admin-bar-inset-size, 0);
+    }
+    /* Changes `<admin-bar>` to a vertical bar on smaller screens. */
+    &.vertical {
+      @media (width > 38rem) {
+        &[auto-toggle-vertical] {
+          /* Hide the toolbar toggle button when showing the full toolbar. */
+          --admin-bar-toolbar-toggle-display: none;
+        }
+      }
+      @media (width <= 38rem) {
+        & {
+          --admin-bar-vertical: true;
+
+          /* Detect support for style queries. */
+          @container style(--admin-bar-vertical: true) {
+            & {
+              width: max-content;
+
+              &::part(toolbar) {
+                position: fixed;
+                inset: var(--admin-bar-inset-size);
+              }
+            }
+          }
+        }
+      }
     }
 
     /* Avoid layout shift from happening before Admin Bar Component is registered. */
@@ -634,6 +890,8 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
 
 > [!NOTE]
 > Changes made to Admin Bar Component will try to avoid breaking functionality and styles until the next major version. In order to introduce new features, the CSS and CSS Custom Properties above may change how they are used to style these components. This file may change and default styles may be added or removed over time, so including it into your project should be automated or frequently updated.
+
+---
 
 ## Programmatically Adding Admin Bar
 
@@ -739,14 +997,16 @@ if (adminBar) {
 
 For a full list of available properties, see the source at: `./src/utils/AdminBarBuilder.ts`
 
+---
+
 ## Contributing
-This project is new and it will evolve as it grows (including adding CI automation, tests, and checks). For now, if you run into any bugs, please [leave an issue on GitHub](https://github.com/wbrowar/admin-bar-component/issues).
+This project will evolve as it grows (including adding CI automation, tests, and checks). If you run into any bugs, please [leave an issue on GitHub](https://github.com/wbrowar/admin-bar-component/issues).
 
 If you would like to contribute changes to the project, please do the following:
 1. Fork the branch you would like to start with (usually `main`).
 2. Set up the project locally (using the Node version described in the `.nvmrc` file in the root).
 3. Make your changes.
-4. Run `npm run test` to run type checking and to run tests.
+4. Run `npm run test:run` to run type checking and to run tests.
 5. Push your branch up and [create a pull request on GitHub](https://github.com/wbrowar/admin-bar-component/pulls).
 
-Not all pull requests will be pulled in and not all issues will get fixed, but all suggestions are welcomed.
+Not all pull requests will be pulled in, and not all issues will get fixed, but all suggestions are welcome.

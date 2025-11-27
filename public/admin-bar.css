@@ -60,7 +60,7 @@
     --admin-bar-height: 43px;
 
     /* The horizontal padding default for Admin Bar child elements. */
-    --admin-bar-inline-padding: clamp(4px, 1vw, 13px);
+    --admin-bar-inline-padding: 14px;
 
     /* Sets the amount of space Admin Bar is inset from the top, bottom, and sides of the viewport. */
     --admin-bar-inset-size: clamp(2px, 1vw, 10px);
@@ -99,6 +99,11 @@
 
     /* ====================================================================== */
 
+    /* Overrides the display value of the internal toolbar toggle button. */
+    /*--admin-bar-toolbar-toggle-display: none;*/
+
+    /* ====================================================================== */
+
     /* The background of all buttons. */
     --admin-bar-button-color-bg: transparent;
 
@@ -130,21 +135,11 @@
 
     /* ====================================================================== */
 
-    /* Default styles for the `<admin-bar>` element. */
-    --environment-height: 0px;
-    display: block;
-    width: var(--admin-bar-width);
-    height: calc(var(--admin-bar-height, 43px) + var(--environment-height));
-
     /* Stop `admin-bar-button` elements from shrinking on resize. */
     & > admin-bar-button {
       flex-shrink: 0;
     }
 
-    /* Add height when environment warning is enabled. */
-    &[show-environment] {
-      --environment-height: var(--admin-bar-environment-height);
-    }
     /* Set read direction from right to left. */
     &.rtl {
       direction: rtl;
@@ -160,6 +155,7 @@
       }
 
       admin-bar-button::part(popover) {
+        max-width: 900px;
         max-height: calc(100dvh - calc(var(--admin-bar-height) * 2));
       }
     }
@@ -174,14 +170,40 @@
       }
 
       admin-bar-button::part(popover) {
+        max-width: 900px;
         max-height: calc(100dvh - calc(var(--admin-bar-height) * 2));
       }
     }
     /* Moves `<admin-bar>` to the bottom of the page when using `.fixed` or `.sticky`. */
     &.bottom {
-      --admin-bar-gradient-direction: to top;
       inset-inline: var(--admin-bar-inset-size, 0);
       inset-block-end: var(--admin-bar-inset-size, 0);
+    }
+    /* Changes `<admin-bar>` to a vertical bar on smaller screens. */
+    &.vertical {
+      @media (width > 38rem) {
+        &[auto-toggle-vertical] {
+          /* Hide the toolbar toggle button when showing the full toolbar. */
+          --admin-bar-toolbar-toggle-display: none;
+        }
+      }
+      @media (width <= 38rem) {
+        & {
+          --admin-bar-vertical: true;
+
+          /* Detect support for style queries. */
+          @container style(--admin-bar-vertical: true) {
+            & {
+              width: max-content;
+
+              &::part(toolbar) {
+                position: fixed;
+                inset: var(--admin-bar-inset-size);
+              }
+            }
+          }
+        }
+      }
     }
 
     /* Avoid layout shift from happening before Admin Bar Component is registered. */

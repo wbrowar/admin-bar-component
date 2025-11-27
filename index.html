@@ -21,6 +21,8 @@
         /*--admin-bar-font-stack: inherit;*/
         /*--admin-bar-font-size: 1.4rem;*/
 
+        --admin-bar-toolbar-toggle-display: unset;
+
         & svg.icon {
           display: block;
           width: 15px;
@@ -50,6 +52,7 @@
         &::part(buttons) {
           flex-flow: row wrap;
           justify-content: space-between;
+          position: relative;
           overflow: auto;
         }
 
@@ -108,7 +111,7 @@
     </script>
   </head>
   <body>
-    <admin-bar class="sticky" show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
+    <admin-bar class="sticky vertical" show-greeting show-logout auto-toggle-vertical toolbar-toggle="toolbar" toolbar-toggle-drag avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
       <nav slot="greeting-popover">
         <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
@@ -124,6 +127,33 @@
       <admin-bar-checkbox id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
       <admin-bar-checkbox input-switch checked label-position="before">Switch style</admin-bar-checkbox>
       <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>
+      <admin-bar-button id="popover-test">Popover Slot 1<admin-bar-text slot="popover">Hi, this is popover content 🍾</admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
+        <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
+        <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
+        <admin-bar-button button-href="https://getkirby.com">Kirby</admin-bar-button>
+        <admin-bar-button button-href="https://drupal.org">Drupal</admin-bar-button>
+      </nav></admin-bar-button>
+      <admin-bar-button>Popover Slot 3<admin-bar-text slot="popover" dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 4<admin-bar-text slot="popover" table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'></admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 5<admin-bar-text slot="popover"
+              multi-line
+              dl-content='[["Created at", "Dec 23, 2024 10:09 AM"],["Updated at", "Dec 29, 2024 5:23 PM"],["Entry ID", "5023"],["Long Text","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]'
+              table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"]]}'
+              text-content="Hi, this is popover content 🍾"
+      ></admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 6<div slot="popover">
+        <admin-bar-button>Button</admin-bar-button>
+        <admin-bar-checkbox>Checkbox</admin-bar-checkbox>
+        <h1>Heading</h1>
+        <p>Paragraph</p>
+        <button>Button</button>
+        <a href="#">Link</a>
+        <input type="text">
+        <select><option>Option 1</option><option>Option 2</option><option>Option 3</option></select>
+        <textarea></textarea>
+        <button tabindex="-1">Tabbable button</button>
+      </div></admin-bar-button>
       <admin-bar-button>Popover Slot 7<ul slot="popover">
         <li>
           <p>List item that lets you scroll inside a popover element.</p>
@@ -246,33 +276,6 @@
           <p>List item that lets you scroll inside a popover element.</p>
         </li>
       </ul></admin-bar-button>
-      <admin-bar-button id="popover-test">Popover Slot 1<span slot="popover"><admin-bar-text>Hi, this is popover content 🍾</admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
-        <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
-        <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
-        <admin-bar-button button-href="https://getkirby.com">Kirby</admin-bar-button>
-        <admin-bar-button button-href="https://drupal.org">Drupal</admin-bar-button>
-      </nav></admin-bar-button>
-      <admin-bar-button>Popover Slot 3<span slot="popover"><admin-bar-text dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 4<span slot="popover"><admin-bar-text table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'></admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 5<span slot="popover"><admin-bar-text
-              multi-line
-              dl-content='[["Created at", "Dec 23, 2024 10:09 AM"],["Updated at", "Dec 29, 2024 5:23 PM"],["Entry ID", "5023"],["Long Text","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]'
-              table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"]]}'
-              text-content="Hi, this is popover content 🍾"
-      ></admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 6<div slot="popover">
-        <admin-bar-button>Button</admin-bar-button>
-        <admin-bar-checkbox>Checkbox</admin-bar-checkbox>
-        <h1>Heading</h1>
-        <p>Paragraph</p>
-        <button>Button</button>
-        <a href="#">Link</a>
-        <input type="text">
-        <select><option>Option 1</option><option>Option 2</option><option>Option 3</option></select>
-        <textarea></textarea>
-        <button tabindex="-1">Tabbable button</button>
-      </div></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
       <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>
@@ -674,7 +677,7 @@
       <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure libero mollitia obcaecati officia rem saepe vitae. Iste laborum magni maiores praesentium provident? Explicabo neque nisi officia quae soluta ut.</li>
     </ul>
 
-    <admin-bar class="bottom sticky rtl" show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
+    <admin-bar class="bottom sticky rtl" show-greeting show-environment show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author">
       <nav slot="greeting-popover">
         <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>

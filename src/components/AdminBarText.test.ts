@@ -62,11 +62,11 @@ describe('Badges', () => {
   test('Display badge content', async () => {
     const screen = render(
       html`<admin-bar>
-        <admin-bar-text badge-content="X">Hello, World!</admin-bar-text>
+        <admin-bar-text badge-content="Badge">Hello, World!</admin-bar-text>
       </admin-bar>`
     )
 
-    await expect.element(screen.getByText('X')).toBeVisible()
+    await expect.element(screen.getByText('Badge')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-text-badge-content')
     }
@@ -75,11 +75,11 @@ describe('Badges', () => {
   test('Display badge before text content', async () => {
     const screen = render(
       html`<admin-bar>
-        <admin-bar-text badge-content="X" badge-position="before">Hello, World!</admin-bar-text>
+        <admin-bar-text badge-content="Badge" badge-position="before">Hello, World!</admin-bar-text>
       </admin-bar>`
     )
 
-    await expect.element(screen.getByText('X')).toBeVisible()
+    await expect.element(screen.getByText('Badge')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
         'admin-bar-text-badge-position-before'

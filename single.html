@@ -7,6 +7,25 @@
     <title>Admin Bar Kitchen Sink Examples</title>
     <link rel="stylesheet" href="/admin-bar.css" />
 
+    <style>
+      admin-bar {
+        /* CSS for testing overrides. */
+        /*--admin-bar-bg-color: #b500ff;*/
+        /*--admin-bar-bg: rebeccapurple;*/
+        /*--admin-bar-font-size: 1.4rem;*/
+        /*--admin-bar-vertical: true;*/
+      }
+
+      /* Add this CSS to your project CSS to change the size of your icons. */
+      admin-bar {
+        & svg.icon {
+          display: block;
+          width: 15px;
+          height: auto;
+        }
+      }
+    </style>
+
     <script type="module">
       import {defineAdminBarElements} from './lib/main.js';
 
@@ -14,7 +33,9 @@
     </script>
   </head>
   <body>
-    <admin-bar show-environment show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-button-aria-label="User menu. Use arrow keys to enter menu, then use arrow keys to select a link." greeting-text="Hi, Author" style="--admin-bar-z-index: 99999999;">
+    <admin-bar class="sticky vertical" show-environment show-greeting show-logout toolbar-toggle="toolbar" greeting-button-aria-label="User menu. Use arrow keys to enter menu, then use arrow keys to select a link." style="--admin-bar-z-index: 99999999;">
+      <p slot="outer-toggle">Click Me</p>
+      <p slot="inner-toggle">Close Me</p>
       <nav slot="greeting-popover">
         <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="/" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
@@ -30,27 +51,28 @@
       <admin-bar-checkbox checked id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
       <admin-bar-checkbox input-switch checked label-position="before">Switch style</admin-bar-checkbox>
       <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>
-      <admin-bar-button id="popover-test">Popover Slot 1<span slot="popover"><admin-bar-text>Hi, this is popover content 🍾</admin-bar-text></span></admin-bar-button>
+      <admin-bar-button id="popover-test">Popover Slot 1<admin-bar-text slot="popover">Hi, this is popover content 🍾</admin-bar-text></admin-bar-button>
       <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
         <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
         <admin-bar-button button-href="https://laravel.com">Laravel</admin-bar-button>
         <admin-bar-button button-href="https://getkirby.com">Kirby</admin-bar-button>
         <admin-bar-button button-href="https://drupal.org">Drupal</admin-bar-button>
       </nav></admin-bar-button>
-      <admin-bar-button>Popover Slot 3<span slot="popover"><admin-bar-text dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 4<span slot="popover"><admin-bar-text table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'></admin-bar-text></span></admin-bar-button>
-      <admin-bar-button>Popover Slot 5<span slot="popover"><admin-bar-text
+      <admin-bar-button>Popover Slot 3<admin-bar-text slot="popover" dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 4<admin-bar-text slot="popover" table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'></admin-bar-text></admin-bar-button>
+      <admin-bar-button>Popover Slot 5<admin-bar-text
+              slot="popover"
               multi-line
               dl-content='[["Created at", "Dec 23, 2024 10:09 AM"],["Updated at", "Dec 29, 2024 5:23 PM"],["Entry ID", "5023"],["Long Text","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]'
               table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"]]}'
               text-content="Hi, this is popover content 🍾"
-      ></admin-bar-text></span></admin-bar-button>
+      ></admin-bar-text></admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
       <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>
       <admin-bar-text text-content="Simple plain text"></admin-bar-text>
-      <admin-bar-text style="--admin-bar-text-padding: 0;">
-        <div style="padding-inline: var(--admin-bar-inline-padding); height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
+      <admin-bar-text style="--admin-bar-text-padding: 0; display: block;">
+        <div style="padding-inline: var(--admin-bar-inline-padding); width: 100%; height: 100%; align-content: center; background-color: goldenrod;">HTML</div>
       </admin-bar-text>
       <admin-bar-text badge-content="STAGING" style="--admin-bar-text-badge-color-bg: var(--admin-bar-environment-bg-color);"></admin-bar-text>
     </admin-bar>

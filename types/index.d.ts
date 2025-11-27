@@ -9,6 +9,8 @@ export interface TextTableContent {
   headers?: string[]
   rows: (string | number)[][]
 }
+export type ToolbarToggleState = 'button' | 'toolbar'
+export type ToolbarToggleDrag = 'remember' | 'reset'
 
 /**
  * Admin Bar Builder

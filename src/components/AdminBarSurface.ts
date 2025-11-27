@@ -21,6 +21,7 @@ export class AdminBarSurface extends LitElement {
     .wrapper {
       display: grid;
       position: relative;
+      height: 100%;
       border-radius: var(--admin-bar-border-radius);
       box-shadow:
         0 6px 6px rgba(0, 0, 0, 0.2),
@@ -141,7 +142,12 @@ export class AdminBarSurface extends LitElement {
    * ===========================================================================
    */
   /**
-   * TODO
+   * Displays a progress bar on the `progress` layer.
+   *
+   * Setting different values determines the state of progress bar shown:
+   * 1-99 – Displays progress as a percentage
+   * 100 – Displays successful state
+   * -1 – Displays error state
    */
   @property({ attribute: 'progress-value', type: Number })
   progressValue = 0
@@ -152,13 +158,13 @@ export class AdminBarSurface extends LitElement {
    * =========================================================================
    */
   /**
-   * TODO
+   * Used to change the look of the progress bar.
    */
   @state()
   private _progressState: ProgressState = 'reset'
 
   /**
-   * TODO
+   * The width of the progress bar as a percentage from 0-100.
    */
   @state()
   private _progressWidth = 0
@@ -185,7 +191,7 @@ export class AdminBarSurface extends LitElement {
       <div class="tint"></div>
       <div class="shine"></div>
       <div
-        data-testid="admin-bar-surface-progress"
+        data-testid="surface-progress"
         class="progress ${this._progressState}"
         @animationend="${this._onProgressAnimationEnd}"
         style="--_progress-width: ${this._progressWidth}%;"

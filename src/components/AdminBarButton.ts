@@ -5,6 +5,8 @@ import { AdminBarSurface } from './AdminBarSurface.ts'
 import { focusElement, hoverClickableElement } from './css.ts'
 
 export class AdminBarButton extends LitElement {
+  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true }
+
   /**
    * =========================================================================
    * CSS
@@ -22,12 +24,9 @@ export class AdminBarButton extends LitElement {
     :host {
       --popover-name: --popover-anchor;
       display: block;
-      height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
     }
-    :host:has(:focus-visible) {
-      ${focusElement()}
-    }
+
     .admin-bar-button {
       ${hoverClickableElement()}
       anchor-name: var(--popover-name);
@@ -39,6 +38,7 @@ export class AdminBarButton extends LitElement {
       align-items: center;
       padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);
       min-width: 100%;
+      min-height: var(--admin-bar-height, 43px);
       height: 100%;
       border: none;
       font-family: var(--admin-bar-font-stack);
@@ -47,32 +47,13 @@ export class AdminBarButton extends LitElement {
       outline: none;
       white-space: nowrap;
 
-      &.admin-bar-button--greeting {
-        border-start-start-radius: var(--admin-bar-border-radius);
-        border-end-start-radius: var(--admin-bar-border-radius);
-
-        @container style(--admin-bar-show-environment) {
-          & {
-            border-start-start-radius: 0;
-          }
-        }
+      &:focus-visible {
+        ${focusElement()}
       }
 
-      &.admin-bar-button--logout {
-        padding: var(--admin-bar-block-padding) clamp(10px, 3vw, 20px);
-        border-end-end-radius: var(--admin-bar-border-radius);
-        border-start-end-radius: var(--admin-bar-border-radius);
-
-        &:hover {
-          --admin-bar-button-color-bg: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
-          --admin-bar-button-color-text: var(--admin-bar-color-text-logout);
-        }
-
-        @container style(--admin-bar-show-environment) {
-          & {
-            border-start-end-radius: 0;
-          }
-        }
+      :host([logout-button]) &:hover {
+        background-color: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
+        color: var(--admin-bar-color-text-logout);
       }
     }
     [popovertarget]:has(+ [popover]:popover-open) {
@@ -106,6 +87,7 @@ export class AdminBarButton extends LitElement {
           inset: auto;
           inset-block-start: calc(anchor(end) + 4px);
           margin: 0;
+          height: auto;
 
           @container style(--admin-bar-class-bottom: true) {
             position-try-fallbacks: --popover-below;
@@ -119,6 +101,20 @@ export class AdminBarButton extends LitElement {
           backdrop-filter: blur(20px) saturate(200%);
           background: var(--admin-bar-button-popover-bg);
         }
+      }
+    }
+
+    .vertical-popover {
+      display: none;
+      box-sizing: border-box;
+      position: relative;
+      margin: 5px;
+      height: auto;
+      background-color: var(--admin-bar-button-popover-bg, var(--admin-bar-bg-color));
+      border-radius: var(--admin-bar-button-popover-border-radius, var(--admin-bar-border-radius));
+
+      &[data-open] {
+        display: flex;
       }
     }
   `
@@ -170,6 +166,12 @@ export class AdminBarButton extends LitElement {
   private _hasPopoverSlot = false
 
   /**
+   * Stores the vertical state based on the CSS variable, `--admin-bar-vertical`.
+   */
+  @state()
+  private _inVertical = false
+
+  /**
    * Tracks whether the popover is currently open.
    */
   @state()
@@ -180,6 +182,14 @@ export class AdminBarButton extends LitElement {
    * METHODS
    * =========================================================================
    */
+  /**
+   * Handles keyboard navigation for the popover.
+   */
+  private _onVerticalPopoverButtonClick() {
+    if (this._inVertical) {
+      this._popoverOpen = !this._popoverOpen
+    }
+  }
   /**
    * Handles keyboard navigation for the popover.
    */
@@ -260,6 +270,11 @@ export class AdminBarButton extends LitElement {
     }
   }
 
+  updateInVertical() {
+    this._popoverOpen = false
+    this._inVertical = getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
+  }
+
   /**
    * Emits events when the popover is opened or closed.
    */
@@ -286,12 +301,12 @@ export class AdminBarButton extends LitElement {
     flatten: true,
     slot: 'popover',
   })
-  _popoverFocusableChildren!: Array<HTMLElement>
+  private _popoverFocusableChildren!: Array<HTMLElement>
 
   /**
    * Event fired when content in the `popover` slot changes.
    */
-  _handlePopoverSlotchange(e: any) {
+  private _handlePopoverSlotchange(e: any) {
     const childNodes = e.target.assignedNodes({ flatten: true })
 
     this._hasPopoverSlot = childNodes.length > 0
@@ -304,6 +319,7 @@ export class AdminBarButton extends LitElement {
    */
   constructor() {
     super()
+
     if (!customElements.get('admin-bar-surface')) {
       customElements.define('admin-bar-surface', AdminBarSurface)
     }
@@ -311,23 +327,21 @@ export class AdminBarButton extends LitElement {
   connectedCallback() {
     super.connectedCallback()
     this.addEventListener('keydown', this._onPopoverButtonKeyDown)
+
+    this.updateInVertical()
   }
+
   render() {
     const adminBarClasses = {
       'admin-bar-button': true,
-      'admin-bar-button--el-a': false,
-      'admin-bar-button--el-button': false,
-      'admin-bar-button--el-select': false,
-      'admin-bar-button--greeting': this.isGreetingButton,
-      'admin-bar-button--logout': this.isLogoutButton,
     }
 
     const labelContent = html`<slot name="before-label"></slot
       ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
       ><slot name="after-label"></slot>`
 
+    // Render `a` element.
     if (this.href) {
-      adminBarClasses['admin-bar-button--el-a'] = true
       return html`<a
         class="${classMap(adminBarClasses)}"
         aria-label="${this.buttonAriaLabel ?? nothing}"
@@ -336,21 +350,35 @@ export class AdminBarButton extends LitElement {
       >`
     }
 
-    adminBarClasses['admin-bar-button--el-button'] = true
-
     if (this._hasPopoverSlot) {
-      return html`<button
-          class="${classMap(adminBarClasses)}"
-          aria-label="${this.buttonAriaLabel ?? nothing}"
-          popovertarget="admin-bar-button-popover"
-        >
-          ${labelContent}
-        </button>
-        <admin-bar-surface popover id="admin-bar-button-popover" part="popover" @toggle="${this._onPopoverToggle}">
-          <slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>
-        </admin-bar-surface>`
+      const buttonElement = html`<button
+        class="${classMap(adminBarClasses)}"
+        aria-label="${this.buttonAriaLabel ?? nothing}"
+        popovertarget="${!this._inVertical ? 'admin-bar-button-popover' : nothing}"
+        @click="${this._onVerticalPopoverButtonClick}"
+      >
+        ${labelContent}
+      </button>`
+
+      // Render popover content below button.
+      if (this._inVertical) {
+        return html`${buttonElement}
+          <div class="vertical-popover" ?data-open="${this._popoverOpen}">
+            <slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>
+          </div>`
+      }
+
+      // Render popover as HTML popover.
+      return html`${buttonElement}<admin-bar-surface
+          popover
+          id="admin-bar-button-popover"
+          part="popover"
+          @toggle="${this._onPopoverToggle}"
+          ><slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot
+        ></admin-bar-surface>`
     }
 
+    // Render `button` element.
     return html`<button class="${classMap(adminBarClasses)}" aria-label="${this.buttonAriaLabel ?? nothing}">
         ${labelContent}</button
       ><slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>`

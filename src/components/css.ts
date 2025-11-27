@@ -6,7 +6,7 @@ import { css } from 'lit'
 export function focusElement() {
   return css`
     & {
-      background-color: color-mix(in srgb, var(--admin-bar-color-highlight), transparent 90%);
+      background-color: color-mix(in srgb, var(--admin-bar-button-color-text, white), transparent 90%);
       outline: 3px solid color-mix(in srgb, var(--admin-bar-color-highlight), transparent 10%);
       outline-offset: -3px;
     }
@@ -31,7 +31,7 @@ export function hoverClickableElement() {
       }
     }
 
-    &:not(.admin-bar-button--logout):hover {
+    &:hover {
       --admin-bar-button-color-bg: var(--admin-bar-button-color-bg-hover, var(--admin-bar-button-color-text, white));
       --admin-bar-text-label-color-bg: var(--admin-bar-color-highlight);
       --admin-bar-text-label-color-text: var(--admin-bar-button-color-bg-hover);
