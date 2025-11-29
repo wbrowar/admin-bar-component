@@ -272,7 +272,7 @@ export class AdminBarButton extends LitElement {
 
   updateInVertical() {
     this._popoverOpen = false
-    this._inVertical = getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
+    this._inVertical = window.getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
   }
 
   /**

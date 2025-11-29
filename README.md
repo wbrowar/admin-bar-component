@@ -31,12 +31,15 @@ Admin Bar can be set up manually or by using a built-in helper method.
 To add Admin Bar to your project, import it in as an ES module, then define it as a custom element:
 
 ```javascript
-import { AdminBar } from 'admin-bar-component'
+import { AdminBar, AdminBarButton, AdminBarCheckbox, AdminBarText } from 'admin-bar-component'
 
 // Define Admin Bar element.
 customElements.define('admin-bar', AdminBar)
 
-// ... Define `<admin-bar-button>`, `<admin-bar-text>`, and other elements...
+// Define Admin Bar subcomponents based on what you need in your project..
+customElements.define('admin-bar-button', AdminBarButton)
+customElements.define('admin-bar-checkbox', AdminBarCheckbox)
+customElements.define('admin-bar-text', AdminBarText)
 ```
 
 ### Helper Setup
@@ -70,10 +73,14 @@ defineAdminBarElements(['button', 'checkbox', 'text'])
    ```html
    <script type="module" src="path-to-your-assets/admin-bar.js"></script>
    ```
-1. Import and define your custom elements:
-   ```html
-   import { defineAdminBarElements } from 'admin-bar-component'
-   defineAdminBarElements(['button', 'checkbox', 'text'])
+1. Import and define Admin Bar Component’s custom elements:
+   ```javascript
+   <script type="module">
+     import { defineAdminBarElements } from 'admin-bar-component'
+     
+     // Define `<admin-bar>` and subcomponents as custom elements.
+     defineAdminBarElements(['button', 'checkbox', 'text'])
+   </script>
    ```
 1. Add and configure an `<admin-bar>` element:
    ```html
@@ -90,14 +97,20 @@ defineAdminBarElements(['button', 'checkbox', 'text'])
 
 1. In a global JavaScript file or in a specific layout or component file, you can import the JavaScript file like this:
    ```javascript
-   import 'admin-bar-component'
+   import { defineAdminBarElements } from 'admin-bar-component'
+   
+   // Define `<admin-bar>` and subcomponents as custom elements.
+   defineAdminBarElements(['button', 'checkbox', 'text'])
    ```
 1. You can load the CSS in your component file, as well, by importing the file directly:
    ```javascript
-   import 'admin-bar-component'
+   import { defineAdminBarElements } from 'admin-bar-component'
    import 'admin-bar-component/dist/admin-bar.css'
+   
+   // Define `<admin-bar>` and subcomponents as custom elements.
+   defineAdminBarElements(['button', 'checkbox', 'text'])
    ```
-2. Or, if you are using something like PostCSS, you can import the CSS file into your CSS file, like this:
+   Or, if you are using something like PostCSS, you can import the CSS file into your CSS file, like this:
    ```postcss
    @import url(admin-bar-component/dist/admin-bar.css);
    ```
@@ -122,7 +135,7 @@ By default, this will show a pencil icon, but you can add a custom message by ad
 
 Now your custom text will appear. If you would also like to add an avatar next to your message, you can use the `avatar-src` and `avatar-alt` attributes:
 ```html
-<admin-bar show-greeting avatar-src="path-to-your-assets/user-photo.jpg" avatar-atr="Sam’s avatar">
+<admin-bar show-greeting avatar-src="path-to-your-assets/user-photo.jpg" avatar-alt="Sam’s avatar">
   <div slot="greeting">Hello, Sam</div>
 </admin-bar>
 ```
@@ -139,7 +152,7 @@ To turn on vertical mode, you can add the `vertical` class to `<admin-bar>` and 
 If you prefer to use vertical mode in another scenario, you can set `--admin-bar-vertical: true;` in your CSS and it will always be in vertical mode. Or you can create a media query that sets `--admin-bar-vertical: true;` at a specific breakpoint.
 
 > [!NOTE]
-> Using `--admin-bar-vertical: true;` is only supported in browser that support CSS `style()` queries.
+> Using `--admin-bar-vertical: true;` is only supported in browser that support CSS `@container style()` queries.
 
 
 ### Collapsing and Expanding Admin Bar

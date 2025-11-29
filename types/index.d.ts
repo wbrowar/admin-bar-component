@@ -1,4 +1,21 @@
-import { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarCheckbox, AdminBarText } from '../lib/main.ts'
+import {
+  AdminBar,
+  AdminBarBuilder,
+  AdminBarButton,
+  AdminBarCheckbox,
+  AdminBarText,
+  defineAdminBarElements,
+} from '../lib/main.ts'
+import {
+  AdminBarButtonClosedEvent,
+  AdminBarButtonOpenedEvent,
+  AdminBarButtonToggleEvent,
+} from '@/components/AdminBarButton.ts'
+import {
+  AdminBarCheckboxChangeEvent,
+  AdminBarCheckboxCheckedEvent,
+  AdminBarCheckboxUncheckedEvent,
+} from '@/components/AdminBarCheckbox.ts'
 
 /**
  * Admin Bar Components
@@ -123,4 +140,15 @@ export interface BuilderAdminBarText {
 
 export type BuilderAdminBarSubComponent = BuilderAdminBarButton | BuilderAdminBarCheckbox | BuilderAdminBarText
 
-export { AdminBar, AdminBarButton, AdminBarBuilder, AdminBarCheckbox, AdminBarText }
+// Export Admin Bar and subcomponents
+export { AdminBar, AdminBarBuilder, AdminBarButton, AdminBarCheckbox, AdminBarText, defineAdminBarElements }
+
+// Export events
+export type {
+  AdminBarButtonClosedEvent,
+  AdminBarButtonOpenedEvent,
+  AdminBarButtonToggleEvent,
+  AdminBarCheckboxChangeEvent,
+  AdminBarCheckboxCheckedEvent,
+  AdminBarCheckboxUncheckedEvent,
+}

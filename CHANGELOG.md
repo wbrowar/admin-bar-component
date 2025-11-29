@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Related CSS Custom Properties have been renamed:
     - `--admin-bar-text-label-color-bg` is now `--admin-bar-text-badge-color-bg`
     - `--admin-bar-text-label-color-text` is now `--admin-bar-text-badge-color-text`
+- The default value for `badge-position` has been changed to `before`.
 - Changed the `:focus-visible` style for `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
 - Changed the default greeting text to a pencil icon when no `greeting-text` prop is provided.
 - Added a default height to popover elements when using the `fixed` or `sticky` classes.

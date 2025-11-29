@@ -33,7 +33,7 @@ export class AdminBarText extends LitElement {
       &:is(.multi-line, :has(dl, table)) {
         padding: var(--admin-bar-text-padding, var(--admin-bar-inline-padding));
         height: unset;
-        white-space: unset;
+        white-space: normal;
 
         &:has(table) {
           padding: 0;
@@ -125,7 +125,7 @@ export class AdminBarText extends LitElement {
    * Sets the position for the badge. Accepts: 'after', 'before'
    */
   @property({ attribute: 'badge-position' })
-  badgePosition: 'after' | 'before' = 'after'
+  badgePosition: 'after' | 'before' = 'before'
 
   /**
    * Allows the content to wrap to the next line.

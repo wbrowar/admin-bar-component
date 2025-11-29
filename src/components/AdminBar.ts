@@ -444,7 +444,7 @@ export class AdminBar extends LitElement {
   private _adminBarButtonChildren!: Array<AdminBarButton>
 
   /**
-   * TODO
+   * Tracks whether the `greeting-popover` slot has content.
    */
   private _handleGreetingPopoverSlotchange(e: any) {
     const childNodes = e.target.assignedNodes({ flatten: true })
@@ -475,7 +475,7 @@ export class AdminBar extends LitElement {
           // Toggles the value of `toolbarToggle` when the `<admin-bar>` element resizes.
           if (Math.round(entry.contentRect.width) !== this._hostWidth) {
             log('Resize Observer')
-            const isVertical = getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
+            const isVertical = window.getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
 
             if (this._isVertical !== isVertical) {
               this._isVertical = isVertical
@@ -514,7 +514,7 @@ export class AdminBar extends LitElement {
   protected firstUpdated() {
     // Default `toolbar-toggle` to `toolbar` when a value isn’t provided.
     if (this.toolbarToggle === '') {
-      this.toolbarToggle = 'toolbar'
+      this.toolbarToggle = this._isVertical ? 'button' : 'toolbar'
     }
 
     // Default `toolbar-toggle-drag` to `reset` when a value isn’t provided.
