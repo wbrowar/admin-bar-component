@@ -7,7 +7,6 @@ import { AdminBarButton } from './AdminBarButton.ts'
 import { AdminBarSurface } from './AdminBarSurface.ts'
 import { visuallyHidden } from '@/components/css.ts'
 import { ToolbarToggleDrag, ToolbarToggleState } from '../../types'
-import { log } from '@/utils/console.ts'
 import { DraggableState, makeDraggable } from '@/utils/draggable.ts'
 import { collapseIcon, editIcon, moveIcon } from '@/utils/icons.ts'
 
@@ -474,12 +473,10 @@ export class AdminBar extends LitElement {
         for (const entry of entries) {
           // Toggles the value of `toolbarToggle` when the `<admin-bar>` element resizes.
           if (Math.round(entry.contentRect.width) !== this._hostWidth) {
-            log('Resize Observer')
             const isVertical = window.getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
 
             if (this._isVertical !== isVertical) {
               this._isVertical = isVertical
-              log('Toggle Vertical', this._isVertical, isVertical)
 
               // Toggles between `button` or `toolbar`.
               if (this.autoToggleVertical) {

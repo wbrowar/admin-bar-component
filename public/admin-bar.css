@@ -133,12 +133,35 @@
     /* The text for labels in `admin-bar-text` components. */
     --admin-bar-text-badge-color-text: oklch(0 0 0);
 
+    @supports (color: contrast-color(white)) {
+      & {
+        --admin-bar-text-badge-color-text: contrast-color(var(--admin-bar-text-badge-color-bg));
+      }
+    }
+
     /* ====================================================================== */
 
-    /* Stop `admin-bar-button` elements from shrinking on resize. */
+    /* Stop `<admin-bar-button>` elements from shrinking on resize. */
     & > admin-bar-button {
       flex-shrink: 0;
     }
+
+    /* Set badge background color to highlight color when a `<admin-bar-text>` element is nested inside a `<admin-bar-button>` element. */
+    admin-bar-button > admin-bar-text:not([slot="popover"]) {
+      --admin-bar-inline-padding: 0;
+    }
+    admin-bar-button:hover:not(:has(admin-bar-button:hover)) > admin-bar-text:not([slot="popover"]) {
+      --admin-bar-text-badge-color-bg: var(--admin-bar-color-highlight);
+      --admin-bar-color-text: var(--admin-bar-color-highlight);
+
+      @supports not (color: contrast-color(white)) {
+        & {
+          --admin-bar-text-badge-color-text: var(--admin-bar-button-color-bg-hover);
+        }
+      }
+    }
+
+    /* ====================================================================== */
 
     /* Set read direction from right to left. */
     &.rtl {
