@@ -127,12 +127,6 @@
       <admin-bar-checkbox id="my-checkbox" input-switch>Checkbox<span slot="checked-icon">✅</span><span slot="unchecked-icon">❌</span></admin-bar-checkbox>
       <admin-bar-checkbox input-switch checked label-position="before">Switch style</admin-bar-checkbox>
       <admin-bar-checkbox input-switch disabled>Disabled</admin-bar-checkbox>
-      <admin-bar-button>
-        <admin-bar-text badge-content="8">Popover Slot</admin-bar-text>
-        <admin-bar-button slot="popover">
-          <admin-bar-text badge-content="67">Secondary button</admin-bar-text>
-        </admin-bar-button>
-      </admin-bar-button>
       <admin-bar-button id="popover-test">Popover Slot 1<admin-bar-text slot="popover">Hi, this is popover content 🍾</admin-bar-text></admin-bar-button>
       <admin-bar-button>Popover Slot 2<nav slot="popover" style="display: flex">
         <admin-bar-button button-href="https://craftcms.com">Craft CMS</admin-bar-button>
@@ -282,6 +276,21 @@
           <p>List item that lets you scroll inside a popover element.</p>
         </li>
       </ul></admin-bar-button>
+      <admin-bar-button>
+        <admin-bar-text badge-content="8">Popover Slot</admin-bar-text>
+        <admin-bar-button slot="popover">
+          <admin-bar-text badge-content="67">Secondary button</admin-bar-text>
+        </admin-bar-button>
+      </admin-bar-button>
+      <admin-bar-button>
+        <admin-bar-text badge-content="9">Popover Slot</admin-bar-text>
+        <div slot="popover">
+          <admin-bar-text badge-content="67">Secondary text</admin-bar-text>
+          <admin-bar-button>
+            <admin-bar-text badge-content="67">Secondary button</admin-bar-text>
+          </admin-bar-button>
+        </div>
+      </admin-bar-button>
       <span style="flex: 1 0 30px;"></span>
       <admin-bar-text badge-content="25" badge-position="before">Badge goes before</admin-bar-text>
       <admin-bar-text badge-content="25">Badge goes after</admin-bar-text>

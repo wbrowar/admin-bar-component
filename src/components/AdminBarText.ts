@@ -200,8 +200,8 @@ export class AdminBarText extends LitElement {
     if (this.badgeContent ?? false) {
       slotContent =
         this.badgePosition === 'before'
-          ? html`<span class="badge">${this.badgeContent}</span>${slotContent}`
-          : html`${slotContent}<span class="badge">${this.badgeContent}</span>`
+          ? html`<span class="badge" part="badge">${this.badgeContent}</span>${slotContent}`
+          : html`${slotContent}<span class="badge" part="badge">${this.badgeContent}</span>`
     }
 
     return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`

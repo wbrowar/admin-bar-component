@@ -150,13 +150,16 @@
     admin-bar-button > admin-bar-text:not([slot="popover"]) {
       --admin-bar-inline-padding: 0;
     }
-    admin-bar-button:hover:not(:has(admin-bar-button:hover)) > admin-bar-text:not([slot="popover"]) {
-      --admin-bar-text-badge-color-bg: var(--admin-bar-color-highlight);
+    admin-bar-button:hover:not(:has([slot="popover"]:hover)) > admin-bar-text {
       --admin-bar-color-text: var(--admin-bar-color-highlight);
 
+      &::part(badge) {
+        background-color: var(--admin-bar-color-highlight);
+      }
+
       @supports not (color: contrast-color(white)) {
-        & {
-          --admin-bar-text-badge-color-text: var(--admin-bar-button-color-bg-hover);
+        &::part(badge) {
+          color: var(--admin-bar-button-color-bg-hover);
         }
       }
     }

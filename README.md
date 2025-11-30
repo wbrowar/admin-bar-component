@@ -645,6 +645,7 @@ CSS parts are used to style specific elements in the shadow DOM.
 | `<admin-bar>`        | `buttons` | The flex container that wraps all elements in the default slot. |
 | `<admin-bar>`        | `toolbar` | The wrapping element of the main toolbar.                       |
 | `<admin-bar-button>` | `popover` | The wrapping popover element.                                   |
+| `<admin-bar-text>`   | `badge`   | The `<span>` element that renders the `badge-content` prop.     |
 | `<admin-bar-text>`   | `dl`      | The `<dl>` element rendered by the `dl-content` prop.           |
 | `<admin-bar-text>`   | `table`   | The `<table>` element rendered by the `table-content` prop.     |
 
