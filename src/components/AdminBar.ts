@@ -152,7 +152,8 @@ export class AdminBar extends LitElement {
     }
 
     admin-bar-button:is([greeting-button], [logout-button]),
-    .logout {
+    .logout,
+    .inner-toggle {
       display: block;
       height: 100%;
     }
