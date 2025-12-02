@@ -1,6 +1,13 @@
 import { css } from 'lit'
 
 /**
+ * Border style used in between elements.
+ */
+export function borderStyle() {
+  return css`1px solid color-mix(in oklch, var(--admin-bar-color-text), transparent 90%)`
+}
+
+/**
  * Styles for elements in the `focus-visible` state.
  */
 export function focusElement() {

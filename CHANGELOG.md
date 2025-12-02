@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## 2.0.0 - 2025-12-01
+## 2.0.0 - 2025-12-02
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
@@ -35,9 +35,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - The `checked` event fires when the checkbox is checked.
   - The `unchecked` event fires when the checkbox is unchecked.
 - Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
-- Added a Custom Element Manifest file to `dist/custom-elements.json`
+- Added a Custom Element Manifest file to `/custom-elements.json`
 
 ### Changed
+- Moved the packaged CSS file from `/dist/admin-bar.css` to `/admin-bar.css`.
 - On `<admin-bar-text>` element, `label` has been renamed to `badge`.
   - Related props have been renamed:
     - `label-text` is now `badge-content`

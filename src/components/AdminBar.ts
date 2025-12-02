@@ -5,7 +5,7 @@ import { property, queryAssignedElements, state } from 'lit/decorators.js'
 import { AdminBarButton } from './AdminBarButton.ts'
 
 import { AdminBarSurface } from './AdminBarSurface.ts'
-import { visuallyHidden } from '@/components/css.ts'
+import { borderStyle, visuallyHidden } from '@/components/css.ts'
 import { ToolbarToggleDrag, ToolbarToggleState } from '../../types'
 import { DraggableState, makeDraggable } from '@/utils/draggable.ts'
 import { collapseIcon, editIcon, moveIcon } from '@/utils/icons.ts'
@@ -57,6 +57,7 @@ export class AdminBar extends LitElement {
         justify-content: center;
         width: 40px;
         height: 100%;
+        border-inline-start: ${borderStyle()};
         color: var(--admin-bar-color-text);
         cursor: grab;
 
@@ -83,7 +84,6 @@ export class AdminBar extends LitElement {
       height: auto;
 
       & > div {
-        --border-color: color-mix(in oklch, var(--admin-bar-color-text), transparent 90%);
         display: grid;
         grid-template-areas:
           'environment environment environment environment'
@@ -210,6 +210,7 @@ export class AdminBar extends LitElement {
     .inner-toggle {
       grid-area: toggle;
       display: none;
+      border-inline-start: ${borderStyle()};
 
       :host([toolbar-toggle]) & {
         display: var(--admin-bar-toolbar-toggle-display, inline-flex);
@@ -227,23 +228,23 @@ export class AdminBar extends LitElement {
       height: 100%;
 
       :host([show-greeting]) & {
-        border-left: 1px solid var(--border-color);
+        border-inline-start: ${borderStyle()};
 
         @container style(--admin-bar-vertical: true) {
           & {
-            border-top: 1px solid var(--border-color);
-            border-left: none;
+            border-block-start: ${borderStyle()};
+            border-inline-start: none;
           }
         }
       }
 
       :host([show-logout]) & {
-        border-right: 1px solid var(--border-color);
+        border-inline-end: ${borderStyle()};
 
         @container style(--admin-bar-vertical: true) {
           & {
-            border-bottom: 1px solid var(--border-color);
-            border-right: none;
+            border-block-end: ${borderStyle()};
+            border-inline-end: none;
           }
         }
       }

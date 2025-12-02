@@ -3,20 +3,22 @@
     "analyze": "cem analyze",
     "dev": "vite",
     "build": "tsc && vite build && npm run analyze",
-    "deploy": "npm run test:run && npm run build && npm publish",
+    "deploy": "npm run test:run && npm run build && npm run package:prepack && npm publish && npm run package:postpack",
+    "package:prepack": "node scripts/prepack.js",
+    "package:postpack": "node scripts/postpack.js",
     "preview": "vite preview",
     "test": "vitest --test-timeout=1000",
     "test:ui": "VITE_DISABLE_SCREENSHOTS=true vitest --browser.headless=false --test-timeout=1000",
     "test:run": "vitest run"
   },
   "name": "admin-bar-component",
-  "version": "2.0.0-beta.13",
+  "version": "2.0.0-beta.15",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
-  "main": "dist/admin-bar.js",
+  "main": "admin-bar.js",
   "files": [
-    "dist/admin-bar.css",
-    "dist/custom-elements.json",
+    "admin-bar.css",
+    "custom-elements.json",
     "types/index.d.ts"
   ],
   "types": "types/index.d.ts",
@@ -32,11 +34,17 @@
     "buttons",
     "links"
   ],
+  "packagedFiles": [
+    "admin-bar.css",
+    "admin-bar.js",
+    "custom-elements.json"
+  ],
   "author": "Will Browar",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wbrowar/admin-bar-component/issues"
   },
+  "customElements": "dist/custom-elements.json",
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
@@ -47,6 +55,5 @@
     "vite": "^7.2.4",
     "vitest": "^4.0.14",
     "vitest-browser-lit": "^1.0.1"
-  },
-  "customElements": "dist/custom-elements.json"
+  }
 }

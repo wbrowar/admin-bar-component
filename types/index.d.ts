@@ -78,6 +78,10 @@ export interface BuilderAdminBar {
 export interface BuilderAdminBarButton {
   /* Sets the `class` attribute on the `<admin-bar-button>` element. */
   class?: string
+  /* Sets the badge text. */
+  badgeContent?: string
+  /* Moves the badge before or after the text. */
+  badgePosition?: 'after' | 'before'
   /* Add an aria-label to the `button` or `a` element. */
   buttonAriaLabel?: string
   /* Turns the button into an `a` element and sets this as the `href` attribute. */

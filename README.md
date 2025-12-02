@@ -105,14 +105,14 @@ defineAdminBarElements(['button', 'checkbox', 'text'])
 1. You can load the CSS in your component file, as well, by importing the file directly:
    ```javascript
    import { defineAdminBarElements } from 'admin-bar-component'
-   import 'admin-bar-component/dist/admin-bar.css'
+   import 'admin-bar-component/admin-bar.css'
    
    // Define `<admin-bar>` and subcomponents as custom elements.
    defineAdminBarElements(['button', 'checkbox', 'text'])
    ```
    Or, if you are using something like PostCSS, you can import the CSS file into your CSS file, like this:
    ```postcss
-   @import url(admin-bar-component/dist/admin-bar.css);
+   @import url(admin-bar-component/admin-bar.css);
    ```
 
 Depending on what bundler or framework you are using, you may need to add loaders or register the web component as a custom element (telling the framework not to try to render it).
@@ -936,7 +936,7 @@ To use `AdminBarBuilder`, import the `AdminBarBuilder` class into your project a
 
 ```javascript
 import { AdminBarBuilder } from 'admin-bar-component'
-import 'admin-bar-component/dist/admin-bar.css'
+import 'admin-bar-component/admin-bar.css'
 ```
 
 From here you can construct a new `AdminBarBuilder` and pass in your structured data and options:

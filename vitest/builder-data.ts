@@ -12,6 +12,7 @@ export const builderData: BuilderAdminBar = {
     },
     {
       labelText: 'Popover Children',
+      badgeContent: '25',
       // Icon will not render due to `<script>` tag
       icon: '<svg><p>Hahaha</p><script>console.log("This should NOT fire!")<' + '/script></svg>',
       popover: [

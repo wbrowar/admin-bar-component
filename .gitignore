@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Package files
+./admin-bar.css
+./admin-bar.js
+./custom-elements.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

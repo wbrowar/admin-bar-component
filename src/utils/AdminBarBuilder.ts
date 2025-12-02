@@ -105,7 +105,7 @@ export class AdminBarBuilder {
         this._addChildText({
           badgeContent: this.#formattedData.environment.badge,
           style: {
-            '--admin-bar-text-label-color-bg': 'var(--admin-bar-environment-bg-color)',
+            '--admin-bar-badge-color-bg': 'var(--admin-bar-environment-bg-color)',
           },
           type: 'text',
         })
@@ -160,6 +160,8 @@ export class AdminBarBuilder {
    */
   private _addChildButton({
     class: buttonClass,
+    badgeContent,
+    badgePosition,
     buttonAriaLabel,
     buttonHref,
     icon,
@@ -186,6 +188,12 @@ export class AdminBarBuilder {
         beforeLabelElement.append(svgElement)
         buttonElement.append(beforeLabelElement)
       }
+    }
+    if (badgeContent) {
+      buttonElement.setAttribute('badge-content', badgeContent)
+    }
+    if (badgePosition) {
+      buttonElement.setAttribute('badge-position', badgePosition)
     }
     if (buttonAriaLabel) {
       buttonElement.setAttribute('button-aria-label', buttonAriaLabel)
