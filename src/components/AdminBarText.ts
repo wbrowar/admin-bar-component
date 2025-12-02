@@ -1,6 +1,7 @@
 import { css, html, LitElement, nothing } from 'lit'
 import { property } from 'lit/decorators.js'
-import type { TextDlContent, TextTableContent } from '../../types'
+import { TextDlContent, TextTableContent } from '../../types'
+import { AdminBarBadge } from '@/components/AdminBarBadge.ts'
 
 export class AdminBarText extends LitElement {
   /**
@@ -27,8 +28,8 @@ export class AdminBarText extends LitElement {
       color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
       white-space: nowrap;
       transition:
-        background var(--admin-bar-transition-duration, 0.4s) ease-out,
-        color var(--admin-bar-transition-duration, 0.4s) ease-out;
+        background var(--admin-bar-transition-duration, 0.3s) ease-out,
+        color var(--admin-bar-transition-duration, 0.3s) ease-out;
 
       &:is(.multi-line, :has(dl, table)) {
         padding: var(--admin-bar-text-padding, var(--admin-bar-inline-padding));
@@ -65,8 +66,8 @@ export class AdminBarText extends LitElement {
         --table-border-radius: calc(var(--admin-bar-border-radius) * 0.6);
 
         & thead {
-          background-color: var(--admin-bar-text-badge-color-bg);
-          color: var(--admin-bar-text-badge-color-text);
+          background-color: var(--admin-bar-badge-color-bg);
+          color: var(--admin-bar-badge-color-text);
 
           & th:first-child {
             border-start-start-radius: var(--table-border-radius);
@@ -76,7 +77,7 @@ export class AdminBarText extends LitElement {
           }
         }
         & tfoot {
-          background-color: color-mix(in srgb, var(--admin-bar-text-badge-color-bg), transparent 80%);
+          background-color: color-mix(in srgb, var(--admin-bar-badge-color-bg), transparent 80%);
 
           & td:first-child {
             border-end-start-radius: var(--table-border-radius);
@@ -92,15 +93,6 @@ export class AdminBarText extends LitElement {
           text-wrap: var(--td-text-wrap, pretty);
         }
       }
-    }
-    .badge {
-      padding: 0.4em;
-      background-color: var(--admin-bar-text-badge-color-bg, rgb(255 255 255 / 0.9));
-      border-radius: 4px;
-      line-height: 1;
-      text-box: trim-both cap alphabetic;
-      font-size: 0.8em;
-      color: var(--admin-bar-text-badge-color-text, black);
     }
   `
 
@@ -150,6 +142,14 @@ export class AdminBarText extends LitElement {
    * LIFECYCLE
    * =========================================================================
    */
+  constructor() {
+    super()
+
+    if (!customElements.get('admin-bar-badge')) {
+      customElements.define('admin-bar-badge', AdminBarBadge)
+    }
+  }
+
   render() {
     const textContent = []
 
@@ -200,8 +200,8 @@ export class AdminBarText extends LitElement {
     if (this.badgeContent ?? false) {
       slotContent =
         this.badgePosition === 'before'
-          ? html`<span class="badge" part="badge">${this.badgeContent}</span>${slotContent}`
-          : html`${slotContent}<span class="badge" part="badge">${this.badgeContent}</span>`
+          ? html`<admin-bar-badge part="badge">${this.badgeContent}</admin-bar-badge>${slotContent}`
+          : html`${slotContent}<admin-bar-badge part="badge">${this.badgeContent}</admin-bar-badge>`
     }
 
     return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`

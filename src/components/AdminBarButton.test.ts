@@ -62,6 +62,36 @@ describe('Button Component', () => {
   })
 })
 
+describe('Badges', () => {
+  test('Display badge content', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-button badge-content="Badge">Hello, World!</admin-bar-button>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByText('Badge')).toBeVisible()
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot('admin-bar-button-badge-content')
+    }
+  })
+
+  test('Display badge before text content', async () => {
+    const screen = render(
+      html`<admin-bar>
+        <admin-bar-button badge-content="Badge" badge-position="before">Hello, World!</admin-bar-button>
+      </admin-bar>`
+    )
+
+    await expect.element(screen.getByText('Badge')).toBeVisible()
+    if (import.meta.env.ENABLE_SCREENSHOTS) {
+      await expect(screen.baseElement.querySelector('admin-bar')).toMatchScreenshot(
+        'admin-bar-button-badge-position-before'
+      )
+    }
+  })
+})
+
 describe('Button Actions', () => {
   test('Button is a link', async () => {
     const screen = render(

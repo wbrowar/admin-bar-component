@@ -6,8 +6,8 @@
 
 ### CSS Styles
 
-- Rename `--admin-bar-text-label-color-bg` variable to `--admin-bar-text-badge-color-bg`
-- Rename `--admin-bar-text-label-color-text` variable to `--admin-bar-text-badge-color-text`
+- Rename `--admin-bar-text-label-color-bg` variable to `--admin-bar-badge-color-bg`
+- Rename `--admin-bar-text-label-color-text` variable to `--admin-bar-badge-color-text`
 
 ### Admin Bar Button Elements
 

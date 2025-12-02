@@ -322,7 +322,7 @@ export class AdminBar extends LitElement {
   logoutHref = '#'
 
   /**
-   * The label of the default logout button.
+   * The label of the default logout button. The ✖ or ✕ can be added as text, in lieu of an icon.
    */
   @property({ attribute: 'logout-label' })
   logoutLabel = 'Sign out'
@@ -588,12 +588,8 @@ export class AdminBar extends LitElement {
 
     const logoutContent = this.showLogout
       ? html`<slot name="logout"
-          ><admin-bar-button
-            logout-button
-            button-href="${this.logoutHref}"
-            label-text="${this.logoutLabel}"
-          ></admin-bar-button
-        ></slot>`
+          ><admin-bar-button logout-button button-href="${this.logoutHref}">${this.logoutLabel}</admin-bar-button></slot
+        >`
       : nothing
 
     return html`

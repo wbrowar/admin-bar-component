@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js'
 import { property, queryAssignedElements, state } from 'lit/decorators.js'
 import { AdminBarSurface } from './AdminBarSurface.ts'
 import { focusElement, hoverClickableElement } from './css.ts'
+import { AdminBarBadge } from '@/components/AdminBarBadge.ts'
 
 export class AdminBarButton extends LitElement {
   static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true }
@@ -55,6 +56,12 @@ export class AdminBarButton extends LitElement {
         background-color: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
         color: var(--admin-bar-color-text-logout);
       }
+      &:hover {
+        .badge {
+          background-color: var(--admin-bar-color-highlight);
+          color: var(--admin-bar-color-text);
+        }
+      }
     }
     [popovertarget]:has(+ [popover]:popover-open) {
       --admin-bar-button-color-bg: color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 85%);
@@ -62,6 +69,11 @@ export class AdminBarButton extends LitElement {
       &:hover {
         --admin-bar-button-color-bg: var(--admin-bar-button-color-bg-hover, var(--admin-bar-button-color-text, white));
         color: var(--admin-bar-color-highlight, oklch(0.6 0.4 83));
+
+        .badge {
+          background-color: var(--admin-bar-color-highlight);
+          color: var(--admin-bar-color-text);
+        }
       }
     }
 
@@ -86,7 +98,7 @@ export class AdminBarButton extends LitElement {
           justify-self: anchor-center;
           inset: auto;
           inset-block-start: calc(anchor(end) + 4px);
-          margin: 0;
+          margin: 0 4px;
           height: auto;
 
           @container style(--admin-bar-class-bottom: true) {
@@ -124,6 +136,18 @@ export class AdminBarButton extends LitElement {
    * PROPS
    * =========================================================================
    */
+  /**
+   * Sets the badge for the `<admin-bar-text>`.
+   */
+  @property({ attribute: 'badge-content' })
+  badgeContent = ''
+
+  /**
+   * Sets the position for the badge. Accepts: 'after', 'before'
+   */
+  @property({ attribute: 'badge-position' })
+  badgePosition: 'after' | 'before' = 'before'
+
   /**
    * Add an aria-label to the `button` or `a` element.
    */
@@ -320,6 +344,9 @@ export class AdminBarButton extends LitElement {
   constructor() {
     super()
 
+    if (!customElements.get('admin-bar-badge')) {
+      customElements.define('admin-bar-badge', AdminBarBadge)
+    }
     if (!customElements.get('admin-bar-surface')) {
       customElements.define('admin-bar-surface', AdminBarSurface)
     }
@@ -336,9 +363,16 @@ export class AdminBarButton extends LitElement {
       'admin-bar-button': true,
     }
 
-    const labelContent = html`<slot name="before-label"></slot
-      ><slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot
-      ><slot name="after-label"></slot>`
+    const badgeContent = this.badgeContent
+      ? html`<admin-bar-badge class="badge" text-content="${this.badgeContent}" part="badge"></admin-bar-badge>`
+      : null
+
+    const labelContent = html`<slot name="before-label"></slot>${this.badgeContent && this.badgePosition === 'before'
+        ? badgeContent
+        : nothing}<slot>${(this.label ?? false) ? html`<span>${this.label}</span>` : nothing}</slot>${this
+        .badgeContent && this.badgePosition === 'after'
+        ? badgeContent
+        : nothing}<slot name="after-label"></slot>`
 
     // Render `a` element.
     if (this.href) {

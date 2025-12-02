@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Added the ability to set custom icons based on the checkbox being checked or unchecked.
 - Added AdminBarButton `toggle` event to track when popovers are toggled on or off.
 - Added a prop that watches for changes in the `<admin-bar>` width and automatically toggles between vertical mode and the default toolbar.
+- Added badges to `<admin-bar-button>` elements.
 - Added support for keyboard navigation for popovers in `<admin-bar-button>` elements.
 - Added support for ARIA labels on `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
   - On `<admin-bar-button>` elements, use `button-aria-label`.
@@ -42,8 +43,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
     - `label-text` is now `badge-content`
     - `label-position` is now `badge-position`
   - Related CSS Custom Properties have been renamed:
-    - `--admin-bar-text-label-color-bg` is now `--admin-bar-text-badge-color-bg`
-    - `--admin-bar-text-label-color-text` is now `--admin-bar-text-badge-color-text`
+    - `--admin-bar-text-label-color-bg` is now `--admin-bar-badge-color-bg`
+    - `--admin-bar-text-label-color-text` is now `--admin-bar-badge-color-text`
 - The default value for `badge-position` has been changed to `before`.
 - Changed the `:focus-visible` style for `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
 - Changed the default greeting text to a pencil icon when no `greeting-text` prop is provided.
