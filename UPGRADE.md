@@ -3,6 +3,7 @@
 ### General
 
 - Admin Bar and subcomponents no longer automatically register themselves as custom elements. You can define them one-by-one or use the `defineCustomElements` function to define several components at once.
+- Update CSS imports or links path from `admin-bar-component/dist/admin-bar.css` to `admin-bar-component/admin-bar.css`
 
 ### CSS Styles
 
