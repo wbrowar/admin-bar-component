@@ -30,7 +30,7 @@ describe('Vertical Toolbar', () => {
   })
 
   test('Toolbar toggles between toolbar and toggle button', async () => {
-    const screen = render(html`<admin-bar class="vertical" toolbar-toggle="toolbar"></admin-bar>`)
+    const screen = render(html`<admin-bar toolbar-toggle="toolbar"></admin-bar>`)
 
     await expect.element(screen.getByTestId('inner-toggle')).toBeVisible()
     await screen.getByTestId('inner-toggle').click()
@@ -43,7 +43,7 @@ describe('Vertical Toolbar', () => {
 
   test('Toolbar automatically switches between toolbar and vertical toggle', async () => {
     const screen = render(
-      html`<admin-bar class="vertical" auto-toggle-vertical>
+      html`<admin-bar class="vertical" auto-toggle-vertical="700">
         <admin-bar-text>Test</admin-bar-text>
       </admin-bar>`
     )

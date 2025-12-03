@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit'
+import { css, html, LitElement, nothing, PropertyValues } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { property, queryAssignedElements, state } from 'lit/decorators.js'
 
@@ -32,6 +32,9 @@ export class AdminBar extends LitElement {
     }
     :host(.bottom) {
       --admin-bar-class-bottom: true;
+    }
+    :host([vertical]) {
+      --admin-bar-vertical: true;
     }
 
     * {
@@ -81,7 +84,9 @@ export class AdminBar extends LitElement {
 
     .admin-bar {
       display: block;
-      height: auto;
+      box-sizing: border-box;
+      height: 100%;
+      height: stretch;
 
       & > div {
         display: grid;
@@ -107,19 +112,21 @@ export class AdminBar extends LitElement {
           --admin-bar-show-logout: true;
         }
 
-        @container style(--admin-bar-vertical: true) {
-          & {
-            grid-template-areas:
-              'environment environment'
-              'greeting toggle'
-              'buttons buttons'
-              'logout logout';
-            grid-template-columns: 1fr max-content;
-            grid-template-rows: auto var(--admin-bar-height, 43px) 1fr var(--admin-bar-height, 43px);
-            align-items: stretch;
-            height: 100%;
-          }
+        :host([vertical]) & {
+          grid-template-areas:
+            'environment environment'
+            'greeting toggle'
+            'buttons buttons'
+            'logout logout';
+          grid-template-columns: 1fr max-content;
+          grid-template-rows: auto var(--admin-bar-height, 43px) 1fr var(--admin-bar-height, 43px);
+          align-items: stretch;
+          height: 100%;
         }
+      }
+
+      :host(.vertical) & {
+        height: auto;
       }
 
       :host([toolbar-toggle='button']) & {
@@ -283,8 +290,8 @@ export class AdminBar extends LitElement {
   /**
    * Automatically toggles between toolbar and button when resized.
    */
-  @property({ attribute: 'auto-toggle-vertical', type: Boolean })
-  autoToggleVertical = false
+  @property({ attribute: 'auto-toggle-vertical', type: Number })
+  autoToggleVertical: number | undefined
 
   /**
    * Sets the alt text on an avatar image.
@@ -393,6 +400,12 @@ export class AdminBar extends LitElement {
   toolbarToggleOuterDescription: string = 'Click to expand toolbar.'
 
   /**
+   * Sets the toolbar into vertical mode.
+   */
+  @property({ attribute: 'vertical', reflect: true, type: Boolean })
+  toolbarVertical = false
+
+  /**
    * =========================================================================
    * STATE
    * =========================================================================
@@ -414,12 +427,6 @@ export class AdminBar extends LitElement {
    */
   @state()
   private _hostWidth = 0
-
-  /**
-   * Stores the vertical state based on the CSS variable, `--admin-bar-vertical`.
-   */
-  @state()
-  private _isVertical = false
 
   /**
    * =========================================================================
@@ -473,36 +480,26 @@ export class AdminBar extends LitElement {
     if (this.parentElement) {
       this.#resizeObserver = new ResizeObserver((entries) => {
         for (const entry of entries) {
+          const entryWidth = Math.round(entry.contentRect.width)
+
           // Toggles the value of `toolbarToggle` when the `<admin-bar>` element resizes.
-          if (Math.round(entry.contentRect.width) !== this._hostWidth) {
-            const isVertical = window.getComputedStyle(this).getPropertyValue('--admin-bar-vertical') === 'true'
+          if (entryWidth !== this._hostWidth && this.autoToggleVertical) {
+            const isVertical = entryWidth < this.autoToggleVertical
 
-            if (this._isVertical !== isVertical) {
-              this._isVertical = isVertical
-
-              // Toggles between `button` or `toolbar`.
-              if (this.autoToggleVertical) {
-                if (isVertical) {
-                  this.toolbarToggle = 'button'
-                } else {
-                  this.toolbarToggle = 'toolbar'
-                }
-              }
-
-              // Update child elements based on the vertical state.
-              if (this._adminBarButtonChildren.length) {
-                for (const child of this._adminBarButtonChildren) {
-                  child?.updateInVertical()
-                }
+            if (this.toolbarVertical !== isVertical) {
+              if (isVertical) {
+                this.toolbarVertical = true
+              } else {
+                this.toolbarVertical = false
               }
             }
           }
 
-          this._hostWidth = Math.round(entry.contentRect.width)
+          this._hostWidth = entryWidth
         }
       })
 
-      this.#resizeObserver.observe(this.parentElement)
+      this.#resizeObserver.observe(this)
     }
   }
   disconnectedCallback() {
@@ -513,7 +510,7 @@ export class AdminBar extends LitElement {
   protected firstUpdated() {
     // Default `toolbar-toggle` to `toolbar` when a value isn’t provided.
     if (this.toolbarToggle === '') {
-      this.toolbarToggle = this._isVertical ? 'button' : 'toolbar'
+      this.toolbarToggle = this.toolbarVertical ? 'button' : 'toolbar'
     }
 
     // Default `toolbar-toggle-drag` to `reset` when a value isn’t provided.
@@ -630,6 +627,26 @@ export class AdminBar extends LitElement {
         </div>
       </admin-bar-surface>
     `
+  }
+
+  protected updated(_changedProperties: PropertyValues) {
+    if (_changedProperties.has('toolbarVertical')) {
+      // Toggles between `button` or `toolbar`.
+      if (this.autoToggleVertical) {
+        if (this.toolbarVertical) {
+          this.toolbarToggle = 'button'
+        } else {
+          this.toolbarToggle = 'toolbar'
+        }
+      }
+
+      // Update child elements based on the vertical state.
+      if (this._adminBarButtonChildren.length) {
+        for (const child of this._adminBarButtonChildren) {
+          child?.updateInVertical()
+        }
+      }
+    }
   }
 }
 

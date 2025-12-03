@@ -45,7 +45,15 @@
           greeting-text="Hello, Will"
           logout-href="/logout"
           logout-label="Log out"
-  ></admin-bar>
+          toolbar-toggle="toolbar"
+          vertical
+          style="width: 200px; height: 200px;"
+  >
+    <nav slot="greeting-popover">
+      <admin-bar-text>Hi, this is popover content 🍾</admin-bar-text>
+    </nav>
+    <admin-bar-button>Popover Slot 1<admin-bar-text slot="popover">Hi, this is popover content 🍾</admin-bar-text></admin-bar-button>
+  </admin-bar>
 
 <!--    <admin-bar class="sticky vertical" show-environment show-greeting show-logout toolbar-toggle="toolbar" greeting-button-aria-label="User menu. Use arrow keys to enter menu, then use arrow keys to select a link." style="&#45;&#45;admin-bar-z-index: 99999999;">-->
 <!--      <p slot="outer-toggle">Click Me</p>-->

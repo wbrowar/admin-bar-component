@@ -200,29 +200,19 @@
     }
     /* Changes `<admin-bar>` to a vertical bar on smaller screens. */
     &.vertical {
-      @media (width > 38rem) {
-        &[auto-toggle-vertical] {
-          /* Hide the toolbar toggle button when showing the full toolbar. */
-          --admin-bar-toolbar-toggle-display: none;
-        }
-      }
-      @media (width <= 38rem) {
-        & {
-          --admin-bar-vertical: true;
-
-          /* Detect support for style queries. */
-          @container style(--admin-bar-vertical: true) {
-            & {
-              width: max-content;
-
-              &::part(toolbar) {
-                position: fixed;
-                inset: var(--admin-bar-inset-size);
-              }
-            }
+        @container not style(--admin-bar-vertical: true) {
+          &::part(toolbar) {
+            /* Hide the toolbar toggle button when showing the full toolbar. */
+            --admin-bar-toolbar-toggle-display: none;
           }
         }
-      }
+        @container style(--admin-bar-vertical: true) {
+          &::part(toolbar) {
+            position: fixed;
+            inset: var(--admin-bar-inset-size);
+            --admin-bar-font-size: 1rem;
+          }
+        }
     }
 
     /* Avoid layout shift from happening before Admin Bar Component is registered. */
