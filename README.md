@@ -296,6 +296,7 @@ To create a secondary row of links, you can populate the `popover` slot with `<a
 | `badge-position`    | _string_  | `'after'`   | Sets the position for the badge. Accepts: `'after'`, `'before'`                                                              |
 | `button-aria-label` | _string_  | `''`        | Add an aria-label to the `button` or `a` element.                                                                            |
 | `button-href`       | _string_  | `undefined` | Adding the `button-href` turns the `<admin-bar-button>` into an `<a>` elements and sets this string as its `href` attribute. |
+| `disabled`          | _boolean_ | `false`     | Disables click events, disables popovers, and removes the `href` attribute from links.                                       |
 | `label-text`        | _string_  | `''`        | Sets the label for the `<admin-bar-button>`.                                                                                 |
 | `logout-button`     | _boolean_ | `false`     | Styles the button like the default logout button.                                                                            |
 

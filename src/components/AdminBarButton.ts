@@ -51,6 +51,9 @@ export class AdminBarButton extends LitElement {
       &:focus-visible {
         ${focusElement()}
       }
+      :host([disabled]) & {
+        cursor: not-allowed;
+      }
 
       :host([logout-button]) &:hover {
         background-color: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
@@ -159,6 +162,12 @@ export class AdminBarButton extends LitElement {
    */
   @property({ attribute: 'button-href' })
   href: string | undefined
+
+  /**
+   * Disables click events, disables popovers, and removes the `href` attribute from links.
+   */
+  @property({ attribute: 'disabled', type: Boolean })
+  buttonDisabled: boolean = false
 
   /**
    * Sets the label for the `<admin-bar-button>`.
@@ -361,6 +370,7 @@ export class AdminBarButton extends LitElement {
   render() {
     const adminBarClasses = {
       'admin-bar-button': true,
+      'admin-bar-button--disabled': this.buttonDisabled,
     }
 
     const badgeContent = this.badgeContent
@@ -379,7 +389,8 @@ export class AdminBarButton extends LitElement {
       return html`<a
         class="${classMap(adminBarClasses)}"
         aria-label="${this.buttonAriaLabel ?? nothing}"
-        href="${this.href}"
+        href="${this.buttonDisabled ? nothing : this.href}"
+        ?disabled="${this.buttonDisabled ? 'disabled' : nothing}"
         >${labelContent}</a
       >`
     }
@@ -388,6 +399,7 @@ export class AdminBarButton extends LitElement {
       const buttonElement = html`<button
         class="${classMap(adminBarClasses)}"
         aria-label="${this.buttonAriaLabel ?? nothing}"
+        ?disabled="${this.buttonDisabled ? 'disabled' : nothing}"
         popovertarget="${!this._inVertical ? 'admin-bar-button-popover' : nothing}"
         @click="${this._onVerticalPopoverButtonClick}"
       >
@@ -413,7 +425,11 @@ export class AdminBarButton extends LitElement {
     }
 
     // Render `button` element.
-    return html`<button class="${classMap(adminBarClasses)}" aria-label="${this.buttonAriaLabel ?? nothing}">
+    return html`<button
+        class="${classMap(adminBarClasses)}"
+        aria-label="${this.buttonAriaLabel ?? nothing}"
+        ?disabled="${this.buttonDisabled ? 'disabled' : nothing}"
+      >
         ${labelContent}</button
       ><slot name="popover" @slotchange="${this._handlePopoverSlotchange}"></slot>`
   }

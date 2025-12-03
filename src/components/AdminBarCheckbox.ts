@@ -34,7 +34,7 @@ export class AdminBarCheckbox extends LitElement {
       input {
         outline: none;
       }
-      &.admin-bar-checkbox--disabled {
+      :host([disabled]) & {
         cursor: not-allowed;
       }
       &.admin-bar-checkbox--has-icon input[type='checkbox'] {

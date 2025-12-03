@@ -9,33 +9,40 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.
+- Added a Custom Element Manifest file to `/custom-elements.json`
+
+#### Admin Bar
 - Added vertical mode, letting you display `<admin-bar>` as a vertical list in a column or on thinner screens.
   - Added a `vertical` class that automatically sets the toolbar to vertical mode based on a media query.
   - Added a CSS variable, called `--admin-bar-vertical`, that controls whether the toolbar is vertical or not.
 - Added a toggle that allows you to collapse the `<admin-bar>` toolbar down to a single button—getting it out of the way.
   - Hitting the button will toggle the toolbar.
 - Added the ability to use a mouse or touch event to drag the toolbar toggle button to another location on the screen.
-- Added `<admin-bar-checkbox>` element (no longer experimental).
-  - Added the ability to set custom icons based on the checkbox being checked or unchecked.
-- Added AdminBarButton `toggle` event to track when popovers are toggled on or off.
 - Added a prop that watches for changes in the `<admin-bar>` width and automatically toggles between vertical mode and the default toolbar.
+- Added visually hidden descriptions to `<admin-bar>` interactive features and the ability to change them using props.
+
+#### Admin Bar Button
 - Added badges to `<admin-bar-button>` elements.
+- Added AdminBarButton `toggle` event to track when popovers are toggled on or off.
+- Added `disabled` prop that disables button click events, popovers, and removes the href from links.
 - Added support for keyboard navigation for popovers in `<admin-bar-button>` elements.
 - Added support for ARIA labels on `<admin-bar-button>` and `<admin-bar-checkbox>` elements.
   - On `<admin-bar-button>` elements, use `button-aria-label`.
   - On `<admin-bar>` elements that use the `greeting` slot you can set the ARIA label on the greeting button using `greeting-button-aria-label`.
   - On `<admin-bar-checkbox>` elements, use `input-aria-label`.
-- Added visually hidden descriptions to `<admin-bar>` interactive features and the ability to change them using props.
 - Events have been added to `<admin-bar-button>` elements to allow you to listen for open and close toggle events:
   - The `toggle` event fires when the popover is opened or closed.
   - The `opened` event fires when the popover is opened.
   - The `closed` event fires when the popover is closed.
+- Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
+
+#### Admin Bar Checkbox
+- Added `<admin-bar-checkbox>` element (no longer experimental).
+  - Added the ability to set custom icons based on the checkbox being checked or unchecked.
 - Events have been added to `<admin-bar-checkbox>` elements to allow you to listen for input change events:
   - The `change` event fires when the checkbox state changes.
   - The `checked` event fires when the checkbox is checked.
   - The `unchecked` event fires when the checkbox is unchecked.
-- Button popovers now have a default max-height when using the `.fixed` and `.sticky` classes.
-- Added a Custom Element Manifest file to `/custom-elements.json`
 
 ### Changed
 - Moved the packaged CSS file from `/dist/admin-bar.css` to `/admin-bar.css`.
