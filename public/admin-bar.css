@@ -201,7 +201,7 @@
     /* Changes `<admin-bar>` to a vertical bar on smaller screens. */
     &.vertical {
         @container not style(--admin-bar-vertical: true) {
-          &::part(toolbar) {
+          &:not([vertical]) {
             /* Hide the toolbar toggle button when showing the full toolbar. */
             --admin-bar-toolbar-toggle-display: none;
           }

@@ -12,7 +12,7 @@
     "test:run": "vitest run"
   },
   "name": "admin-bar-component",
-  "version": "2.0.0-beta.18",
+  "version": "2.0.0-beta.19",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "admin-bar.js",
