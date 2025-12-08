@@ -21,7 +21,7 @@ describe('Vertical Toolbar', () => {
 
   test('Displays vertical toolbar on smaller screen', async () => {
     const screen = render(
-      html`<admin-bar class="vertical" show-greeting show-logout>
+      html`<admin-bar class="vertical-fullscreen" show-greeting show-logout>
         <admin-bar-text>Hello, World!</admin-bar-text>
       </admin-bar>`
     )
@@ -43,7 +43,7 @@ describe('Vertical Toolbar', () => {
 
   test('Toolbar automatically switches between toolbar and vertical toggle', async () => {
     const screen = render(
-      html`<admin-bar class="vertical" auto-toggle-vertical="700">
+      html`<admin-bar class="vertical-fullscreen" auto-toggle-vertical="700">
         <admin-bar-text>Test</admin-bar-text>
       </admin-bar>`
     )
@@ -62,7 +62,7 @@ describe('Vertical Toolbar', () => {
   test('Inner and outer descriptions are set', async () => {
     const screen = render(
       html`<admin-bar
-        class="vertical"
+        class="vertical-fullscreen"
         toolbar-toggle="button"
         toolbar-toggle-inner-description="inner description"
         toolbar-toggle-outer-description="outer description"
@@ -75,7 +75,9 @@ describe('Vertical Toolbar', () => {
   })
 
   test('Drag handle appears when attribute is added', async () => {
-    const screen = render(html`<admin-bar class="vertical" toolbar-toggle="button" toolbar-toggle-drag></admin-bar>`)
+    const screen = render(
+      html`<admin-bar class="vertical-fullscreen" toolbar-toggle="button" toolbar-toggle-drag></admin-bar>`
+    )
 
     await expect.element(screen.getByTestId('drag-handle')).toBeVisible()
   })
@@ -83,7 +85,7 @@ describe('Vertical Toolbar', () => {
   test('Drag handle description is set', async () => {
     const screen = render(
       html`<admin-bar
-        class="vertical"
+        class="vertical-fullscreen"
         toolbar-toggle="button"
         toolbar-toggle-drag
         toolbar-toggle-drag-handle-description="drag me"

@@ -59,8 +59,7 @@ defineAdminBarElements(['button', 'checkbox', 'text'])
 
 - [CodePen – Basic Usage](https://codepen.io/wbrowar/pen/PwYPEEj)
 - [CodePen – Kitchen Sink](https://codepen.io/wbrowar/pen/MYgavqL)
-- [Stackblitz – Theme Examples](https://stackblitz.com/edit/vitejs-vite-gxbmja?file=index.html)
-- [Stackblitz – Vite + Vanilla JS](https://stackblitz.com/edit/vitejs-vite-ckpby6?file=index.html)
+- [CodePen – Admin Bar Builder](https://codepen.io/wbrowar/pen/JooLLye)
 - [Stackblitz – Vite + Vue.js 3](https://stackblitz.com/edit/vitejs-vite-gb3byy?file=vite.config.js)
 
 ### To add Admin Bar Component to an HTML page, follow these instructions:
@@ -147,12 +146,12 @@ Now your custom text will appear. If you would also like to add an avatar next t
 
 Admin Bar is a horizontal bar that scrolls horizontally by default. On mobile devices, or if you prefer Admin Bar to appear as a vertical column, you can enable vertical mode using a boolean CSS variable, called `--admin-bar-vertical`.
 
-To turn on vertical mode, you can add the `vertical` class to `<admin-bar>` and this will enable vertical mode based on a media query.
+You can set `--admin-bar-vertical: true;` in your CSS and it will switch to vertical mode. Or you can create a media query that sets `--admin-bar-vertical: true;` at a specific breakpoint.
 
-If you prefer to use vertical mode in another scenario, you can set `--admin-bar-vertical: true;` in your CSS and it will always be in vertical mode. Or you can create a media query that sets `--admin-bar-vertical: true;` at a specific breakpoint.
+If you want to always display the `<admin-bar>` element as a column, you may turn on vertical mode by adding the `vertical` prop to `<admin-bar>`. In this case, you may need to add CSS to position the `<admin-bar>` element into place.
 
 > [!NOTE]
-> Using `--admin-bar-vertical: true;` is only supported in browser that support CSS `@container style()` queries.
+> The `--admin-bar-vertical` variable and the `vertical` prop are only supported in browser that support CSS `@container style()` queries.
 
 
 ### Collapsing and Expanding Admin Bar
@@ -173,20 +172,20 @@ Setting `toggle-toolbar="toolbar"` will display the full toolbar and a button th
 
 #### Automatically Switching Between Vertical and Horizonal Mode
 
-Add the `auto-toggle-vertical` attribute will automatically switch between the full toolbar and a collapsed version of the toolbar based on the screen width. The collapsed version will allow you to toggle between the toggle button and the vertical toolbar.
+Add the `auto-toggle-vertical` attribute will automatically switch between the full toolbar and a collapsed version of the toolbar based on the width of the toolbar. The collapsed version will allow you to toggle between the toggle button and the vertical toolbar.
 
 ```html
-<!-- Displays a button. -->
-<admin-bar auto-toggle-vertical></admin-bar>
+<admin-bar auto-toggle-vertical="700"></admin-bar>
 ```
+
+In this case, the toolbar will collapse down to a toggle button when the width of the toolbar is less than or equal to `700px`.
 
 #### Dragging the Collapsed Toolbar Button
 
 Adding the `toolbar-toggle-drag` attribute allows users to drag the collapsed toolbar button to another location on the page when Admin Bar is in the collapsed state.
 
 ```html
-<!-- Displays a button. -->
-<admin-bar auto-toggle-vertical toolbar-toggle-drag></admin-bar>
+<admin-bar auto-toggle-vertical="700" toolbar-toggle-drag></admin-bar>
 ```
 
 ## Using Admin Bar to Show Progress
@@ -599,13 +598,13 @@ Classes, CSS Cascade Layers, CSS Custom Properties can be used to customize the 
 
 Classes can be added to `<admin-bar>` elements to change the look and placement of the element on your page.
 
-| Class      | Description                                                                                                                                                                                                                       |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `bottom`   | Works along side the `fixed` or `sticky` class to move the `<admin-bar>` to the bottom of the page (sets the `bottom` CSS property to `0` and the `top` to `auto`).                                                               |
-| `fixed`    | Makes the `<admin-bar>` fixed to the top of the page, using CSS `position: fixed`. When using `fixed` you can move `<admin-bar>` to the bottom of your `<body>` element.                                                          |
-| `rtl`      | Changes the reading direction from `ltr` to `rtl` in situations where you need to manually set it. Admin Bar Component will automatcally switch to RTL if your page is set to RTL or if you have the CSS set to `direction: rtl`. |
-| `sticky`   | Makes the `<admin-bar>` stick to the top of the page, using CSS `position: sticky` when the `<admin-bar>` is above the rest of the content on the page.                                                                           |
-| `vertical` | Uses a media query to turn `--admin-bar-vertical` on—putting Admin Bar in vertical mode.                                                                                                                                          |
+| Class                 | Description                                                                                                                                                                                                                       |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `bottom`              | Works along side the `fixed` or `sticky` class to move the `<admin-bar>` to the bottom of the page (sets the `bottom` CSS property to `0` and the `top` to `auto`).                                                               |
+| `fixed`               | Makes the `<admin-bar>` fixed to the top of the page, using CSS `position: fixed`. When using `fixed` you can move `<admin-bar>` to the bottom of your `<body>` element.                                                          |
+| `rtl`                 | Changes the reading direction from `ltr` to `rtl` in situations where you need to manually set it. Admin Bar Component will automatcally switch to RTL if your page is set to RTL or if you have the CSS set to `direction: rtl`. |
+| `sticky`              | Makes the `<admin-bar>` stick to the top of the page, using CSS `position: sticky` when the `<admin-bar>` is above the rest of the content on the page.                                                                           |
+| `vertical-fullscreen` | Fills the screen when Admin Bar is in vertical mode                                                                                                                                                                               |
 
 > [!NOTE]
 > These classes are there to make setting the position or modes easy. Instead of using those classes, you could style the `admin-bar` element in your CSS to achieve similar effects.
@@ -858,7 +857,7 @@ The `admin-bar.css` file has comments describing what each CSS Custom Property s
       inset-block-end: var(--admin-bar-inset-size, 0);
     }
     /* Changes `<admin-bar>` to a vertical bar on smaller screens. */
-    &.vertical {
+    &.vertical-fullscreen {
       @media (width > 38rem) {
         &[auto-toggle-vertical] {
           /* Hide the toolbar toggle button when showing the full toolbar. */

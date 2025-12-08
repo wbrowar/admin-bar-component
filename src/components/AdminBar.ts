@@ -125,7 +125,7 @@ export class AdminBar extends LitElement {
         }
       }
 
-      :host(.vertical) & {
+      :host(.vertical-fullscreen) & {
         height: auto;
       }
 
@@ -614,7 +614,7 @@ export class AdminBar extends LitElement {
           <div data-testid="environment" class="environment">${environmentContent}</div>
           ${this.showGreeting ? greetingContent : html`<div class="greeting"></div>`}
           <div class="buttons">
-            <div class="buttons-content" part="buttons"><slot></slot></div>
+            <nav class="buttons-content" part="buttons"><slot></slot></nav>
           </div>
           <div class="logout">${logoutContent}</div>
           <admin-bar-button

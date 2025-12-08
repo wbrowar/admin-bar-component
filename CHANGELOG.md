@@ -13,8 +13,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Admin Bar
 - Added vertical mode, letting you display `<admin-bar>` as a vertical list in a column or on thinner screens.
-  - Added a `vertical` class that automatically sets the toolbar to vertical mode based on a media query.
   - Added a CSS variable, called `--admin-bar-vertical`, that controls whether the toolbar is vertical or not.
+  - Added a `vertical-fullscreen` class that makes the toolbar fullscreen when in vertical mode.
 - Added a toggle that allows you to collapse the `<admin-bar>` toolbar down to a single button—getting it out of the way.
   - Hitting the button will toggle the toolbar.
 - Added the ability to use a mouse or touch event to drag the toolbar toggle button to another location on the screen.
