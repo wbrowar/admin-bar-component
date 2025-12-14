@@ -33,7 +33,7 @@
     --admin-bar-color-text-logout: var(--admin-bar-color-text);
 
     /* The color of text for everything but button labels. */
-    --admin-bar-color-text: oklch(1 0 89.876 / 0.9);
+    --admin-bar-color-text: oklch(1 0 89.876 / 0.8);
 
     /* When the `show-environment` attribute is added to an `<admin-bar>` an environment
     warning will appear. The default looks like yellow, striped hazard tape,
@@ -136,6 +136,11 @@
     --admin-bar-badge-color-text: oklch(0 0 0);
 
     /* ====================================================================== */
+
+    ::selection {
+      background-color: color-mix(in srgb, var(--admin-bar-color-highlight), transparent 30%);
+      color: var(--admin-bar-button-color-text);
+    }
 
     /* Stop `<admin-bar-button>` elements from shrinking on resize. */
     & > admin-bar-button {
