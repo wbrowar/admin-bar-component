@@ -12,6 +12,7 @@
 
     /* Used to set the background color and to define colors for minor UI elements. The background will get overridden if `--admin-bar-bg` is set. */
     --admin-bar-bg-color: oklch(0 0 0 / 0.5);
+    /*--admin-bar-bg-color: yellow;*/
 
     /* The backdrop-filter value that affects elements behind Admin Bar Component. */
     --admin-bar-bg-filter: blur(13px) brightness(0.65) saturate(2.5);
@@ -33,7 +34,7 @@
     --admin-bar-color-text-logout: var(--admin-bar-color-text);
 
     /* The color of text for everything but button labels. */
-    --admin-bar-color-text: oklch(1 0 89.876 / 0.8);
+    --admin-bar-color-text: color-mix(contrast-color(var(--admin-bar-bg-color)) 90%, transparent);
 
     /* When the `show-environment` attribute is added to an `<admin-bar>` an environment
     warning will appear. The default looks like yellow, striped hazard tape,
@@ -113,7 +114,7 @@
     --admin-bar-button-color-bg-hover: var(--admin-bar-button-color-text, white);
 
     /* The text of all button labels. */
-    --admin-bar-button-color-text: oklch(1 0 89.876);
+    --admin-bar-button-color-text: contrast-color(var(--admin-bar-bg-color));
 
     /* The default color of text on button popover elements. */
     --admin-bar-button-popover-color-text: var(--admin-bar-color-text, oklch(1 0 89.876));
@@ -129,11 +130,16 @@
     /* The value of the padding property on `<admin-bar-text>` components. */
     /*--admin-bar-text-padding: var(--admin-bar-block-padding) var(--admin-bar-inline-padding);*/
 
+    /* ====================================================================== */
+
     /* The background color for badge elements in `<admin-bar-text>` components. */
-    --admin-bar-badge-color-bg: oklch(1 0 89.876 / 0.9);
+    --admin-bar-badge-color-bg: currentColor;
 
     /* The text color for badge elements in `<admin-bar-text>` components. */
-    --admin-bar-badge-color-text: oklch(0 0 0);
+    /*--admin-bar-badge-color-text: contrast-color(var(--admin-bar-badge-color-bg));*/
+
+    /* When set to `true` the text color of the badge will be ignored and the text inside of the badge will become transparent over the background color. */
+    --admin-bar-badge-enable-mask: true;
 
     /* ====================================================================== */
 
@@ -152,14 +158,13 @@
       --admin-bar-inline-padding: 0;
     }
 
+    admin-bar-button:hover:not(:has([slot="popover"]:hover)) > :is([after-label], [before-label]) > admin-bar-text:not([slot="popover"])::part(badge) {
+      --admin-bar-badge-color-bg: var(--admin-bar-color-highlight);
+    }
+
     /* Set badge background color to highlight color when a `<admin-bar-text>` element is nested inside a `<admin-bar-button>` element. */
     admin-bar-button:hover:not(:has([slot="popover"]:hover)) > admin-bar-text:not([slot="popover"]) {
       --admin-bar-color-text: var(--admin-bar-color-highlight);
-
-      &::part(badge) {
-        background-color: var(--admin-bar-color-highlight);
-        color: var(--admin-bar-button-color-text);
-      }
     }
 
     /* ====================================================================== */

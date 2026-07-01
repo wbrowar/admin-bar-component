@@ -85,8 +85,7 @@ export class AdminBar extends LitElement {
     .admin-bar {
       display: block;
       box-sizing: border-box;
-      height: 100%;
-      height: stretch;
+      height: max-content;
 
       & > div {
         display: grid;
@@ -259,6 +258,7 @@ export class AdminBar extends LitElement {
     .buttons-content {
       display: flex;
       flex-flow: row nowrap;
+      align-items: center;
       position: absolute;
       inset: 0;
       overflow-x: auto;
@@ -270,8 +270,7 @@ export class AdminBar extends LitElement {
       @container style(--admin-bar-vertical: true) {
         & {
           display: grid;
-          align-items: start;
-          overflow-x: unset;
+          grid-auto-rows: max-content;
           overflow: auto;
         }
       }

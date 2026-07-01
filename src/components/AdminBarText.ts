@@ -15,6 +15,7 @@ export class AdminBarText extends LitElement {
       align-items: center;
       min-height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
+      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
     }
     .admin-bar-text {
       display: flex;
@@ -25,7 +26,6 @@ export class AdminBarText extends LitElement {
       height: 100%;
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
-      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
       white-space: nowrap;
       transition:
         background var(--admin-bar-transition-duration, 0.3s) ease-out,

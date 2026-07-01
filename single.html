@@ -24,6 +24,32 @@
           height: auto;
         }
       }
+
+
+
+      @layer admin-bar {
+        admin-bar {
+          --admin-bar-height: max-content;
+          --admin-bar-progress-height: 4px;
+
+          &::part(avatar) {
+            border-radius: 5px;
+            width: 34px;
+          }
+          &::part(buttons) {
+            @container not style(--admin-bar-vertical: true) {
+              flex-flow: row wrap;
+              justify-content: end;
+              position: relative;
+              overflow-x: unset;
+            }
+          }
+
+          & > * {
+            --admin-bar-height: 50px;
+          }
+        }
+      }
     </style>
 
     <script type="module">
@@ -33,7 +59,7 @@
     </script>
   </head>
   <body>
-    <admin-bar id="top-example" show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author">
+    <admin-bar id="top-example" class="admin-bar sticky" show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author">
       <nav slot="greeting-popover">
         <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
         <admin-bar-button button-href="#" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
@@ -42,6 +68,29 @@
         <admin-bar-checkbox class="dev-mode" input-switch>Dev Mode</admin-bar-checkbox>
         <admin-bar-checkbox class="rtl-mode" input-switch>RTL</admin-bar-checkbox>
       </nav>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
       <admin-bar-button button-href="#">Link</admin-bar-button>
       <admin-bar-button>
         Popover Text

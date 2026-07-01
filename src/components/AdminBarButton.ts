@@ -59,10 +59,14 @@ export class AdminBarButton extends LitElement {
         background-color: var(--admin-bar-color-highlight-logout, var(--admin-bar-color-highlight));
         color: var(--admin-bar-color-text-logout);
       }
-      &:hover {
-        .badge {
-          background-color: var(--admin-bar-color-highlight);
-          color: var(--admin-bar-color-text);
+
+      ::slotted(admin-bar-text) {
+        color: currentColor;
+      }
+
+      @container style(--admin-bar-vertical: true) {
+        & {
+          height: auto;
         }
       }
     }

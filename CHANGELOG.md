@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## 2.0.0 - 2025-12-02
+## 2.0.0 - 2025-06-30
 ### Added
 - Added `defineAdminBarElements` method that makes it easier to define Admin Bar Component’s custom elements.
   - Calling this method defines the `<admin-bar>` and any other items specified. Sending in a blank array will still define `<admin-bar>`.

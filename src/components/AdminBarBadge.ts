@@ -14,10 +14,21 @@ export class AdminBarBadge extends LitElement {
       border-radius: 4px;
       text-box: trim-both cap alphabetic;
       font-size: 0.8em;
-      color: var(--admin-bar-badge-color-text, black);
-      transition:
-        background var(--admin-bar-transition-duration, 0.3s) ease-out,
-        color var(--admin-bar-transition-duration, 0.3s) ease-out;
+      transition: background calc(var(--admin-bar-transition-duration, 0.3s) / 2) ease-out;
+
+      /* Masking the letters and numbers */
+      @container style(--admin-bar-badge-enable-mask: true) {
+        -webkit-mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+        mask-image: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+        -webkit-mask-clip: padding-box, text;
+        mask-clip: padding-box, text;
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+    }
+    span {
+      color: var(--admin-bar-badge-color-text, transparent);
+      transition: color calc(var(--admin-bar-transition-duration, 0.3s) / 2) ease-out;
     }
   `
 
