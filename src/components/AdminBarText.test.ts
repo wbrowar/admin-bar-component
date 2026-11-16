@@ -112,29 +112,6 @@ describe('Definition List', () => {
   })
 })
 
-describe('Table', () => {
-  test('Display table in popover', async () => {
-    await page.viewport(500, 500)
-
-    const screen = render(
-      html`<admin-bar>
-        <admin-bar-button>
-          <admin-bar-text
-            table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'
-            slot="popover"
-          ></admin-bar-text>
-          Button Label
-        </admin-bar-button>
-      </admin-bar>`
-    )
-    await screen.getByText('Button Label').click()
-    await expect.element(screen.getByText('Total 1')).toBeVisible()
-    if (import.meta.env.ENABLE_SCREENSHOTS) {
-      await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-table-content')
-    }
-  })
-})
-
 describe('CSS Parts (pseudo-elements)', () => {
   test('`dl` part is stylable', async () => {
     const screen = render(html`
@@ -157,30 +134,6 @@ describe('CSS Parts (pseudo-elements)', () => {
     await screen.getByText('Button Label').click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-dl')
-    }
-  })
-
-  test('`table` part is stylable', async () => {
-    const screen = render(html`
-      <admin-bar>
-        <admin-bar-button>
-          <admin-bar-text
-            table-content='{"footers":["Total 1","Total 2","Total 3"],"headers":["Column 1","Column 2","Column 3"],"rows":[["Item 1","Item 2","Item 3"],[1,2,3],["Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","ILorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolore hic ipsum quidem voluptate? Aspernatur eius esse impedit minus molestias, numquam odit qui quisquam veritatis vero. Animi inventore veritatis vero!"]]}'
-            slot="popover"
-          ></admin-bar-text>
-          Button Label
-        </admin-bar-button>
-      </admin-bar>
-      <style>
-        admin-bar-text::part(table) {
-          background-color: rebeccapurple;
-        }
-      </style>
-    `)
-
-    await screen.getByText('Button Label').click()
-    if (import.meta.env.ENABLE_SCREENSHOTS) {
-      await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-table')
     }
   })
 })

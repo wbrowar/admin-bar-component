@@ -30,4 +30,5 @@ dist-ssr
 
 # Test files
 .vitest-attachments
+.vitest
 __screenshots__

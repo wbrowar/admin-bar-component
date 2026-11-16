@@ -12,7 +12,7 @@
     "test:run": "vitest run"
   },
   "name": "admin-bar-component",
-  "version": "2.0.0-beta.25",
+  "version": "2.0.0-beta.26",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
   "main": "admin-bar.js",
@@ -48,12 +48,18 @@
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@vitest/browser-playwright": "^4.0.14",
-    "lit": "^3.3.1",
-    "prettier": "^3.6.2",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.4",
-    "vitest": "^4.0.14",
+    "@lit-labs/rollup-plugin-minify-html-literals": "^0.2.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "lit": "^3.3.3",
+    "prettier": "^3.9.10",
+    "terser": "^5.51.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0",
     "vitest-browser-lit": "^1.0.1"
+  },
+  "allowScripts": {
+    "rs-module-lexer@2.9.0": true,
+    "fsevents@2.3.3": true
   }
 }

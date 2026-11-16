@@ -64,6 +64,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - Each component can be defined individually, or select components can be defined using the `defineAdminBarElements` method.
 - Removed `--admin-bar-gradient-direction` variable.
 - Removed deprecated `label-after` and `label-before` slots on `<admin-bar-button>` elements.
+- Removed the `table-content` prop on `<admin-bar-text>`
 
 
 ## 1.10.1 - 2025-10-08

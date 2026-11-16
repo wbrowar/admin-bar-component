@@ -1,6 +1,6 @@
-import { css, html, LitElement, nothing } from 'lit'
+import { css, html, LitElement } from 'lit'
 import { property } from 'lit/decorators.js'
-import { TextDlContent, TextTableContent } from '../../types'
+import { TextDlContent } from '../../types'
 import { AdminBarBadge } from '@/components/AdminBarBadge.ts'
 
 export class AdminBarText extends LitElement {
@@ -31,14 +31,10 @@ export class AdminBarText extends LitElement {
         background var(--admin-bar-transition-duration, 0.3s) ease-out,
         color var(--admin-bar-transition-duration, 0.3s) ease-out;
 
-      &:is(.multi-line, :has(dl, table)) {
+      &:is(.multi-line, :has(dl)) {
         padding: var(--admin-bar-text-padding, var(--admin-bar-inline-padding));
         height: unset;
         white-space: normal;
-
-        &:has(table) {
-          padding: 0;
-        }
       }
 
       & dl {
@@ -60,37 +56,6 @@ export class AdminBarText extends LitElement {
           margin: 0;
           max-width: var(--dd-max-width, 50ch);
           text-wrap: var(--dd-text-wrap, pretty);
-        }
-      }
-      & table {
-        --table-border-radius: calc(var(--admin-bar-border-radius) * 0.6);
-
-        & thead {
-          background-color: var(--admin-bar-badge-color-bg);
-          color: var(--admin-bar-badge-color-text);
-
-          & th:first-child {
-            border-start-start-radius: var(--table-border-radius);
-          }
-          & th:last-child {
-            border-start-end-radius: var(--table-border-radius);
-          }
-        }
-        & tfoot {
-          background-color: color-mix(in srgb, var(--admin-bar-badge-color-bg), transparent 80%);
-
-          & td:first-child {
-            border-end-start-radius: var(--table-border-radius);
-          }
-          & td:last-child {
-            border-end-end-radius: var(--table-border-radius);
-          }
-        }
-        & :is(td, th) {
-          padding: var(--admin-bar-text-padding, clamp(4px, 0.8vw, 10px));
-          max-width: var(--td-max-width, 50ch);
-          font-weight: initial;
-          text-wrap: var(--td-text-wrap, pretty);
         }
       }
     }
@@ -126,12 +91,6 @@ export class AdminBarText extends LitElement {
   multiLine = false
 
   /**
-   * An object that is turned into an HTML table.
-   */
-  @property({ attribute: 'table-content', type: Object })
-  tableContent: TextTableContent = { rows: [] }
-
-  /**
    * Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot.
    */
   @property({ attribute: 'text-content' })
@@ -164,33 +123,6 @@ export class AdminBarText extends LitElement {
                 <dd>${row[1] ?? ''}</dd>`
           )}
         </dl>`
-      )
-    } else if (this.tableContent?.rows?.length) {
-      textContent.push(
-        html`<table part="table">
-          ${this.tableContent?.headers?.length
-            ? html`<thead>
-                <tr>
-                  ${this.tableContent.headers.map((header) => html`<th>${header ?? ''}</th>`)}
-                </tr>
-              </thead>`
-            : nothing}
-          ${html`<tbody>
-            ${this.tableContent.rows.map(
-              (row) =>
-                html`<tr>
-                  ${row.map((item) => html`<td>${item}</td>`)}
-                </tr>`
-            )}
-          </tbody>`}
-          ${this.tableContent?.footers?.length
-            ? html`<tfoot>
-                <tr>
-                  ${this.tableContent.footers.map((header) => html`<td>${header ?? ''}</td>`)}
-                </tr>
-              </tfoot>`
-            : nothing}
-        </table>`
       )
     }
 

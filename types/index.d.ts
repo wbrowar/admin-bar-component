@@ -21,11 +21,6 @@ import {
  * Admin Bar Components
  */
 export type TextDlContent = [string | number, string | number][]
-export interface TextTableContent {
-  footers?: string[]
-  headers?: string[]
-  rows: (string | number)[][]
-}
 export type ToolbarToggleState = 'button' | 'toolbar'
 export type ToolbarToggleDrag = 'remember' | 'reset'
 

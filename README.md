@@ -545,11 +545,10 @@ Notice how above, the `dl-content` prop uses single quotes (`''`) for the attrib
 | `badge-content`  | _string_           | `''`           | Sets the badge for the `<admin-bar-text>`.                                                      |
 | `badge-position` | _string_           | `'after'`      | Sets the position for the badge. Accepts: `'after'`, `'before'`                                 |
 | `multi-line`     | _boolean_          | `false`        | Allows the content to wrap to the next line.                                                    |
-| `table-content`  | _TextTableContent_ | `{ rows: [] }` | An object that is turned into an HTML table.                                                    |
 | `text-content`   | _string_           | `''`           | Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot. |
 
 > [!NOTE]
-> Only one of the following props should be used on an `<admin-bar-text>` element (only one will be rendered at a time): `dl-content`, `table-content`, `text-content`
+> Only one of the following props should be used on an `<admin-bar-text>` element (only one will be rendered at a time): `dl-content`, `text-content`
 
 #### Admin Bar Text Types
 
@@ -557,12 +556,6 @@ Here are the TypeScript types that describe the formats for the props
 
 ```typescript
 type TextDlContent = [string | number, string | number][]
-
-interface TextTableContent {
-  footers?: string[]
-  headers?: string[]
-  rows: (string | number)[][]
-}
 ```
 
 ### Admin Bar Text Slots
@@ -649,7 +642,6 @@ CSS parts are used to style specific elements in the shadow DOM.
 | `<admin-bar-button>`                     | `popover` | The wrapping popover element.                                   |
 | `<admin-bar-button>`, `<admin-bar-text>` | `badge`   | The `<span>` element that renders the `badge-content` prop.     |
 | `<admin-bar-text>`                       | `dl`      | The `<dl>` element rendered by the `dl-content` prop.           |
-| `<admin-bar-text>`                       | `table`   | The `<table>` element rendered by the `table-content` prop.     |
 
 ### CSS Custom Properties
 

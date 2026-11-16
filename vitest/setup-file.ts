@@ -1,7 +1,7 @@
 import 'vitest-browser-lit'
 import { defineAdminBarElements } from '../lib/main'
 import { beforeAll, beforeEach } from 'vitest'
-import '../public/admin-bar.css'
+import '../src/assets/admin-bar.css'
 
 beforeAll(() => {
   // Defines all Admin Bar custom elements once before all tests run.

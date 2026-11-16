@@ -292,7 +292,6 @@ export class AdminBarBuilder {
     dlContent,
     multiLine,
     style,
-    tableContent,
     textContent,
   }: BuilderAdminBarText) {
     const textElement = document.createElement('admin-bar-text')
@@ -317,11 +316,6 @@ export class AdminBarBuilder {
     }
     if (dlContent) {
       textElement.setAttribute('dl-content', typeof dlContent === 'string' ? dlContent : JSON.stringify(dlContent))
-    } else if (tableContent) {
-      textElement.setAttribute(
-        'table-content',
-        typeof tableContent === 'string' ? tableContent : JSON.stringify(tableContent)
-      )
     } else if (textContent) {
       textElement.setAttribute('text-content', textContent)
     }
@@ -362,8 +356,7 @@ export class AdminBarBuilder {
           (button.onclick !== undefined || button.popover?.length !== undefined || button.buttonHref !== undefined)
         const childIsValidCheckbox = button.type === 'checkbox'
         const childIsValidText =
-          button.type === 'text' &&
-          (button.dlContent !== undefined || button.tableContent !== undefined || button.textContent !== undefined)
+          button.type === 'text' && (button.dlContent !== undefined || button.textContent !== undefined)
 
         isValidChild = childIsValidButton || childIsValidCheckbox || childIsValidText
 
