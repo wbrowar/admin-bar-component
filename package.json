@@ -1,19 +1,24 @@
 {
   "scripts": {
+    "analyze": "cem analyze",
     "dev": "vite",
-    "build": "tsc && vite build",
-    "deploy": "npm run test && npm run build && npm publish",
+    "build": "tsc && vite build && npm run analyze",
+    "deploy": "npm run test:run && npm run build && npm run package:prepack && npm publish --tag=beta && npm run package:postpack",
+    "package:prepack": "node scripts/prepack.js",
+    "package:postpack": "node scripts/postpack.js",
     "preview": "vite preview",
-    "test": "cypress run --component",
-    "test:open": "cypress open"
+    "test": "vitest --test-timeout=1000",
+    "test:ui": "VITE_DISABLE_SCREENSHOTS=true vitest --browser.headless=false --test-timeout=1000",
+    "test:run": "vitest run"
   },
   "name": "admin-bar-component",
-  "version": "1.10.1",
+  "version": "2.0.0-beta.26",
   "description": "A framework- and CMS-agnostic admin bar web component.",
   "type": "module",
-  "main": "dist/admin-bar.js",
+  "main": "admin-bar.js",
   "files": [
-    "dist/admin-bar.css",
+    "admin-bar.css",
+    "custom-elements.json",
     "types/index.d.ts"
   ],
   "types": "types/index.d.ts",
@@ -29,18 +34,32 @@
     "buttons",
     "links"
   ],
+  "packagedFiles": [
+    "admin-bar.css",
+    "admin-bar.js",
+    "custom-elements.json"
+  ],
   "author": "Will Browar",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wbrowar/admin-bar-component/issues"
   },
+  "customElements": "dist/custom-elements.json",
   "homepage": "https://github.com/wbrowar/admin-bar-component#readme",
   "devDependencies": {
-    "cypress": "^15.2.0",
-    "cypress-ct-lit": "^1.0.0",
-    "lit": "^3.3.1",
-    "prettier": "^3.6.2",
-    "typescript": "^5.9.2",
-    "vite": "^7.2.2"
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@lit-labs/rollup-plugin-minify-html-literals": "^0.2.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "lit": "^3.3.3",
+    "prettier": "^3.9.10",
+    "terser": "^5.51.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0",
+    "vitest-browser-lit": "^1.0.1"
+  },
+  "allowScripts": {
+    "rs-module-lexer@2.9.0": true,
+    "fsevents@2.3.3": true
   }
 }

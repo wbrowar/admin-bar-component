@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit'
 import { property, state } from 'lit/decorators.js'
 
-export type ProgressState = 'error' | 'progress' | 'reset' | 'success'
+export type ProgressState = 'error' | 'display' | 'reset' | 'success'
 
 export class AdminBarSurface extends LitElement {
   /**
@@ -21,6 +21,7 @@ export class AdminBarSurface extends LitElement {
     .wrapper {
       display: grid;
       position: relative;
+      height: 100%;
       border-radius: var(--admin-bar-border-radius);
       box-shadow:
         0 6px 6px rgba(0, 0, 0, 0.2),
@@ -28,7 +29,7 @@ export class AdminBarSurface extends LitElement {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
       overflow: hidden;
 
-      & > div {
+      & > div:not(.progress) {
         border-radius: var(--admin-bar-border-radius);
       }
 
@@ -141,7 +142,12 @@ export class AdminBarSurface extends LitElement {
    * ===========================================================================
    */
   /**
-   * TODO
+   * Displays a progress bar on the `progress` layer.
+   *
+   * Setting different values determines the state of progress bar shown:
+   * 1-99 – Displays progress as a percentage
+   * 100 – Displays successful state
+   * -1 – Displays error state
    */
   @property({ attribute: 'progress-value', type: Number })
   progressValue = 0
@@ -152,13 +158,13 @@ export class AdminBarSurface extends LitElement {
    * =========================================================================
    */
   /**
-   * TODO
+   * Used to change the look of the progress bar.
    */
   @state()
   private _progressState: ProgressState = 'reset'
 
   /**
-   * TODO
+   * The width of the progress bar as a percentage from 0-100.
    */
   @state()
   private _progressWidth = 0
@@ -185,6 +191,7 @@ export class AdminBarSurface extends LitElement {
       <div class="tint"></div>
       <div class="shine"></div>
       <div
+        data-testid="surface-progress"
         class="progress ${this._progressState}"
         @animationend="${this._onProgressAnimationEnd}"
         style="--_progress-width: ${this._progressWidth}%;"
@@ -243,7 +250,7 @@ export class AdminBarSurface extends LitElement {
         this._progressState = 'success'
         this._progressWidth = 100
       } else if (this.progressValue >= 0 && this.progressValue < 100) {
-        this._progressState = 'progress'
+        this._progressState = 'display'
         this._progressWidth = this.progressValue
       }
     }

@@ -1,6 +1,7 @@
-import { css, html, LitElement, nothing } from 'lit'
+import { css, html, LitElement } from 'lit'
 import { property } from 'lit/decorators.js'
-import type { TextDlContent, TextTableContent } from '../../types'
+import { TextDlContent } from '../../types'
+import { AdminBarBadge } from '@/components/AdminBarBadge.ts'
 
 export class AdminBarText extends LitElement {
   /**
@@ -10,10 +11,11 @@ export class AdminBarText extends LitElement {
    */
   static styles = css`
     :host {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       min-height: var(--admin-bar-height, 43px);
       text-box: trim-both cap alphabetic;
+      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
     }
     .admin-bar-text {
       display: flex;
@@ -24,20 +26,15 @@ export class AdminBarText extends LitElement {
       height: 100%;
       background-color: var(--admin-bar-text-color-bg, transparent);
       font-size: var(--font-size);
-      color: var(--admin-bar-color-text, rgb(255 255 255 / 0.8));
       white-space: nowrap;
       transition:
-        background var(--admin-bar-transition-duration, 0.4s) ease-out,
-        color var(--admin-bar-transition-duration, 0.4s) ease-out;
+        background var(--admin-bar-transition-duration, 0.3s) ease-out,
+        color var(--admin-bar-transition-duration, 0.3s) ease-out;
 
-      &:is(.multi-line, :has(dl, table)) {
+      &:is(.multi-line, :has(dl)) {
         padding: var(--admin-bar-text-padding, var(--admin-bar-inline-padding));
         height: unset;
-        white-space: unset;
-
-        &:has(table) {
-          padding: 0;
-        }
+        white-space: normal;
       }
 
       & dl {
@@ -61,46 +58,6 @@ export class AdminBarText extends LitElement {
           text-wrap: var(--dd-text-wrap, pretty);
         }
       }
-      & table {
-        --table-border-radius: calc(var(--admin-bar-border-radius) * 0.6);
-
-        & thead {
-          background-color: var(--admin-bar-text-label-color-bg);
-          color: var(--admin-bar-text-label-color-text);
-
-          & th:first-child {
-            border-start-start-radius: var(--table-border-radius);
-          }
-          & th:last-child {
-            border-start-end-radius: var(--table-border-radius);
-          }
-        }
-        & tfoot {
-          background-color: color-mix(in srgb, var(--admin-bar-text-label-color-bg), transparent 80%);
-
-          & td:first-child {
-            border-end-start-radius: var(--table-border-radius);
-          }
-          & td:last-child {
-            border-end-end-radius: var(--table-border-radius);
-          }
-        }
-        & :is(td, th) {
-          padding: var(--admin-bar-text-padding, clamp(4px, 0.8vw, 10px));
-          max-width: var(--td-max-width, 50ch);
-          font-weight: initial;
-          text-wrap: var(--td-text-wrap, pretty);
-        }
-      }
-    }
-    .label {
-      padding: 0.4em;
-      background-color: var(--admin-bar-text-label-color-bg, rgb(255 255 255 / 0.9));
-      border-radius: 4px;
-      line-height: 1;
-      text-box: trim-both cap alphabetic;
-      font-size: 0.8em;
-      color: var(--admin-bar-text-label-color-text, black);
     }
   `
 
@@ -116,28 +73,22 @@ export class AdminBarText extends LitElement {
   dlContent: TextDlContent = []
 
   /**
-   * Sets the label for the `<admin-bar-text>`.
+   * Sets the badge for the `<admin-bar-text>`.
    */
-  @property({ attribute: 'label-content' })
-  labelContent = ''
+  @property({ attribute: 'badge-content' })
+  badgeContent = ''
 
   /**
-   * Sets the position for the label. Accepts: 'after', 'before'
+   * Sets the position for the badge. Accepts: 'after', 'before'
    */
-  @property({ attribute: 'label-position' })
-  labelPosition: 'after' | 'before' = 'after'
+  @property({ attribute: 'badge-position' })
+  badgePosition: 'after' | 'before' = 'before'
 
   /**
    * Allows the content to wrap to the next line.
    */
   @property({ attribute: 'multi-line', type: Boolean })
   multiLine = false
-
-  /**
-   * An object that is turned into an HTML table.
-   */
-  @property({ attribute: 'table-content', type: Object })
-  tableContent: TextTableContent = { rows: [] }
 
   /**
    * Sets the text content for the `<admin-bar-text>`. This can be used instead of the default slot.
@@ -150,6 +101,14 @@ export class AdminBarText extends LitElement {
    * LIFECYCLE
    * =========================================================================
    */
+  constructor() {
+    super()
+
+    if (!customElements.get('admin-bar-badge')) {
+      customElements.define('admin-bar-badge', AdminBarBadge)
+    }
+  }
+
   render() {
     const textContent = []
 
@@ -165,51 +124,20 @@ export class AdminBarText extends LitElement {
           )}
         </dl>`
       )
-    } else if (this.tableContent?.rows?.length) {
-      textContent.push(
-        html`<table part="table">
-          ${this.tableContent?.headers?.length
-            ? html`<thead>
-                <tr>
-                  ${this.tableContent.headers.map((header) => html`<th>${header ?? ''}</th>`)}
-                </tr>
-              </thead>`
-            : nothing}
-          ${html`<tbody>
-            ${this.tableContent.rows.map(
-              (row) =>
-                html`<tr>
-                  ${row.map((item) => html`<td>${item}</td>`)}
-                </tr>`
-            )}
-          </tbody>`}
-          ${this.tableContent?.footers?.length
-            ? html`<tfoot>
-                <tr>
-                  ${this.tableContent.footers.map((header) => html`<td>${header ?? ''}</td>`)}
-                </tr>
-              </tfoot>`
-            : nothing}
-        </table>`
-      )
     }
 
     let slotContent = html`<slot>${textContent}</slot>`
 
-    // Add the label before or after the text content
-    if (this.labelContent ?? false) {
+    // Add the badge before or after the text content
+    if (this.badgeContent ?? false) {
       slotContent =
-        this.labelPosition === 'before'
-          ? html`<span class="label">${this.labelContent}</span>${slotContent}`
-          : html`${slotContent}<span class="label">${this.labelContent}</span>`
+        this.badgePosition === 'before'
+          ? html`<admin-bar-badge part="badge">${this.badgeContent}</admin-bar-badge>${slotContent}`
+          : html`${slotContent}<admin-bar-badge part="badge">${this.badgeContent}</admin-bar-badge>`
     }
 
     return html`<span class="admin-bar-text${this.multiLine ? ' multi-line' : ''}">${slotContent}</span>`
   }
-}
-
-if (!customElements.get('admin-bar-text')) {
-  customElements.define('admin-bar-text', AdminBarText)
 }
 
 declare global {

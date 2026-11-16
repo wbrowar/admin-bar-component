@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Bar Kitchen Single Examples</title>
+
+    <style>
+      admin-bar {
+        /* CSS for testing overrides. */
+        /*--admin-bar-bg-color: #b500ff;*/
+        /*--admin-bar-bg: rebeccapurple;*/
+        /*--admin-bar-font-size: 1.4rem;*/
+        /*--admin-bar-vertical: true;*/
+      }
+
+      /* Add this CSS to your project CSS to change the size of your icons. */
+      admin-bar {
+        & svg.icon {
+          display: block;
+          width: 15px;
+          height: auto;
+        }
+      }
+
+
+
+      @layer admin-bar {
+        admin-bar {
+          --admin-bar-height: max-content;
+          --admin-bar-progress-height: 4px;
+
+          &::part(avatar) {
+            border-radius: 5px;
+            width: 34px;
+          }
+          &::part(buttons) {
+            @container not style(--admin-bar-vertical: true) {
+              flex-flow: row wrap;
+              justify-content: end;
+              position: relative;
+              overflow-x: unset;
+            }
+          }
+
+          & > * {
+            --admin-bar-height: 50px;
+          }
+        }
+      }
+    </style>
+
+    <script type="module">
+      import {defineAdminBarElements} from './lib/main.js';
+
+      defineAdminBarElements(['button', 'checkbox', 'text'])
+    </script>
+  </head>
+  <body>
+    <admin-bar id="top-example" class="admin-bar sticky" show-greeting show-logout avatar-alt="A randomly generated avatar image" avatar-src="https://picsum.photos/150/150" greeting-text="Hi, Author">
+      <nav slot="greeting-popover">
+        <admin-bar-text multi-line badge-content="ADMIN"><div style="margin-inline-end: 1em;"><strong style="display: block">Author Name</strong><em style="display: block">author-username</em></div></admin-bar-text>
+        <admin-bar-button button-href="#" style="border-block-start: 1px solid color-mix(in srgb, var(--admin-bar-button-color-bg-hover), transparent 80%);">Profile</admin-bar-button>
+        <admin-bar-button button-href="#">Edit Author</admin-bar-button>
+        <admin-bar-checkbox class="preference" input-switch>User Preference</admin-bar-checkbox>
+        <admin-bar-checkbox class="dev-mode" input-switch>Dev Mode</admin-bar-checkbox>
+        <admin-bar-checkbox class="rtl-mode" input-switch>RTL</admin-bar-checkbox>
+      </nav>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button button-href="#">Link</admin-bar-button>
+      <admin-bar-button>
+        Popover Text
+        <admin-bar-text slot="popover">Popovers can be used for plain text, menus, or any HTML you’d like.</admin-bar-text>
+      </admin-bar-button>
+      <admin-bar-button>
+        Popover Lists
+        <admin-bar-text slot="popover" dl-content="[[&quot;Line 1 title&quot;, &quot;Line 1 content&quot;], [&quot;Line 2 title&quot;, &quot;Line 2 content&quot;]]"></admin-bar-text>
+      </admin-bar-button>
+      <admin-bar-text class="api-status"></admin-bar-text>
+      <span style="flex-grow: 1;"></span>
+      <admin-bar-text badge-content="123">Text Label</admin-bar-text>
+    </admin-bar>
+
+    <script>
+      customElements.whenDefined('admin-bar-checkbox').then(() => {
+
+        const adminBar = document.getElementById('top-example');
+        const devModeCheckbox = adminBar.querySelector('.dev-mode')
+        const preferenceCheckbox = adminBar.querySelector('.preference')
+        const rtlCheckbox = adminBar.querySelector('.rtl-mode')
+        const apiStatus = adminBar.querySelector('.api-status')
+
+        if (adminBar && devModeCheckbox && preferenceCheckbox && rtlCheckbox && apiStatus) {
+          devModeCheckbox.addEventListener('change', (e) => {
+            if (e.checked) {
+              adminBar.setAttribute('show-environment', '')
+            } else {
+              adminBar.removeAttribute('show-environment')
+            }
+          })
+
+          preferenceCheckbox.addEventListener('change', () => {
+            adminBar.setAttribute('progress', 50)
+            apiStatus.setAttribute('badge-content', 'Saving...')
+
+            setTimeout(() => {
+              adminBar.setAttribute('progress', 100)
+              apiStatus.setAttribute('badge-content', 'Preference saved!')
+
+              setTimeout(() => {
+                if (apiStatus.getAttribute('badge-content') !== '') {
+                  apiStatus.removeAttribute('badge-content')
+                }
+              }, 3000)
+            }, 1000)
+          })
+
+          rtlCheckbox.addEventListener('change', (e) => {
+            if (e.checked) {
+              adminBar.classList.add('rtl')
+            } else {
+              adminBar.classList.remove('rtl')
+            }
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
