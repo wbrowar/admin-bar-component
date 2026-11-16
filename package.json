@@ -3,7 +3,7 @@
     "analyze": "cem analyze",
     "dev": "vite",
     "build": "tsc && vite build && npm run analyze",
-    "deploy": "npm run test:run && npm run build && npm run package:prepack && npm publish && npm run package:postpack",
+    "deploy": "npm run test:run && npm run build && npm run package:prepack && npm publish --tag=beta && npm run package:postpack",
     "package:prepack": "node scripts/prepack.js",
     "package:postpack": "node scripts/postpack.js",
     "preview": "vite preview",

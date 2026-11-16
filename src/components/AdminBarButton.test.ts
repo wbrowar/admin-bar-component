@@ -129,7 +129,7 @@ describe('Button Actions', () => {
       </admin-bar>`
     )
 
-    await screen.getByText('Button Label').click()
+    await screen.getByText('Button Label', { exact: false }).click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover')
     }
@@ -151,12 +151,12 @@ describe('Button Actions', () => {
       </admin-bar>`
     )
 
-    await screen.getByText('Button One').click()
+    await screen.getByText('Button One', { exact: false }).click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-one')
     }
 
-    await screen.getByText('Button Two').click()
+    await screen.getByText('Button Two', { exact: false }).click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-popover-button-two')
     }
@@ -179,7 +179,7 @@ describe('CSS Parts (pseudo-elements)', () => {
       </style>
     `)
 
-    await screen.getByText('Button Label').click()
+    await screen.getByText('Button Label', { exact: false }).click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-popover')
     }

@@ -214,10 +214,10 @@ describe('Admin Bar general styles', () => {
     `)
 
     if (options.includes('click-popover')) {
-      await userEvent.click(screen.getByText('Button Label'))
+      await userEvent.click(screen.getByText('Button Label', { exact: false }))
     }
     if (options.includes('hover-button')) {
-      await userEvent.hover(screen.getByText('Button Label'))
+      await userEvent.hover(screen.getByText('Button Label', { exact: false }))
     } else if (options.includes('hover-logout')) {
       await userEvent.hover(screen.getByText('Logout'))
     }

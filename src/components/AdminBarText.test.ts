@@ -50,7 +50,7 @@ describe('Text Component', () => {
       </admin-bar>`
     )
 
-    await screen.getByText('Button Label').click()
+    await screen.getByText('Button Label', { exact: false }).click()
     await expect.element(screen.getByText('multiple words')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-multi-line')
@@ -104,7 +104,7 @@ describe('Definition List', () => {
       </admin-bar>`
     )
 
-    await screen.getByText('Button Label').click()
+    await screen.getByText('Button Label', { exact: false }).click()
     await expect.element(screen.getByText('Line 1 title')).toBeVisible()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-text-dl-content')
@@ -131,7 +131,7 @@ describe('CSS Parts (pseudo-elements)', () => {
       </style>
     `)
 
-    await screen.getByText('Button Label').click()
+    await screen.getByText('Button Label', { exact: false }).click()
     if (import.meta.env.ENABLE_SCREENSHOTS) {
       await expect(screen.baseElement).toMatchScreenshot('admin-bar-button-css-part-dl')
     }
